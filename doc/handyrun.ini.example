@@ -1,0 +1,102 @@
+﻿注意，HandyRun2.0的配置文件中已经不能再写注释。-- 程序能识别注释，但是程序退出后保存配置文件时不会保存注释！！
+
+[general]
+; 激活热键：双击左ctrl
+activate_key = "LCONTROL
+; 搜索目录，下面指定的程序路径如果是相对路径，将从这里搜索。
+; 不推荐设搜索目录，详见说明文件
+path = e:\greensoft;d:\program files
+; 可执行程序扩展名  命令提示是根据这些扩展名搜索的，“导入程序”功能也根据这些扩展名搜索
+executable_ext = lnk exe pdf
+
+; 界面参数详见说明文件
+[ui]
+layout = group
+style = edge
+edge = top
+edge_pos = 200
+edge_window_len = 100
+; 以上四行：窗口采用停靠风格，停靠在屏幕上沿。停靠窗口占屏幕的区域是：(200, 0) - (300, 1)
+border = 7
+icon_size = 32
+pad_h = 7
+pad_v = 20
+icon_per_line = 10
+edit_height = 25
+pad_icon_edit = 20
+min_window_width = 400
+use_tip = 1
+
+[var]
+gs	= e:\greensoft
+dp	= d:\program files
+; 后面可以用%gs%表示"e:\greensoft" ...
+
+[index_path]
+
+path	= %userprofile%\「开始」菜单
+depth	= 0
+; 这会把开始菜单的所有程序加到提示列表
+
+path	= %allusersprofile%\「开始」菜单
+depth	= 0
+icon	= C:\WINDOWS\system32\shell32.dll|18
+; 这是开始菜单对应于所有用户的程序
+
+[group:系统信息]
+; 颜色
+color	= #FF8080
+
+; 相对路径
+p	= TreeSize Professional\tsizepro.exe
+
+
+[group:系统监视]
+color	= #8080C0
+
+p	= regshot\regshot.exe
+c	= 注册表快照
+
+p	= cports.exe
+icon	= C:\WINDOWS\system32\shell32.dll|18
+
+p	= mcafee\SCAN.EXE
+param	= %P%N /sub /unzip /program
+c	= Macafee 杀毒
+
+[group:应用程序]
+color	= #FF80C0
+
+p	= uniextract\UniExtract.exe
+
+p	= %gs%\SuperWord\SuperWord.exe
+; 用程序包含的第1号图标(从0开始)
+icon	= |1
+
+[group:网络]
+color	= #0080C0
+
+p	= PPLive\pplive.exe
+c	= 看网络电视
+
+p	= miranda\miranda32.exe
+c	= 聊天(QQ+MSN)
+
+p	= %gs%\Firefox\firefox.exe
+param	= -profile "profile"
+
+p	= Mozilla Thunderbird\thunderbird.exe
+param	= -profile "profile"
+
+[group:工作]
+color	= #FFFF80
+
+p	= %windir%\notepad.exe
+param	= d:\anyplace\report.txt
+
+p	= d:\AnyPlace\maximabook.pdf
+icon	= e:\handyrun\running.ico
+
+p	= e:\My Documents\我的电子书\n2009.lnk
+icon	= .docx
+

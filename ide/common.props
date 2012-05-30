@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <HandyRun>$([MSBuild]::GetDirectoryNameOfFileAbove($(ProjectDir), handyrun_root))</HandyRun>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(HandyRun)\output\</OutDir>
+    <IntDir>$(TEMP)\handyrun_build\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(HandyRun)\thirdparty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>$(HandyRun)\src\XP_style.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="HandyRun">
+      <Value>$(HandyRun)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

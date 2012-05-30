@@ -1,0 +1,368 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Simplified, PRC) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_RUNDLG DIALOGEX 0, 0, 189, 113
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CLIPCHILDREN
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_LAYERED
+FONT 10, "Verdana", 400, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_PROG_EDIT,7,92,175,14,ES_AUTOHSCROLL | NOT WS_VISIBLE,WS_EX_CLIENTEDGE
+END
+
+IDD_TIP DIALOGEX 0, 0, 283, 89
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,0,0,283,89
+END
+
+IDD_PROG DIALOGEX 0, 0, 310, 201
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "编辑程序"
+FONT 8, "MS Shell Dlg", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,197,90,50,14
+    PUSHBUTTON      "取消",IDCANCEL,253,90,50,14
+    PUSHBUTTON      "获取前台程序(&F)",IDC_BUTTON_GET_FGP,45,90,71,14
+    PUSHBUTTON      ">>>",IDC_BUTTON_TOGGLE_FOLD,7,90,31,14
+    LTEXT           "文件名:",IDC_STATIC,8,7,37,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_PROG_NAME,49,7,223,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON_SELECT_PROG,280,7,23,14
+    LTEXT           "运行参数:",IDC_STATIC,8,27,37,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_PARAM,49,27,223,14,ES_AUTOHSCROLL
+    LTEXT           "图标文件:",IDC_STATIC,8,47,37,14,SS_CENTERIMAGE
+    PUSHBUTTON      "...",IDC_BUTTON_SELECT_ICON_FILE,280,47,23,14
+    LTEXT           "选择图标:",IDC_STATIC,7,67,37,14,SS_CENTERIMAGE
+    ICON            "",IDC_STATIC_ICON,49,65,21,20,SS_NOTIFY | WS_TABSTOP
+    CONTROL         "",IDC_STATIC_MIDLINE,"Static",SS_ETCHEDHORZ,7,111,296,1
+    LTEXT           "工作目录:",IDC_STATIC,8,119,37,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_WORKING_DIR,49,119,223,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON_SELECT_WORKING_DIR,280,119,23,14
+    LTEXT           "拖放参数:",IDC_STATIC,7,139,37,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_DROP_PARAM,49,139,223,14,ES_AUTOHSCROLL
+    LTEXT           "运行方式:",IDC_STATIC,7,160,37,14,SS_CENTERIMAGE
+    COMBOBOX        IDC_COMBO_RUN_TYPE,49,160,50,46,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "注释:",IDC_STATIC,7,180,37,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_COMMENT,49,180,223,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO_ICON_FILE,50,47,223,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 187, 108
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于"
+FONT 9, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,68,87,50,14
+    ICON            IDI_APP,IDC_STATIC,17,19,20,20
+    LTEXT           "HandyRun: 快速运行程序",IDC_STATIC,45,14,135,11
+    LTEXT           "V2.5",IDC_STATIC,45,26,135,11
+    LTEXT           "CopyRight (C) 2008",IDC_STATIC,45,45,135,11
+    LTEXT           "请发邮件至 timepp@126.com",IDC_STATIC,45,61,135,11
+END
+
+IDD_IMPORT_PROG DIALOGEX 0, 0, 287, 66
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "导入程序"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,170,45,50,14
+    PUSHBUTTON      "取消",IDCANCEL,230,45,50,14
+    LTEXT           "路径：",IDC_STATIC,7,7,26,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_IMPORT_PATH,46,7,207,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "...",IDC_BUTTON_SELECT_PATH,260,7,20,14
+    LTEXT           "搜索深度：",IDC_STATIC,7,28,38,14,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_DEPTH,46,28,42,14,ES_AUTOHSCROLL
+END
+
+IDD_INPUT DIALOGEX 0, 0, 234, 67
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "输入"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,119,46,50,14
+    PUSHBUTTON      "取消",IDCANCEL,177,46,50,14
+    EDITTEXT        IDC_EDIT,7,25,220,14,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_INPUT_TIP,7,7,220,14,SS_CENTERIMAGE
+END
+
+IDD_GROUP DIALOGEX 0, 0, 202, 74
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "编辑组"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,89,53,50,14
+    PUSHBUTTON      "取消",IDCANCEL,145,53,50,14
+    EDITTEXT        IDC_EDIT_GROUP_NAME,42,7,153,14,ES_AUTOHSCROLL
+    LTEXT           "组名字:",IDC_STATIC,7,7,31,14,SS_CENTERIMAGE
+    LTEXT           "组颜色:",IDC_STATIC,7,28,31,14,SS_CENTERIMAGE
+    CONTROL         "",IDC_GROUP_COLOR,"Static",SS_BLACKFRAME | SS_NOTIFY | SS_CENTERIMAGE,42,28,39,14,WS_EX_TRANSPARENT
+    CONTROL         "插入到当前组之前",IDC_CHECK_INSERT_BEFORE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,105,28,90,14
+END
+
+IDD_ICON DIALOGEX 0, 0, 317, 181
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "选择图标"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,205,160,50,14
+    PUSHBUTTON      "取消",IDCANCEL,260,160,50,14
+    CONTROL         "",IDC_LIST_ICON,"SysListView32",LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_AUTOARRANGE | WS_BORDER | WS_TABSTOP,7,7,303,147
+END
+
+IDD_EDGEDLG DIALOGEX 0, 0, 316, 185
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+EXSTYLE WS_EX_PALETTEWINDOW
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_RUNDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 182
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 106
+    END
+
+    IDD_TIP, DIALOG
+    BEGIN
+    END
+
+    IDD_PROG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 303
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
+    END
+
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_IMPORT_PROG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 280
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 59
+    END
+
+    IDD_INPUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 60
+    END
+
+    IDD_GROUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 67
+    END
+
+    IDD_ICON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 310
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 174
+    END
+
+    IDD_EDGEDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 6
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 178
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_APP                 ICON                    "res\\running.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_UD                  BITMAP                  "res\\ud.bmp"
+IDB_QUICK_LAUNCH        BITMAP                  "res\\quick_launch.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_POPUP MENU
+BEGIN
+    POPUP "m1"
+    BEGIN
+        POPUP "切换样式(&T)"
+        BEGIN
+            MENUITEM "分组(&G)",                      ID_CHLYT_GROUP
+            MENUITEM "平坦(&P)",                      ID_CHLYT_PLAIN
+            MENUITEM "简洁（无图标）(&S)",                 ID_CHLYT_SIMPLE
+            MENUITEM SEPARATOR
+            MENUITEM "屏幕居中(&E)",                    ID_CHSTYLE_CENTER
+            MENUITEM "停靠在屏幕边缘(&D)",                 ID_CHSTYLE_EDGE
+        END
+        MENUITEM "编辑当前配置文件...(&E)",             ID_EDIT_PROFILE
+        MENUITEM "切换配置文件...(&L)",               ID_CHANGE_PROFILE
+        MENUITEM SEPARATOR
+        MENUITEM "导入程序(&P)...",                 ID_IMPORT_PROG
+        MENUITEM "添加程序(&I)...",                 ID_INSERT_PROG
+        MENUITEM "修改程序(&M)...",                 ID_EDIT_PROG
+        MENUITEM "删除程序(&D)",                    ID_DEL_PROG
+        MENUITEM SEPARATOR
+        MENUITEM "添加组(&G)...",                  ID_INSERT_GROUP
+        MENUITEM "修改组(&H)...",                  ID_EDIT_GROUP
+        MENUITEM "删除组(&R)",                     ID_DEL_GROUP
+        MENUITEM SEPARATOR
+        MENUITEM "关于(&A)...",                   ID_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&X)",                      ID_EXIT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,5,75,0
+ PRODUCTVERSION 2,5,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "CompanyName", "TimePalette"
+            VALUE "FileDescription", "HandyRun"
+            VALUE "FileVersion", "2, 5, 75, 0"
+            VALUE "InternalName", "handyrun"
+            VALUE "LegalCopyright", "Copyright (C) 2008"
+            VALUE "OriginalFilename", "handyrun.exe"
+            VALUE "ProductName", "HandyRun"
+            VALUE "ProductVersion", "2, 5, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PROG DLGINIT
+BEGIN
+    IDC_COMBO_RUN_TYPE, 0x403, 10, 0
+0x7373, 0x7373, 0x7373, 0x7373, 0x0073, 
+    0
+END
+
+#endif    // Chinese (Simplified, PRC) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

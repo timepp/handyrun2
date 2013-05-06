@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<title>HandyRun</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+		<link type="text/css" rel="Stylesheet" href="style.css" />
+	</head>
+
+	<body>
+
+		<p>HandyRun是一个包含图标的面板，通过点击图标快速启动程序。
+		HandyRun面板可以通过按热键(缺省是双击ctrl键)或把鼠标移到屏幕边缘特定位置来激活。
+		可以在面板点击程序图标或输入命令来运行程序，也可以把文件或文本拖放到程序图标上打开。
+		HandyRun是绿色软件, 它的配置文件是ini格式, 保存在主程序相同的目录下。目前, 有一些设置项只能通过ini文件来控制。</p>
+
+		<h1>HandyRun特色</h1>
+
+		<p>和其它一些快速启动软件比起来，HandyRun有一些自己的特色，这也是这个软件产生的原因。</p>
+		<ul>
+			<li>支持双击类型的热键，最快速的启动程序</li>
+			<li>同时支持点击图标运行程序和输入名字片断运行程序</li>
+			<li>支持拖放和拖放缓存(拖放文件到一定数量后才运行程序,适于文件比较软件)</li>
+			<li>吸附到屏幕边缘</li>
+			<li>丰富的运行选项</li>
+		</ul>
+
+		<h1>配置文件说明</h1>
+
+		<h2>[General]</h2>
+		<p>包含一些全局配置。</p>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">single_instance</span> = <span class="val">是否单实例运行</span></span> 
+			0 不单实例（可以同时多次运行Handyrun）
+			1 单实例
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">activate_key</span> = <span class="val">激活热键</span></span> 
+			HandyRun支持两种类型的热键: 普通热键和双击热键。<br />
+			<ul>
+				<li>普通热键是指一个或几个功能键加上一个普通键的组合。功能键有四个：CTRL, ALT, SHIFT, WIN。其余的键盘上键都是普通键。普通热键的表示方式与hoekey相同：功能键用单个字符表示：@表示ALT，^表示CTRL，_表示SHIFT，~表示WIN；普通键以键名表示，紧接在功能键的后面。如^@F11表示CONTROL+ALT+F11，_@^~R表示CONTROL+ ALT+ SHIFT+ WIN+ R，等等。</li>
+				<li>双击热键支持所有键盘上的按键。不过最好选择ctrl, shift等单击时不会影响当前应用程序的键。双击热键的表示方式是键名前加引号，如&amp;CONTROL表示双击CTRL，&amp;PAUSE表示双击Pause(Break)键。</li>
+			</ul>
+			键盘的键名可以通过vkcode.txt查阅。<br />
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">keep_dos_cmd_window</span> = <span class="val">运行DOS命令后是否自动保留dos窗口</span></span> 
+			0 不自动保留（在运行命令时按住ALT键可以强制保留）
+			1 自动保留
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">executable_ext</span> = <span class="val">可执行程序扩展名</span></span> 
+			影响①命令提示中出现的文件类型②导入程序时搜索的文件类型
+		</div>
+
+
+		<h2>[UI]</h2>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">layout</span> = <span class="val">样式</span></span> 
+			group 分组样式
+			plain 平坦样式
+			simple 最简样式
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">style</span> = <span class="val">窗口停靠风格</span></span> 
+			center 窗口居中，不停靠
+			edge 窗口停靠在屏幕边缘
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">use_tip</span> = <span class="val">是否在图标上显示工具提示</span></span>
+			1 显示
+			0 不显示
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">use_simple_tip</span> = <span class="val">是否使用简化的工具提示</span></span>
+			1 使用简化（单行）的提示，用于在命令提示的显示有问题时
+			0 不简化
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">hide_on_lose_focus</span> = <span class="val">失去焦点时自动隐藏</span></span>
+			1 自动隐藏
+			0 不自动隐藏
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">edge</span> = <span class="val">窗口停靠在何处</span></span> 
+			可取top, left, right, bottom
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">edge_pos</span> = <span class="val">停靠窗口的起始位置 （单位：像素）</span></span>
+			停靠窗口为有厚度的矩形。当指定窗口停靠在屏幕左(右)时，此矩形相当于在屏幕左(右)边的一段竖线段；当指定窗口停靠在屏幕上(下)时，此矩形相当于在屏幕上(下)边的一段横线段。
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">edge_window_thickness</span> = <span class="val">停靠窗口的厚度 （单位：像素）</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">edge_window_len</span> = <span class="val">停靠窗口的长（高）度 （单位：像素）</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">border</span> = <span class="val">窗口中的图标的边缘和窗口边缘的空隙</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">icon_size</span> = <span class="val">窗口中显示的图标大小</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">pad_h</span> = <span class="val">图标的水平间距</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">pad_v</span> = <span class="val">图标的垂直间距</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">icon_per_line</span> = <span class="val">在平坦样式下，每行显示的图标个数</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">edit_height</span> = <span class="val">命令输入窗口的高度</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">pad_icon_edit</span> = <span class="val">命令输入窗口和上面的图标之间的间距</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">min_window_width</span> = <span class="val">界面的最小宽度</span></span>
+			一般情况下，界面的宽度是根程序图标的数量有关系。 比如在分组模式下，同一组内程序越多，造成界面宽度越宽。 如果每一组程序都很少，界面就很窄。但界面最窄也不会小于最小宽度。
+		</div>
+
+		<h2>[background]</h2>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">mode</span> = <span class="val">背景模式</span></span>
+			color: 渐变色
+			img: 图片
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">color_list</span> = <span class="val">颜色列表</span></span>
+			背景模式为color时有效，可以指定任意多的颜色，颜色中间用 -&gt; 分隔，例如<br />
+			<code>#00FF00 -&gt; #FFFFFF -&gt; #FF0000</code><br />
+			指定了从绿到白再到红的渐变
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">fill_direction</span> = <span class="val">渐变方向</span></span>
+			背景模式为color时有效，取值从0到360度。或者以下特殊值：- 0度 | 270度 \ 从窗口左上到右下 / 从窗口左下到右上
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">img</span> = <span class="val">图片路径</span></span>
+			背景模式为img时有效
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">mask</span> = <span class="val">掩码路径</span></span>
+			背景模式为img时有效
+		</div>
+
+
+		<h2>[var]</h2>
+
+		可以在该段设置一些额外的环境变量，这些环境变量在HandyRun进程内有效，用于组成程序路径等。
+
+		<div class="configitem">
+			<span class="configline"><span class="key">变量</span> = <span class="val">值</span></span>
+			<span class="configline"><span class="key">变量</span> = <span class="val">值</span></span>
+			<span class="configline">。。。。。。</span>
+			例如
+			<span class="configline"><span class="key">GS</span> = <span class="val">d:\greensoft</span></span>
+		</div>
+
+
+		<h1>Index_path段</h1>
+
+		该段用于指定命令提示的索引源。HandyRun到这些目录去搜索指定类型（通常是可执行程序）的文件用于命令提示。可以包含多个索引源，每个索引源的格式如下：
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Path</span> = <span class="val">索引源路径</span></span>
+
+			如：%userprofile%\「开始」菜单
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Depth</span> = <span class="val">搜索深度</span></span>
+
+			例如1表示只搜索一层。用0表示不限搜索层数。缺省为0
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Icon</span> = <span class="val">图标描述</span></span>
+
+			出现在命令提示框里的图标
+
+		</div>
+
+		<h1>Group:xxx段</h1>
+
+		可以有多个group段，只要它们的名字互不相同即可。每个group段可以包含若干个程序。
+		这些group和程序将被以图标的形式显示在HandyRun的界面上。
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Color</span> = <span class="val">颜色</span></span>
+
+			格式为#RRGGBB ，需要出现在每个group的第一行
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">P</span> = <span class="val">程序名</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">C</span> = <span class="val">注释 （缺省为空）</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Param</span> = <span class="val">程序参数（缺省为空）</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Wd</span> = <span class="val">起始路径（缺省为程序所在目录）</span></span>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">Icon</span> = <span class="val">显示在界面上的图标（缺省为程序对应的图标）</span></span>
+
+			图标描述的语法为：图标文件|图标序号(从0开始)。图标文件可以采用以下几种形式：<br />
+			<ul>
+				<li>空：表示图标文件为当前的可执行程序名</li>
+				<li>EXE或DLL文件名，只有在这种形式下，图标序号才是有意义的</li>
+				<li>已知文件类型的扩展名：比如.doc，.pdf，.txt等等</li>
+				<li>ICO图标文件</li>
+				<li>\：图标文件为\时，Handyrun不显示任何图标，此程序在界面上的对应区域是一片空白。</li>
+			</ul>
+		</div>
+
+		<div class="configitem">
+			<span class="configline"><span class="key">show_type</span> = <span class="val">显示方式</span></span>
+			min 最小化
+			max 最大化
+			hide 隐藏窗口
+		</div>
+
+		以上六项构成了一个程序的完整描述。只有程序名是必须的，其它四项可选。程序名也不一定是真正的程序，可以是word文档或者其它任何可以在资源管理器里双击打开的东西。
+
+
+		<h1>命令行参数</h1>
+
+		<span class="configline">/once</span>
+		单次运行模式<br />
+		在单次运行模式下，启动后在屏幕中央弹出图标面板。当用户点击图标后、或按ESC后、或窗口失去焦点后，HandyRun退出。这种模式是为了其它程序可以很方便地调用（比如hoekey）。
+
+
+		<h1>技巧/FAQ</h1>
+
+		<div class="faq">
+			<ul>
+				<li>如何让某程序的图标显示为空白？</li>
+				指定其图标为”\”即可
+				<li>如何运行dir, cd等dos的内部命令？</li>
+				在运行时按住alt键
+				<li>如何在dos命令运行结束后保留窗口？</li>
+				在运行时按住alt键或设置keep_dos_cmd_window为1
+				<li>如何用其它用户身份运行命令？如何以管理员权限运行命令？</li>
+				在运行时按住shift键
+				<li>点击图标运行程序前能临时指定运行参数吗？</li>
+				点击图标时按住ctrl键
+				<li>如何执行上一次输入的命令？</li>
+				在Handyrun窗口被激活后按两次回车。
+				<li>有方便的添加正在运行的程序到HandyRun的方法吗？</li>
+				先切换要添加的程序为活动窗口，这时再激活HandyRun，右键菜单里选“插入”，在弹出的对话框中点左下角的“获取前台程序”
+				<li>为什么启动很慢？</li>
+				有可能是你设置的索引源太庞大，而又没有限制搜索深度。
+				<li>把Handyrun配置拷到其它的机器上，程序路径变了</li>
+				尽量使用环境变量指定程序路径，这可以减小迁移到其它机器上的成本。
+			</ul>
+		</div>
+
+		<h1>版本历史</h1>
+
+		<div class="changelog">
+			<span class="version">V2.52</span>
+			<ul>
+				<li>增加：拖放文件或文本到程序图标或空白区域</li>
+				<li>增加：拖放参数缓存--直到拖放参数够一定数量后，才运行程序</li>
+				<li>增加：背景图片和背景色的支持，背景色支持多级和任意方向渐变</li>
+				<li>调整：导入程序时使用相对路径</li>
+				<li>调整：由于鼠标而从屏幕边缘滑出时，不抢焦点</li>
+				<li>修正BUG:导入程序时遇到错误后直接跳出，不能正确匹配文件等</li>
+				<li>修正BUG：vkcode.txt文件被一直占用</li>
+			</ul>
+		</div>
+
+		<div class="changelog">
+			<span class="version">V2.5</span>
+			<ul>
+				<li>在界面对组的添加／修改／删除</li>
+				<li>在不重启程序的情况下切换到其它配置文件</li>
+				<li>命令的键盘导航</li>
+				<li>程序图标的拖动(按住ctrl复制)功能，可以组内拖动，也可以跨组拖动</li>
+				<li>命令提示窗口支持鼠标滚轮了</li>
+				<li>点击运行程序同时按住ctrl: 运行程序前临时指定运行参数</li>
+				<li>指定程序启动方式（最大化、最小化...)</li>
+				<li>调整：优化了内存占用</li>
+				<li>调整：一些界面细节的修正</li>
+				<li>调整：可以设定边缘吸附窗口厚度的配置项(edge_window_thickness)</li>
+				<li>调整：命令提示框在非simple模式时自动隐藏。在输入命令时或按回车时自动出现。</li>
+				<li>调整：运行dos命令后自动保留dos窗口（运行时按alt键强制保留） 由选项keep_dos_cmd_window控制打开或关闭</li>
+				<li>修正BUG: 插入/修改程序对话框的“导入前台程序”功能不好使</li>
+				<li>修正BUG: 重启动windows时handyrun不能自动保存配置</li>
+				<li>修正BUG：在命令输入窗口不输入字符而是直接按向上或向下箭头，程序崩溃。</li>
+				<li>修正BUG：插入或编辑程序后造成内存泄露</li>
+				<li>修正BUG：在程序编辑对话框指定的图标文件的绝对路径如果和程序路径的长度相同，且不等于程序路径，那么图标文件将无法保存</li>
+				<li>修正BUG：热键隐藏Handyrun后，有时不能正常回到原来的工作窗口</li>
+				<li>修正BUG：边缘隐藏模式时吸附窗口的显示不正常</li>
+				<li>修正BUG：如果程序图标索引超过9则不能被正确设置</li>
+			</ul>
+		</div>
+
+		<div class="changelog">
+			<span class="version">V2.0</span>
+			<ul>
+				<li>程序图标上的工具提示</li>
+				<li>支持用户输入命令，回车键执行</li>
+				<li>类似代码提示的命令提示功能。</li> <span class="comment">根据用户配置的搜索路径、搜索深度和扩展名，找到所有满足条件的文件加入到命令提示列表。</span>
+				<li>类似QQ的窗口停靠支持，可以停靠在屏幕的任意一边并自动收缩</li>
+				<li>新的界面样式：simple -- 只显示命令输入框，不显示程序图标</li>
+				<li>在分组样式下可以为分组指定颜色</li>
+				<li>对界面元素的精细控制(边界大小，图标间距等)</li>
+				<li>运行程序时按住CONTROL： 用用户的实际输入运行程序(忽略命令提示窗口)</li>
+				<li>运行程序时按住ALT：在运行命令行程序后保留窗口</li>
+				<li>窗口总在最前</li>
+				<li>支持unicode格式的配置文件</li>
+				<span class="comment">HandyRun现在可以读取系统默认代码页的ASCII格式配置文件、UTF8格式配置文件（需要BOM）、和UTF16-LE格式配置文件（需要BOM）。但HandyRun统一以UTF8格式保存配置文件。</span>
+				<li>导入某目录下的所有程序成HandyRun配置文件的格式</li>
+				<li>可以直接从界面添加/修改/删除程序</li>
+				<li>可以直接编辑配置文件(类似hoekey)</li>
+				<li>可以在配置文件里为HandyRun增加额外的环境变量</li>
+				<li>取消程序只允许运行单个实例的限制</li>
+				<li>修正BUG：选择其它用户运行程序时，选择用户的对话框出现在任务栏</li>
+				<li>修正BUG：双击按键激活程序时，可能会使当前活动窗口关联的按键状态不正常</li>
+				<li>修正BUG：程序退出时有可能激活不该激活的窗口</li>
+			</ul>
+		</div>
+
+		<div class="changelog">
+			<span class="version">V1.1</span>
+			<ul>
+				<li>程序只运行一个实例</li>
+				<li>点击图标时按住SHIFT: 以其他用户身份运行程序</li>
+				<li>广泛的热键支持</li>
+				<li>配置文件里的程序路径支持环境变量</li>
+				<li>修正BUG：指定CONTROL为快捷键时只有左CONTROL有效</li>
+				<li>修正BUG：新建进程的初始工作目录设置不正确（影响Firefox, sunderbird…）</li>
+			</ul>
+		</div>
+
+		<div class="changelog">
+			<span class="version">V1.0</span>
+			<ul>
+				<li>初始版本，双击CTRL（或ALT,SHIFT）弹出面板</li>
+				<li>支持自定义程序图标</li>
+				<li>“搜索路径”功能</li>
+				<li>分组模式和普通模式两种界面样式</li>
+			</ul>
+		</div>
+
+
+		<h1>版权</h1>
+
+		<ul>
+			<li>本软件是免费软件，版权归本人所有。</li>
+			<li>使用者若要以任何形式从事商业营利用途（包括收录于商业网站或光盘），必须事先取得本人同意；在非商业意图下，则允许随意散布及使用。</li>
+			<li>欢迎散布作品，但请保持作品的完整性，不可将其修改，或重新打包，或以其它名义散布。</li>
+			<li>您必须自行承担使用该软件所有可能引起的后果及损失，本人不提供对软件的技术支持及服务，也不对因使用本软件而造成任何形式的损失负责。</li>
+		</ul>
+
+	</body>
+
+</html>

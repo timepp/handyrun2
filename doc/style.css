@@ -1,0 +1,12 @@
+.configline {
+    padding: 4px 2px 4px 2px;
+    margin: 10px 0px 5px 0px;
+    width: 100%;
+    border: 1px solid #e2e2e2;
+    font-family: monospace;
+    display: block;
+    background-color: #F0FFF0;
+}
+div.faq li {
+    color: orangered;
+}

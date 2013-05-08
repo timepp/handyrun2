@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(HandyRun)\output\</OutDir>
-    <IntDir>$(TEMP)\handyrun_build\$(Configuration)\</IntDir>
+    <IntDir>$(HandyRun)\build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

@@ -15,6 +15,7 @@
 #include "global_data.h"
 #include "inputdlg.h"
 #include "groupdlg.h"
+#include "aboutdlg.h"
 #include "imagedc.h"
 #include "geometry.h"
 #include <tplib/util_win.h>
@@ -687,7 +688,7 @@ bool CRunDlg::DoExecute(const command * cmd)
 	if ((p = dynamic_cast<const prog *>(cmd)) != NULL)
 	{
 		param = p->param;
-		work_dir = p->work_dir;
+		work_dir = hlp::abs_path(p->work_dir.c_str());
 		show_cmd = p->show_cmd;
 	}
 
@@ -1280,7 +1281,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 
 LRESULT CRunDlg::OnAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	CSimpleDialog<IDD_ABOUT> ab;
+	CAboutDlg ab;
 	ab.DoModal(m_hWnd);
 	return 0;
 }

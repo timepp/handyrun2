@@ -181,6 +181,9 @@
     <ClInclude Include="..\src\TransparentEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\aboutdlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\src\res\running.ico">

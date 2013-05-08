@@ -142,8 +142,6 @@ private:
 private: // œ˚œ¢”≥…‰
 
 	BEGIN_MSG_MAP(CRunDlg)
-//		AtlTrace(L"msg: %s\n", dbg::get_msg_name(uMsg));
-//		CHAIN_MSG_MAP(CMsgDebuger<CRunDlg>)
 COMMAND_ID_HANDLER(ID_INSERT_GROUP, OnInsertGroup)
 COMMAND_ID_HANDLER(ID_EDIT_GROUP, OnEditGroup)
 COMMAND_ID_HANDLER(ID_DEL_GROUP, OnDelGroup)

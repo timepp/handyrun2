@@ -71,17 +71,15 @@ BEGIN
     COMBOBOX        IDC_COMBO_ICON_FILE,50,47,223,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_ABOUT DIALOGEX 0, 0, 187, 108
+IDD_ABOUT DIALOGEX 0, 0, 258, 70
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于"
+CAPTION "关于HandyRun"
 FONT 9, "MS Shell Dlg", 400, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,68,87,50,14
     ICON            IDI_APP,IDC_STATIC,17,19,20,20
-    LTEXT           "HandyRun: 快速运行程序",IDC_STATIC,45,14,135,11
-    LTEXT           "V2.5",IDC_STATIC,45,26,135,11
-    LTEXT           "CopyRight (C) 2008",IDC_STATIC,45,45,135,11
-    LTEXT           "请发邮件至 timepp@126.com",IDC_STATIC,45,61,135,11
+    LTEXT           "HandyRun: 快速运行程序",IDC_STATIC,54,15,135,11
+    LTEXT           "V2.53",IDC_STATIC,54,27,135,11
+    LTEXT           "http://timepp.drivehq.com/pw/handyrun/HandyRun.htm",IDC_STATIC_URL,54,41,197,11
 END
 
 IDD_IMPORT_PROG DIALOGEX 0, 0, 287, 66
@@ -172,9 +170,10 @@ BEGIN
     IDD_ABOUT, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 180
+        RIGHTMARGIN, 251
+        VERTGUIDE, 54
         TOPMARGIN, 7
-        BOTTOMMARGIN, 101
+        BOTTOMMARGIN, 63
     END
 
     IDD_IMPORT_PROG, DIALOG
@@ -306,8 +305,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,5,75,0
- PRODUCTVERSION 2,5,0,0
+ FILEVERSION 2,5,3,0
+ PRODUCTVERSION 2,5,3,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -324,12 +323,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TimePalette"
             VALUE "FileDescription", "HandyRun"
-            VALUE "FileVersion", "2, 5, 75, 0"
+            VALUE "FileVersion", "2.5.3"
             VALUE "InternalName", "handyrun"
             VALUE "LegalCopyright", "Copyright (C) 2008"
             VALUE "OriginalFilename", "handyrun.exe"
             VALUE "ProductName", "HandyRun"
-            VALUE "ProductVersion", "2, 5, 0, 0"
+            VALUE "ProductVersion", "2.5.3"
         END
     END
     BLOCK "VarFileInfo"

@@ -78,7 +78,7 @@ FONT 9, "MS Shell Dlg", 400, 0, 0x0
 BEGIN
     ICON            IDI_APP,IDC_STATIC,17,19,20,20
     LTEXT           "HandyRun: 快速运行程序",IDC_STATIC,54,15,135,11
-    LTEXT           "V2.53",IDC_STATIC,54,27,135,11
+    LTEXT           "V2.54",IDC_STATIC,54,27,135,11
     LTEXT           "http://timepp.drivehq.com/pw/handyrun/HandyRun.htm",IDC_STATIC_URL,54,41,197,11
 END
 
@@ -305,8 +305,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,5,3,0
- PRODUCTVERSION 2,5,3,0
+ FILEVERSION 2,5,4,0
+ PRODUCTVERSION 2,5,4,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -323,12 +323,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TimePalette"
             VALUE "FileDescription", "HandyRun"
-            VALUE "FileVersion", "2.5.3"
+            VALUE "FileVersion", "2.5.4.0"
             VALUE "InternalName", "handyrun"
             VALUE "LegalCopyright", "Copyright (C) 2008"
             VALUE "OriginalFilename", "handyrun.exe"
             VALUE "ProductName", "HandyRun"
-            VALUE "ProductVersion", "2.5.3"
+            VALUE "ProductVersion", "2.5.4.0"
         END
     END
     BLOCK "VarFileInfo"

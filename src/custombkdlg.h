@@ -51,7 +51,8 @@ private:
 		CRect rc;
 		dlg->GetClientRect(&rc);
 
-		Gdiplus::Graphics g(dlg->GetDC());
+		CClientDC dc(dlg->m_hWnd);
+		Gdiplus::Graphics g(dc);
 
 		if (m_bk.mode == background::bm_img)
 		{

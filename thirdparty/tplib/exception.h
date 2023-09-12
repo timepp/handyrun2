@@ -3,6 +3,7 @@
 
 #include "format_shim.h"
 #include "opblock.h"
+#include <memory>
 
 #ifdef NE
 #pragma warning("conflict: NE already defined")
@@ -48,7 +49,7 @@ namespace tp
 	{
 		std::wstring oplist;
 		std::wstring message;
-		std::auto_ptr<tp::error> err;
+		std::unique_ptr<tp::error> err;
 
 		explicit exception(error* e, const wchar_t* msg = 0) : err(e), oplist(CURRENT_OPLIST())
 		{

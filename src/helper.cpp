@@ -110,7 +110,7 @@ int match_str_list(const wchar_t * list, const wchar_t * s)
 	const wchar_t * p = list;
 	while (*p)
 	{
-		if (wcsnicmp(s, p, l) == 0 && is_space(*(p+l)))
+		if (_wcsnicmp(s, p, l) == 0 && is_space(*(p+l)))
 		{
 			return p - list;
 		}
@@ -134,12 +134,12 @@ void print_err(const wchar_t * fmt, ...)
 	wchar_t buf[1024];
 	va_list parg;
 	va_start(parg, fmt);
-	_vsnwprintf(buf, sizeof(buf)/sizeof(buf[0]), fmt, parg);
-	::MessageBox(GetForegroundWindow(), buf, L"HandyRun", MB_OK | MB_ICONWARNING);
+	_vsnwprintf_s(buf, sizeof(buf)/sizeof(buf[0]), fmt, parg);
+	::MessageBoxW(GetForegroundWindow(), buf, L"HandyRun", MB_OK | MB_ICONWARNING);
 	va_end(parg);
 }
 
-// µÃµ½last errorµÄÎÄ×ÖËµÃ÷
+// å¾—åˆ°last errorçš„æ–‡å­—è¯´æ˜
 void print_sys_err(const wchar_t * info)
 {
 	DWORD dwErr = GetLastError();
@@ -152,7 +152,7 @@ void print_com_error(const wchar_t * info, HRESULT hr)
 	const int EL = 1024;
 	wchar_t szErr[EL];
 	size_t len = wcslen(info);
-	wcsncpy(szErr, info, EL);
+	wcsncpy_s(szErr, info, EL);
 	::FormatMessage(
 		FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
 		NULL, hr, 0,
@@ -191,12 +191,12 @@ std::wstring get_tmp_file_name(const wchar_t * ext)
 
 std::wstring abs_path(const wchar_t *p, bool file)
 {
-	// 1. ÎÄ¼şÖ±½Ó´æÔÚ
+	// 1. æ–‡ä»¶ç›´æ¥å­˜åœ¨
 	if (file_exists(p)) return p;
-	// 2. ÎÄ¼şÃûº¬»·¾³±äÁ¿
+	// 2. æ–‡ä»¶åå«ç¯å¢ƒå˜é‡
 	std::wstring t = expand_envvar(p);
 	if (file_exists(t.c_str())) return t;
-	// 3. Èç¹ûÊÇÎÄ¼şµÄ»°,»¹ÒªÔÚ%path%ÖĞËÑË÷
+	// 3. å¦‚æœæ˜¯æ–‡ä»¶çš„è¯,è¿˜è¦åœ¨%path%ä¸­æœç´¢
 	if (file)
 	{
 		t = path_resolve(p);
@@ -390,7 +390,7 @@ size_t strcat_ex(wchar_t * buf, size_t buf_len, size_t pos, const wchar_t * src,
 	size_t copy_len = src_len;
 	if (copy_len > vlen-1) copy_len = vlen-1;
 
-	wcsncpy(vbuf, src, copy_len);
+	wcsncpy_s(vbuf, vlen, src, copy_len);
 	vbuf[copy_len] = L'\0';
 
 	return pos + copy_len;
@@ -527,13 +527,13 @@ bool is_key_down(int vk)
 }
 
 
-/*  wild_match´øÍ¨Åä·ûµÄ×Ö·û´®±È½Ï-----------------------------------------
-[in] wild   Ä£Ê½´®,¿ÉÒÔ°üº¬?*Á½ÖÖÍ¨Åä·û,?Æ¥ÅäÈÎÒâµÄµ¥¸ö×Ö·û,*Æ¥ÅäÈÎÒâµÄ×Ö·û´®
-[in] src    Õı³£µÄ×Ö·û´®
-·µ»ØÖµ      true: Æ¥Åä   false: ²»Æ¥Åä
+/*  wild_matchå¸¦é€šé…ç¬¦çš„å­—ç¬¦ä¸²æ¯”è¾ƒ-----------------------------------------
+[in] wild   æ¨¡å¼ä¸²,å¯ä»¥åŒ…å«?*ä¸¤ç§é€šé…ç¬¦,?åŒ¹é…ä»»æ„çš„å•ä¸ªå­—ç¬¦,*åŒ¹é…ä»»æ„çš„å­—ç¬¦ä¸²
+[in] src    æ­£å¸¸çš„å­—ç¬¦ä¸²
+è¿”å›å€¼      true: åŒ¹é…   false: ä¸åŒ¹é…
 
-º¯ÊıÓÃÒ»¸öÄ£Ê½´®wildÈ¥ºÍÁíÒ»¸ö´®srcÆ¥Åä,·µ»ØÆ¥Åä½á¹û
-Èç¹ûwildºÍsrc³¤¶È¶¼ÊÇ0, Ôò·µ»Øtrue
+å‡½æ•°ç”¨ä¸€ä¸ªæ¨¡å¼ä¸²wildå»å’Œå¦ä¸€ä¸ªä¸²srcåŒ¹é…,è¿”å›åŒ¹é…ç»“æœ
+å¦‚æœwildå’Œsrcé•¿åº¦éƒ½æ˜¯0, åˆ™è¿”å›true
 */
 bool wild_match(const wchar_t *wild, const wchar_t *src)
 {

@@ -20,16 +20,16 @@ struct si_pair
 	int int_val;
 };
 
-// ÅäÖÃÎÄ¼şÖĞ¼üÖµµÄ°ó¶¨ĞÅÏ¢
+// é…ç½®æ–‡ä»¶ä¸­é”®å€¼çš„ç»‘å®šä¿¡æ¯
 struct val_desc
 {
-	const wchar_t * key;          // ¼ü
-	void * val_ptr;               // Ö¸ÏòÖµµÄÖ¸Õë
-	value_type vt;                // ÖµÀàĞÍ
-	// È±Ê¡Öµ, µ±Ñ¡ÏîµÄÖµÎªÈ±Ê¡ÖµÊ±, ²»ÏòÅäÖÃÎÄ¼şÖĞĞ´Èë
+	const wchar_t * key;          // é”®
+	void * val_ptr;               // æŒ‡å‘å€¼çš„æŒ‡é’ˆ
+	value_type vt;                // å€¼ç±»å‹
+	// ç¼ºçœå€¼, å½“é€‰é¡¹çš„å€¼ä¸ºç¼ºçœå€¼æ—¶, ä¸å‘é…ç½®æ–‡ä»¶ä¸­å†™å…¥
 	const wchar_t * default_val;
-	// ×Ö·û´®-ÕûĞÍÓ³Éä±í(½övt == vt_intÊ±ÓĞĞ§)
-	// ÅäÖÃÎÄ¼şÖĞÊÇ×Ö·û´®ĞÎÊ½,³ÌĞòÄÚ²¿ÊÇÕûÊıĞÎÊ½,Ê¹ÓÃsi_map×ö×ª»»
+	// å­—ç¬¦ä¸²-æ•´å‹æ˜ å°„è¡¨(ä»…vt == vt_intæ—¶æœ‰æ•ˆ)
+	// é…ç½®æ–‡ä»¶ä¸­æ˜¯å­—ç¬¦ä¸²å½¢å¼,ç¨‹åºå†…éƒ¨æ˜¯æ•´æ•°å½¢å¼,ä½¿ç”¨si_mapåšè½¬æ¢
 	const si_pair * si_map;
 };
 typedef std::list<val_desc> binding_t;
@@ -67,12 +67,12 @@ static const si_pair bkmode_map[] =
 	NULL,     0
 };
 
-// ÔÚÓ³Éä±íÖĞ²éÕÒ
+// åœ¨æ˜ å°„è¡¨ä¸­æŸ¥æ‰¾
 static int lookup(const si_pair* si_map, const wchar_t * str)
 {
 	for (int i = 0; si_map[i].str != NULL; i++)
 	{
-		if (wcsicmp(str, si_map[i].str) == 0) return si_map[i].int_val;
+		if (_wcsicmp(str, si_map[i].str) == 0) return si_map[i].int_val;
 	}
 	return si_map[0].int_val;
 }
@@ -85,9 +85,9 @@ static const wchar_t * lookup(const si_pair* si_map, int v)
 	return si_map[0].str;
 }
 
-// Íù°ó¶¨±íÀïÌí¼ÓÒ»Ìõ¼ÇÂ¼
-// bind : ²»¼ì²éÖØ¸´
-// bind_uniq : ¼ì²éÖØ¸´
+// å¾€ç»‘å®šè¡¨é‡Œæ·»åŠ ä¸€æ¡è®°å½•
+// bind : ä¸æ£€æŸ¥é‡å¤
+// bind_uniq : æ£€æŸ¥é‡å¤
 static void bind(binding_t * b, const wchar_t *k, void *v, value_type t, const wchar_t * dv = NULL, const si_pair * sip = NULL)
 {
 	val_desc vd = {k, v, t, dv, sip};
@@ -107,7 +107,7 @@ static void bind_uniq(binding_t * b, const wchar_t *k, void *v, value_type t, co
 	b->push_back(vd);
 }
 
-// ÉèÖÃ¸÷ÖÖ°ó¶¨ĞÅÏ¢
+// è®¾ç½®å„ç§ç»‘å®šä¿¡æ¯
 
 static void bind_general_option(binding_t * b, general_opt& go)
 {
@@ -256,7 +256,7 @@ static bool str_to_val(const wchar_t *str, void *val, value_type vt)
 	{
 		bool * b = static_cast<bool *>(val);
 		*b = false;
-		if (wcsicmp(str, L"true") == 0 || _wtoi(str) == 1)
+		if (_wcsicmp(str, L"true") == 0 || _wtoi(str) == 1)
 		{
 			*b = true;
 		}
@@ -368,7 +368,7 @@ static void load_key(const wchar_t *key, const wchar_t *val, const binding_t &b)
 {
 	for (binding_t::const_iterator ci = b.begin(); ci != b.end(); ++ci)
 	{
-		if (wcsicmp(ci->key, key) == 0)
+		if (_wcsicmp(ci->key, key) == 0)
 		{
 			if (ci->si_map && ci->vt == vt_int)
 			{
@@ -382,17 +382,17 @@ static void load_key(const wchar_t *key, const wchar_t *val, const binding_t &b)
 	}
 }
 
-// ´ò¿ªÅäÖÃÎÄ¼ş
-// forload: true : ¶ÁÈ¡
-//          false: Ğ´Èë
+// æ‰“å¼€é…ç½®æ–‡ä»¶
+// forload: true : è¯»å–
+//          false: å†™å…¥
 static FILE * open_profile(const std::wstring& fn, bool for_load)
 {
 	FILE *fp;
 	const wchar_t * mode = for_load? L"r,ccs=UNICODE" : L"w, ccs=UTF-8";
-	const wchar_t * op = for_load? L"¶ÁÈ¡ÅäÖÃÎÄ¼ş" : L"±£´æÅäÖÃÎÄ¼ş";
+	const wchar_t * op = for_load? L"è¯»å–é…ç½®æ–‡ä»¶" : L"ä¿å­˜é…ç½®æ–‡ä»¶";
 	if (_wfopen_s(&fp, fn.c_str(), mode) != 0)
 	{
-		throw os_err(dos, op, L"  ÎÄ¼şÃû:%s", fn.c_str());
+		throw os_err(dos, op, L"  æ–‡ä»¶å:%s", fn.c_str());
 	}
 	return fp;
 }
@@ -494,12 +494,12 @@ bool config::load()
 	{
 		if (he.m_err_code == ENOENT)
 		{
-			// ¿ÉÄÜÊÇµÚÒ»´ÎÔËĞĞHandyRun
-			// TODO: Ò»Ğ©ÓÑºÃµÄÌáÊ¾
+			// å¯èƒ½æ˜¯ç¬¬ä¸€æ¬¡è¿è¡ŒHandyRun
+			// TODO: ä¸€äº›å‹å¥½çš„æç¤º
 		}
 		else
 		{
-			hlp::show_err(he.what(), L"½«Ê¹ÓÃÈ±Ê¡²ÎÊıÔËĞĞ³ÌĞò");
+			hlp::show_err(he.what(), L"å°†ä½¿ç”¨ç¼ºçœå‚æ•°è¿è¡Œç¨‹åº");
 		}
 		return false;
 	}
@@ -518,21 +518,21 @@ bool config::load()
 			if (!p) continue;
 
 			wcsncpy_s(sec, elem_of(sec), line + 1, p - line - 1);
-			// Óöµ½ĞÂµÄ¶Î
+			// é‡åˆ°æ–°çš„æ®µ
 			b.clear();
-			if (wcsicmp(sec, L"general") == 0)
+			if (_wcsicmp(sec, L"general") == 0)
 			{
 				bind_general_option(&b, go);
 			}
-			else if (wcsicmp(sec, L"ui") == 0)
+			else if (_wcsicmp(sec, L"ui") == 0)
 			{
 				bind_ui_metrics(&b, gm);
 			}
-			else if (wcsicmp(sec, L"background") == 0)
+			else if (_wcsicmp(sec, L"background") == 0)
 			{
 				bind_background_option(&b, bk);
 			}
-			else if (wcsnicmp(sec, L"group:", 6) == 0)
+			else if (_wcsnicmp(sec, L"group:", 6) == 0)
 			{
 				group_info * gi = new group_info(sec + 6);
 				group_mgr.insert_cs(gi);
@@ -543,35 +543,35 @@ bool config::load()
 		{
 			p = wcschr(line, L'=');
 			if (!p) continue;
-			// »ñÈ¡keyºÍvalµÄÆğÊ¼µØÖ·
+			// è·å–keyå’Œvalçš„èµ·å§‹åœ°å€
 			for (key = line; hlp::is_space(*key); key++);
 			for (val = p + 1; hlp::is_space(*val); val++);
-			// ÒÆ³ı¶àÓàµÄ¿Õ°×
+			// ç§»é™¤å¤šä½™çš„ç©ºç™½
 			for (p--; p > line && hlp::is_space(*p); p--); 
 			*(p+1) = L'\0';
 			for (p = val; *p && *p != L'\n'; p++); 
 			*p = L'\0';
-			// Óöµ½ĞÂµÄ¼üÖµ([sec] key = val)
-			if (wcsicmp(sec, L"var") == 0)
+			// é‡åˆ°æ–°çš„é”®å€¼([sec] key = val)
+			if (_wcsicmp(sec, L"var") == 0)
 			{
 				env_var ev = {key, val};
 				m_evs.push_back(ev);
 			}
 			else 
 			{
-				if (wcsnicmp(sec, L"group:", 6) == 0 && wcsicmp(key, L"p") == 0)
+				if (_wcsnicmp(sec, L"group:", 6) == 0 && _wcsicmp(key, L"p") == 0)
 				{
 					prog * pg = new prog;
 					group_mgr.insert_cmd(pg, -1);
 					bind_prog(&b, pg);
 				}
-				if (wcsicmp(sec, L"index_path") == 0 && wcsicmp(key, L"path") == 0)
+				if (_wcsicmp(sec, L"index_path") == 0 && _wcsicmp(key, L"path") == 0)
 				{
 					index_info *ii = new index_info();
 					index_mgr.insert_cs(ii);
 					bind_index(&b, ii);
 				}
-				// °´µ±Ç°µÄkeyºÍval,»¹ÓĞ°ó¶¨±í´æ´¢¼üÖµ
+				// æŒ‰å½“å‰çš„keyå’Œval,è¿˜æœ‰ç»‘å®šè¡¨å­˜å‚¨é”®å€¼
 				load_key(key, val, b);
 			}
 		}
@@ -697,6 +697,6 @@ void config::fill_index_prog()
 	}
 	catch (handyrun_err& he)
 	{
-		hlp::show_err(he.what(), L"¶Ô¸ÃÄ¿Â¼µÄÃüÁîÌáÊ¾¿ÉÄÜ²»ÍêÕû¡£");
+		hlp::show_err(he.what(), L"å¯¹è¯¥ç›®å½•çš„å‘½ä»¤æç¤ºå¯èƒ½ä¸å®Œæ•´ã€‚");
 	}
 }

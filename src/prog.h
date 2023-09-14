@@ -4,7 +4,7 @@
 #include <string>
 #include <windows.h>
 
-// »ù±¾ÃüÁî: Ö»°üº¬Ò»¸öÂ·¾¶ĞÅÏ¢
+// åŸºæœ¬å‘½ä»¤: åªåŒ…å«ä¸€ä¸ªè·¯å¾„ä¿¡æ¯
 struct command
 {
 	command();
@@ -12,57 +12,57 @@ struct command
 	virtual ~command(){}
 	virtual command * clone() const;         // prototype
 
-	std::wstring path;                   // Â·¾¶(¿ÉÄÜÊÇÏà¶ÔÂ·¾¶)
+	std::wstring path;                   // è·¯å¾„(å¯èƒ½æ˜¯ç›¸å¯¹è·¯å¾„)
 };
 
-// »ù±¾ĞÅÏ¢
+// åŸºæœ¬ä¿¡æ¯
 struct info
 {
 	virtual ~info(){}
 };
 
-// ÃüÁî¼¯, ¶ÔÆä³ÉÔ±ÓĞÍêÈ«ËùÓĞÈ¨
+// å‘½ä»¤é›†, å¯¹å…¶æˆå‘˜æœ‰å®Œå…¨æ‰€æœ‰æƒ
 struct command_set
 {
 	~command_set();
 
-	info * si;                          // ÃüÁî¼¯ĞÅÏ¢
-	std::vector<command *> cv;              // ÃüÁî¼¯
+	info * si;                          // å‘½ä»¤é›†ä¿¡æ¯
+	std::vector<command *> cv;              // å‘½ä»¤é›†
 };
 
-// Í¼±êÃèÊö
+// å›¾æ ‡æè¿°
 struct icon_desc
 {
 	std::wstring file;
 	int index;
 };
 
-// ³ÌĞò£º°üº¬ºÍÔËĞĞÏà¹ØµÄÏàËüĞÅÏ¢
+// ç¨‹åºï¼šåŒ…å«å’Œè¿è¡Œç›¸å…³çš„ç›¸å®ƒä¿¡æ¯
 struct prog : public command
 {
 	prog();
 	prog(const prog& p);
 	virtual command * clone() const;
 
-	std::wstring param;                  // ÔËĞĞ²ÎÊı
-	std::wstring drop_param;             // ÍÏ·Å²ÎÊı
-	std::wstring work_dir;               // ¹¤×÷Ä¿Â¼
-	std::wstring comment;                // ×¢ÊÍ
-	icon_desc icon;                      // Í¼±ê
-	int show_cmd;                        // ÏÔÊ¾·½Ê½(×îĞ¡»¯,×î´ó»¯...)
+	std::wstring param;                  // è¿è¡Œå‚æ•°
+	std::wstring drop_param;             // æ‹–æ”¾å‚æ•°
+	std::wstring work_dir;               // å·¥ä½œç›®å½•
+	std::wstring comment;                // æ³¨é‡Š
+	icon_desc icon;                      // å›¾æ ‡
+	int show_cmd;                        // æ˜¾ç¤ºæ–¹å¼(æœ€å°åŒ–,æœ€å¤§åŒ–...)
 };
 
 
-// ·Ö×éĞÅÏ¢
+// åˆ†ç»„ä¿¡æ¯
 struct group_info : public info
 {
 	group_info(const wchar_t * n = NULL, COLORREF cr = 0xFF000000);
 
-	std::wstring name;                   // ×éÃû×Ö
-	COLORREF color;                      // ×éÑÕÉ«
+	std::wstring name;                   // ç»„åå­—
+	COLORREF color;                      // ç»„é¢œè‰²
 };
 
-// Ë÷ÒıĞÅÏ¢
+// ç´¢å¼•ä¿¡æ¯
 struct index_info : public info
 {
 	index_info();

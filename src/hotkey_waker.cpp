@@ -35,7 +35,7 @@ bool hotkey_waker::register_hotkey(const wchar_t * hotkey, wake_cmd_ptr_t wc)
 {
 	log_msg(L"registering hotkey...");
 
-	const wchar_t * op = L"×¢²á¼¤»îÈÈ¼ü";
+	const wchar_t * op = L"æ³¨å†Œæ¿€æ´»çƒ­é”®";
 
 	if (!hotkey)
 	{
@@ -70,14 +70,14 @@ UINT hotkey_waker::get_vk_code(const wchar_t * vk)
 {
 	log_msg(L"loading vk-code...");
 
-	const wchar_t * op = L"»ñÈ¡°´¼ü´úÂë";
+	const wchar_t * op = L"è·å–æŒ‰é”®ä»£ç ";
 
 	tp::cz fn(L"%s\\%s", gd::hr_path.c_str(), hc::fn_vkcode);
 
 	FILE * fp;
 	if (_wfopen_s(&fp, fn, L"r, ccs=UNICODE") != 0)
 	{
-		throw os_err(dos, op, L"ÎÄ¼şÃû:%s", &fn);
+		throw os_err(dos, op, L"æ–‡ä»¶å:%s", &fn);
 	}
 	ON_LEAVE_1(fclose(fp), FILE*, fp);
 
@@ -86,7 +86,7 @@ UINT hotkey_waker::get_vk_code(const wchar_t * vk)
 	while (fgetws(line, elem_of(line), fp) != NULL)
 	{
 		const wchar_t * p = wcschr(line, L' ');
-		if (p && p == line + key_len && wcsnicmp(line, vk, key_len) == 0)
+		if (p && p == line + key_len && _wcsnicmp(line, vk, key_len) == 0)
 		{
 			const wchar_t * q = wcschr(p, L'x');
 			if (q)
@@ -145,8 +145,8 @@ void hotkey_waker::ll_kb_proc_internal(const KBDLLHOOKSTRUCT *kb, UINT msg)
 		hw->m_hotkey.vk == VK_SHIFT && (kb->vkCode == VK_LSHIFT || kb->vkCode == VK_RSHIFT);
 	if (!key_equal)
 	{
-		// Á½´ÎctrlÖĞ¼ä¼ĞÔÓÆäËüµÄ¼ü£¬Ôò³ÌĞò²»Ó¦±»»½ĞÑ
-		// Í¨¹ıÔÚÆäËü¼üµ½À´Ê±ÉèÖÃg_prev_key_timeÎªÁã½â¾öÉÏÊöÎÊÌâ
+		// ä¸¤æ¬¡ctrlä¸­é—´å¤¹æ‚å…¶å®ƒçš„é”®ï¼Œåˆ™ç¨‹åºä¸åº”è¢«å”¤é†’
+		// é€šè¿‡åœ¨å…¶å®ƒé”®åˆ°æ¥æ—¶è®¾ç½®g_prev_key_timeä¸ºé›¶è§£å†³ä¸Šè¿°é—®é¢˜
 		prev_key_time = 0;
 	}
 	else if (msg == WM_KEYUP || msg == WM_SYSKEYUP)

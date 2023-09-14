@@ -24,12 +24,12 @@ LRESULT CImportProgDlg::OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 		std::wstring fn = hlp::get_tmp_file_name(L".txt");
 		if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0)
 		{
-			os_err oe(dos, L"Ğ´ÎÄ¼ş", L"  ÎÄ¼şÃû:%s", fn);
+			os_err oe(dos, L"å†™æ–‡ä»¶", L"  æ–‡ä»¶å:%s", fn);
 			hlp::show_err(oe.what(), NULL);
 			return 0;
 		}
 
-		fwprintf(fp, L"¿ÉÒÔÖ±½Ó½«ÒÔÏÂĞĞÕ³Ìùµ½ÅäÖÃÎÄ¼şÖĞÒÔÊµÏÖµ¼Èë¹¦ÄÜ\n------------\n");
+		fwprintf(fp, L"å¯ä»¥ç›´æ¥å°†ä»¥ä¸‹è¡Œç²˜è´´åˆ°é…ç½®æ–‡ä»¶ä¸­ä»¥å®ç°å¯¼å…¥åŠŸèƒ½\n------------\n");
 
 		path_lister pl(abs_path.c_str(), depth);
 		std::wstring subpath, filename;

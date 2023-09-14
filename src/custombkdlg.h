@@ -56,7 +56,7 @@ private:
 
 		if (m_bk.mode == background::bm_img)
 		{
-			// 把图片画到m_bk_bmp上面
+			// 鎶婂浘鐗囩敾鍒癿_bk_bmp涓婇潰
 			Gdiplus::Bitmap * bkbmp = new Gdiplus::Bitmap(rc.Width(), rc.Height(), &g);
 			Gdiplus::Graphics *pG = Gdiplus::Graphics::FromImage(bkbmp);
 			Gdiplus::Bitmap * imgbmp = Gdiplus::Bitmap::FromFile(m_bk.back_img.c_str());
@@ -70,7 +70,7 @@ private:
 		{
 			if (m_bk.color_list.size() >= 2)
 			{
-				// 把渐变的背景画到m_bk_bmp上面
+				// 鎶婃笎鍙樼殑鑳屾櫙鐢诲埌m_bk_bmp涓婇潰
 
 				Gdiplus::Bitmap * bkbmp = new Gdiplus::Bitmap(rc.Width(), rc.Height(), &g);
 				Gdiplus::Graphics* pG = Gdiplus::Graphics::FromImage(bkbmp);
@@ -157,7 +157,7 @@ private:
 		{
 			if (m_bk.color_list.size() == 0)
 			{
-				// 让系统去画吧
+				// 璁╃郴缁熷幓鐢诲惂
 				bHandled = FALSE;
 				return 0;
 			}

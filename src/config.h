@@ -14,37 +14,37 @@ namespace cfg
 
 struct gui_metrics
 {
-	ui_layout layout;                 // ÑùÊ½: ·Ö×é/Æ½Ì¹/¼ò½à
-	window_style style;               // ·ç¸ñ: ¾ÓÖĞ/±ßÔµ
+	ui_layout layout;                 // æ ·å¼: åˆ†ç»„/å¹³å¦/ç®€æ´
+	window_style style;               // é£æ ¼: å±…ä¸­/è¾¹ç¼˜
 
-	bool use_tip;                     // ÊÇ·ñÏÔÊ¾³ÌĞòÌáÊ¾
-	bool use_simple_tip;              // ÊÇ·ñÊ¹ÓÃµ¥ĞĞÌáÊ¾
-	bool hide_on_lose_focus;          // Ê§È¥½¹µãÊ±ÊÇ·ñÒş²Ø
-	bool cache_icon;                  // ÊÇ·ñ»º´æÍ¼±ê
+	bool use_tip;                     // æ˜¯å¦æ˜¾ç¤ºç¨‹åºæç¤º
+	bool use_simple_tip;              // æ˜¯å¦ä½¿ç”¨å•è¡Œæç¤º
+	bool hide_on_lose_focus;          // å¤±å»ç„¦ç‚¹æ—¶æ˜¯å¦éšè—
+	bool cache_icon;                  // æ˜¯å¦ç¼“å­˜å›¾æ ‡
 
-	int border;                       // ±ß½ç´óĞ¡(ÉÏÏÂ×óÓÒ)
-	int pad_h;                        // Í¼±êË®Æ½¼ä¾à
-	int pad_v;                        // Í¼±ê´¹Ö±¼ä¾à
-	int icon_size;                    // Í¼±ê´óĞ¡(¿í=¸ß)
-	int icon_per_line;                // Æ½Ì¹Ä£Ê½Ê±Ã¿ĞĞµÄÍ¼±êÊıÁ¿
-	int edit_height;                  // ÃüÁîÊäÈë¿òµÄ¸ß¶È
-	int min_window_width;             // ×îĞ¡µÄ´°¿Ú¿í¶È
-	edge_class edge;                  // [±ßÔµÄ£Ê½]Î»ÖÃ: ×ó/ÉÏ/ÓÒ/ÏÂ
-	int edge_pos;                     // [±ßÔµÄ£Ê½]Î»ÖÃ: ¾àÀë
-	int edge_window_len;              // [±ßÔµÄ£Ê½]´°¿Ú³¤¶È
-	int edge_window_thickness;        // [±ßÔµÄ£Ê½]´°¿Úºñ¶È
+	int border;                       // è¾¹ç•Œå¤§å°(ä¸Šä¸‹å·¦å³)
+	int pad_h;                        // å›¾æ ‡æ°´å¹³é—´è·
+	int pad_v;                        // å›¾æ ‡å‚ç›´é—´è·
+	int icon_size;                    // å›¾æ ‡å¤§å°(å®½=é«˜)
+	int icon_per_line;                // å¹³å¦æ¨¡å¼æ—¶æ¯è¡Œçš„å›¾æ ‡æ•°é‡
+	int edit_height;                  // å‘½ä»¤è¾“å…¥æ¡†çš„é«˜åº¦
+	int min_window_width;             // æœ€å°çš„çª—å£å®½åº¦
+	edge_class edge;                  // [è¾¹ç¼˜æ¨¡å¼]ä½ç½®: å·¦/ä¸Š/å³/ä¸‹
+	int edge_pos;                     // [è¾¹ç¼˜æ¨¡å¼]ä½ç½®: è·ç¦»
+	int edge_window_len;              // [è¾¹ç¼˜æ¨¡å¼]çª—å£é•¿åº¦
+	int edge_window_thickness;        // [è¾¹ç¼˜æ¨¡å¼]çª—å£åšåº¦
 
-	gui_metrics();                    // ÉèÖÃÈ±Ê¡Öµ
+	gui_metrics();                    // è®¾ç½®ç¼ºçœå€¼
 };
 
 struct general_opt
 {
-	std::wstring active_key;          // ¼¤»îÈÈ¼ü
-	std::wstring executable_ext;      // "³ÌĞò"µÄÀ©Õ¹Ãû
-	bool single_instance;             // ÊÇ·ñµ¥ÊµÀıÔËĞĞ
-	bool keep_dos_cmd_window;         // ÊÇ·ñÔËĞĞDOSÃüÁîºó±£Áô´°¿Ú
+	std::wstring active_key;          // æ¿€æ´»çƒ­é”®
+	std::wstring executable_ext;      // "ç¨‹åº"çš„æ‰©å±•å
+	bool single_instance;             // æ˜¯å¦å•å®ä¾‹è¿è¡Œ
+	bool keep_dos_cmd_window;         // æ˜¯å¦è¿è¡ŒDOSå‘½ä»¤åä¿ç•™çª—å£
 
-	general_opt();                    // ÉèÖÃÈ±Ê¡Öµ
+	general_opt();                    // è®¾ç½®ç¼ºçœå€¼
 };
 
 // singleton
@@ -54,18 +54,18 @@ public:
 	~config();
 	static config * instance();
 
-	cs_mgr group_mgr;                    // ³ÌĞò·Ö×é¹ÜÀíÆ÷
-	cs_mgr index_mgr;                    // Ë÷Òı¹ÜÀíÆ÷
-	gui_metrics gm;                      // ½çÃæÔªËØÅäÖÃ
-	general_opt go;                      // Ò»°ãÑ¡Ïî
-	background  bk;                      // ±³¾°
+	cs_mgr group_mgr;                    // ç¨‹åºåˆ†ç»„ç®¡ç†å™¨
+	cs_mgr index_mgr;                    // ç´¢å¼•ç®¡ç†å™¨
+	gui_metrics gm;                      // ç•Œé¢å…ƒç´ é…ç½®
+	general_opt go;                      // ä¸€èˆ¬é€‰é¡¹
+	background  bk;                      // èƒŒæ™¯
 
 	void set_profile(const wchar_t * fn);
 	std::wstring get_profile() const;
 	bool save();
 	bool load();
 
-	// ¿ì½İ·½Ê½
+	// å¿«æ·æ–¹å¼
 	prog * get_prog(int g, int p);
 	group_info * get_group_info(int g);
 	command * get_index_cmd(int i, int c);
@@ -82,7 +82,7 @@ private:
 	void fill_index_prog();
 
 	std::wstring m_profile;
-	std::vector<env_var> m_evs;          // ¶îÍâµÄ»·¾³±äÁ¿
+	std::vector<env_var> m_evs;          // é¢å¤–çš„ç¯å¢ƒå˜é‡
 };
 
 }

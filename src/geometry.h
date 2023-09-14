@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <math.h>
 
-// ¶¨Òå¼¸ºÎÏà¹ØµÄ¸¨Öúº¯Êı
+// å®šä¹‰å‡ ä½•ç›¸å…³çš„è¾…åŠ©å‡½æ•°
 
 namespace geo
 {

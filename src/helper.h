@@ -16,7 +16,7 @@ namespace hlp
 	int remove_char(std::wstring * str, wchar_t ch);
 	std::wstring quote_string(const wchar_t * str, wchar_t q = L'\"');
 
-	// ÔÚÒ»¸öÒÔ¿Õ¸ñÎª·Ö¸ôµÄ×Ö·û´®ÁĞ±íÖĞ²éÕÒÒ»¸ö×Ö·û´®
+	// åœ¨ä¸€ä¸ªä»¥ç©ºæ ¼ä¸ºåˆ†éš”çš„å­—ç¬¦ä¸²åˆ—è¡¨ä¸­æŸ¥æ‰¾ä¸€ä¸ªå­—ç¬¦ä¸²
 	int match_str_list(const wchar_t * list, const wchar_t * s);
 
 // system specific ////////////////////////////////////////
@@ -33,7 +33,7 @@ namespace hlp
 	bool send_mouse_input(int x, int y, DWORD flags);
 	// process hacking
 	void * get_process_peb_addr(HANDLE proc);
-	// ÅĞ¶ÏÊÇ²»ÊÇDOSÃüÁî(°üÀ¨¿ØÖÆÌ¨Ó¦ÓÃ)¡¡ĞèÒªÍêÕûÂ·¾¶
+	// åˆ¤æ–­æ˜¯ä¸æ˜¯DOSå‘½ä»¤(åŒ…æ‹¬æ§åˆ¶å°åº”ç”¨)ã€€éœ€è¦å®Œæ•´è·¯å¾„
 	bool is_dos_command(const std::wstring& cmd);
 	// wrappers
 	bool track_mouse_event(DWORD flag, HWND wnd, DWORD hover_time = HOVER_DEFAULT);
@@ -63,7 +63,7 @@ namespace hlp
 	};
 	path_elem split_path(const wchar_t * path);
 
-	// TODO£º Ì«ÄÑÊ¹ÓÃ£¬È¥µô£¡£¡£¡
+	// TODOï¼š å¤ªéš¾ä½¿ç”¨ï¼Œå»æ‰ï¼ï¼ï¼
 	size_t strcat_ex(wchar_t * buf, size_t buf_len, size_t pos, const wchar_t * src, size_t src_len = -1);
 
 	void show_err(const wchar_t *err, const wchar_t *result);

@@ -237,7 +237,7 @@ DWORD CRunDlg::drop_target_state::drag_enter(IDataObject *data, POINT pt)
 {
 	if (!g_dlg->m_current_show_state && g_c->gm.style == cfg::ws_edge)
 	{
-		// ÏÔÊ¾´°¿Ú
+		// æ˜¾ç¤ºçª—å£
 		g_dlg->show_window(true);
 	}
 	FORMATETC fmtetc = { CF_HDROP, 0, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
@@ -311,8 +311,8 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 	prog_pos pp = l->get_prog_from_point(pt);
 	if (pp != pp_null)
 	{
-		// ÓÃÍÏ¹ıÀ´µÄÎÄ¼şÃûÀ©Õ¹²¥·Å²ÎÊıÔËĞĞ³ÌĞò
-		// Èç¹ûÍÏ¹ıÀ´µÄÊÇÎÄ±¾£¬¾Í´æµ½ÁÙÊ±ÎÄ¼şÖĞ£¬²¢ÒÔ´Ëµ±×öÎÄ¼şÃû
+		// ç”¨æ‹–è¿‡æ¥çš„æ–‡ä»¶åæ‰©å±•æ’­æ”¾å‚æ•°è¿è¡Œç¨‹åº
+		// å¦‚æœæ‹–è¿‡æ¥çš„æ˜¯æ–‡æœ¬ï¼Œå°±å­˜åˆ°ä¸´æ—¶æ–‡ä»¶ä¸­ï¼Œå¹¶ä»¥æ­¤å½“åšæ–‡ä»¶å
 		prog * pg = g_c->get_prog(pp.g, pp.p);
 		if (pg != g_dlg->m_prog_waiting_param)
 		{
@@ -326,7 +326,7 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 			FILE * fp;
 			if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0)
 			{
-				os_err oe(dos, L"Ğ´ÎÄ¼ş", L"  ÎÄ¼şÃû:%s", fn);
+				os_err oe(dos, L"å†™æ–‡ä»¶", L"  æ–‡ä»¶å:%s", fn);
 				hlp::show_err(oe.what(), 0);
 			}
 			else
@@ -624,7 +624,7 @@ void CRunDlg::show_window(bool show, bool force_focus)
 	if (show)
 	{
 		log_msg(L"activating window...");
-		// ¼ÇÂ¼µ±Ç°»î¶¯´°¿Ú±¸ÓÃ
+		// è®°å½•å½“å‰æ´»åŠ¨çª—å£å¤‡ç”¨
 		HWND wnd = GetForegroundWindow();
 		if (!hlp::wnd_in_same_process(wnd))
 		{
@@ -670,9 +670,9 @@ void CRunDlg::show_window(bool show, bool force_focus)
 	}
 }
 
-// Ö´ĞĞ³ÌĞò
-// µ±shift°´ÏÂÊ±£¬ÏÈÑ¡ÔñÓÃ»§ÔÙÔËĞĞ
-// µ±alt°´ÏÂÊ±£¬ÒÔÈçÏÂ·½Ê½ÔËĞĞ£º cmd.exe /C <prog> &&pause
+// æ‰§è¡Œç¨‹åº
+// å½“shiftæŒ‰ä¸‹æ—¶ï¼Œå…ˆé€‰æ‹©ç”¨æˆ·å†è¿è¡Œ
+// å½“altæŒ‰ä¸‹æ—¶ï¼Œä»¥å¦‚ä¸‹æ–¹å¼è¿è¡Œï¼š cmd.exe /C <prog> &&pause
 bool CRunDlg::DoExecute(const command * cmd)
 {
 	m_prog_waiting_param = 0;
@@ -698,7 +698,7 @@ bool CRunDlg::DoExecute(const command * cmd)
 		work_dir.assign(path, pe.path.s, pe.path.n);
 	}
 
-	// alt¼ü°´ÏÂ
+	// alté”®æŒ‰ä¸‹
 	if (hlp::is_key_down(VK_MENU) ||
 			g_c->go.keep_dos_cmd_window &&
 			hlp::is_dos_command(path)
@@ -717,7 +717,7 @@ bool CRunDlg::DoExecute(const command * cmd)
 			HRESULT hr = hlp::ShellExecuteByExplorer(path.c_str(), param.c_str(), work_dir.c_str());
 			if (FAILED(hr))
 			{
-				hlp::print_com_error(L"Æô¶¯³ÌĞòÊ§°Ü£º", hr);
+				hlp::print_com_error(L"å¯åŠ¨ç¨‹åºå¤±è´¥ï¼š", hr);
 				return false;
 			}
 			return true;
@@ -726,7 +726,7 @@ bool CRunDlg::DoExecute(const command * cmd)
 
 	if (ShellExecute(m_hWnd, verb.c_str(), path.c_str(), param.c_str(), work_dir.c_str(), show_cmd) <= (HINSTANCE)32)
 	{
-		hlp::print_sys_err(L"Æô¶¯³ÌĞòÊ§°Ü£º");
+		hlp::print_sys_err(L"å¯åŠ¨ç¨‹åºå¤±è´¥ï¼š");
 		return false;
 	}
 
@@ -738,12 +738,12 @@ void CRunDlg::reload_profile(void (*pf_modify_op)())
 	hotkey_waker::instance()->register_hotkey(NULL);
 	g_c->save();
 	//ModifyStyleEx(WS_EX_TOOLWINDOW, 0);
-	// ÔİÊ±È¡Ïû×ÜÔÚ×îÇ°ÊôĞÔ
+	// æš‚æ—¶å–æ¶ˆæ€»åœ¨æœ€å‰å±æ€§
 	SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE);
 
 	pf_modify_op();
 
-	// »Ö¸´×ÜÔÚ×îÇ°ÊôĞÔ
+	// æ¢å¤æ€»åœ¨æœ€å‰å±æ€§
 	SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE);
 	//ModifyStyleEx(0, WS_EX_TOOLWINDOW);
 	g_c->load();
@@ -754,8 +754,8 @@ void CRunDlg::reload_profile(void (*pf_modify_op)())
 	show_window(true);
 }
 
-// ²ÎÊıÎªtrueÊ±ÏÔÊ¾ÊäÈë¿ò
-// ²ÎÊıÎªfalseÊ±Òş²ØÊäÈë¿ò£¬¶Ô»°¿ò´°¿Ú½ÓÊÕËùÓĞ¼üÅÌÏûÏ¢
+// å‚æ•°ä¸ºtrueæ—¶æ˜¾ç¤ºè¾“å…¥æ¡†
+// å‚æ•°ä¸ºfalseæ—¶éšè—è¾“å…¥æ¡†ï¼Œå¯¹è¯æ¡†çª—å£æ¥æ”¶æ‰€æœ‰é”®ç›˜æ¶ˆæ¯
 void CRunDlg::enable_type_command(bool enable)
 {
 	if (!hlp::wnd_in_same_process(::GetForegroundWindow())) return;
@@ -798,13 +798,13 @@ LRESULT CRunDlg::OnShow(UINT, WPARAM , LPARAM, BOOL&)
 	bool left_mouse_button_down = hlp::is_key_down(VK_LBUTTON);
 	show_window(!m_current_show_state, !left_mouse_button_down);
 
-	// ¼üÅÌ¼¤»îÇÒ¼¤»îÊ±Êó±ê°´ÏÂ£ºµ±Êó±êÌ§ÆğÇÒ²»ÔÚhandyrun´°¿ÚÊ±£¬handyrunÈÔÒş²Ø
+	// é”®ç›˜æ¿€æ´»ä¸”æ¿€æ´»æ—¶é¼ æ ‡æŒ‰ä¸‹ï¼šå½“é¼ æ ‡æŠ¬èµ·ä¸”ä¸åœ¨handyrunçª—å£æ—¶ï¼Œhandyrunä»éšè—
 	if (left_mouse_button_down)
 	{
 		SetTimer(IDT_AUTO_FOLD_WHEN_MOUSE_UP, 500);
 	}
 
-	// ¼üÅÌ¼¤»îµÄ´°¿Ú²»×Ô¶¯Òş²Ø
+	// é”®ç›˜æ¿€æ´»çš„çª—å£ä¸è‡ªåŠ¨éšè—
 	if (m_current_show_state)
 	{
 		KillTimer(IDT_AUTO_FOLD);
@@ -831,13 +831,13 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 	SetWindowText(L"HandyRun");
 	refresh_layout();
 
-	// ³õÊ¼»¯DropTarget
-	// ÒòÎªÏûÏ¢Ñ­»·ÖĞÊÕ²»µ½WM_CREATEÏûÏ¢£¬ËùÒÔÒªÊÖ¶¯µÄµ÷ÓÃIDropTargetImplÖĞµÄOnCreate
+	// åˆå§‹åŒ–DropTarget
+	// å› ä¸ºæ¶ˆæ¯å¾ªç¯ä¸­æ”¶ä¸åˆ°WM_CREATEæ¶ˆæ¯ï¼Œæ‰€ä»¥è¦æ‰‹åŠ¨çš„è°ƒç”¨IDropTargetImplä¸­çš„OnCreate
 	IDropTargetImpl<CRunDlg>::InitDropTarget();
 
 	if (g_c->gm.style == cfg::ws_edge && !gd::run_once)
 	{
-		// TODO£º ÕÒ´°¿ÚÒ»¿ªÊ¼²»¼¤»îµÄ¸üºÃµÄ¼ò¾ö°ì·¨
+		// TODOï¼š æ‰¾çª—å£ä¸€å¼€å§‹ä¸æ¿€æ´»çš„æ›´å¥½çš„ç®€å†³åŠæ³•
 		show_window(false);
 		m_current_show_state = true;
 		PostMessage(WM_SHOW_RUNDLG);
@@ -847,7 +847,7 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 
 	::DragAcceptFiles(m_hWnd, TRUE);
 
-	// ÔÚvistaÏÂÉèÖÃµÍÈ¨ÏŞ³ÌĞò¿ÉÒÔ·¢ËÍÀ´µÄÏûÏ¢ÀàĞÍ
+	// åœ¨vistaä¸‹è®¾ç½®ä½æƒé™ç¨‹åºå¯ä»¥å‘é€æ¥çš„æ¶ˆæ¯ç±»å‹
 	HMODULE hm = ::LoadLibrary(L"user32.dll");
 	if (hm)
 	{
@@ -1118,7 +1118,7 @@ void CRunDlg::OnClickProg(const prog *p)
 	if (hlp::is_key_down(VK_CONTROL))
 	{
 		prog new_p = *p;
-		CInputDlg dlg(L"ÊäÈë²ÎÊı", p->path.c_str(), p->param.c_str());
+		CInputDlg dlg(L"è¾“å…¥å‚æ•°", p->path.c_str(), p->param.c_str());
 		if (dlg.DoModal() == IDCANCEL) return;
 		new_p.param = dlg.get_value();
 		ret = DoExecute(&new_p);
@@ -1136,14 +1136,14 @@ void CRunDlg::OnClickProg(const prog *p)
 
 void CRunDlg::OnPressEnter()
 {
-	// ·Çhoverstate°´»Ø³µ¼ü²»Ö´ĞĞ³ÌĞò
+	// éhoverstateæŒ‰å›è½¦é”®ä¸æ‰§è¡Œç¨‹åº
 	if (m_os != &m_os_hover) return;
 
 	prog tmp_p;
 	command *p = NULL;
 	bool forced = false;
 
-	// Ç¿ÖÆÖ´ĞĞÊäÈëµÄÃüÁî
+	// å¼ºåˆ¶æ‰§è¡Œè¾“å…¥çš„å‘½ä»¤
 	if (m_edit.IsWindowVisible() && m_edit.GetWindowTextLengthW() > 0 &&
 		(hlp::is_key_down(VK_CONTROL) || !m_tip.IsWindowVisible()))
 	{
@@ -1165,14 +1165,14 @@ void CRunDlg::OnPressEnter()
 		p = &tmp_p;
 	}
 
-	// ÌáÊ¾¿ò
+	// æç¤ºæ¡†
 	if (p == NULL)
 	{
 		if (m_tip.IsWindowVisible())
 			p = m_tip.GetSelectCmd();
 	}
 
-	// ¼üÅÌµ¼º½
+	// é”®ç›˜å¯¼èˆª
 	if (p == NULL) p = g_c->get_prog(m_curr_prog_pos.g, m_curr_prog_pos.p);
 
 	if (p == NULL)
@@ -1198,7 +1198,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 	CMenu mu = (HMENU)menu.GetSubMenu(0);
 
 	POINT pt = {-1, -1};
-	if (lp == 0xFFFFFFFF) // ²Ëµ¥²»ÊÇÓÒ¼ü¼¤»îµÄ¶øÊÇ°´¼ü¼¤»îµÄ
+	if (lp == 0xFFFFFFFF) // èœå•ä¸æ˜¯å³é”®æ¿€æ´»çš„è€Œæ˜¯æŒ‰é”®æ¿€æ´»çš„
 	{
 		hlp::track_mouse_event(TME_CANCEL|TME_LEAVE, m_hWnd);
 		if (m_curr_prog_pos != pp_null)
@@ -1246,7 +1246,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 		mu.EnableMenuItem(ID_EDIT_PROG, MF_BYCOMMAND | MF_GRAYED);
 		mu.EnableMenuItem(ID_DEL_PROG, MF_BYCOMMAND | MF_GRAYED);
 	}
-	// ÏÔÊ¾ÑùÊ½Ç°ÃæµÄ¶Ô¹´
+	// æ˜¾ç¤ºæ ·å¼å‰é¢çš„å¯¹å‹¾
 	UINT lyt_id;
 	switch (c->gm.layout)
 	{
@@ -1263,7 +1263,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 	}
 	mu.CheckMenuItem(style_id, MF_BYCOMMAND|MF_CHECKED);
 
-	// É¾³ı¶àÓàµÄ·Ö¸ôÏß
+	// åˆ é™¤å¤šä½™çš„åˆ†éš”çº¿
 	for (int i = mu.GetMenuItemCount() - 1; i > 0; i--)
 	{
 		if (mu.GetMenuStringLen(i,   MF_BYPOSITION) == 0 &&
@@ -1273,7 +1273,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 		}
 	}
 
-	KillTimer(IDT_AUTO_FOLD); // ²Ëµ¥ÏûÊ§Ç°²»ÄÜÈÃ´°¿Ú×Ô¶¯Òş²Ø
+	KillTimer(IDT_AUTO_FOLD); // èœå•æ¶ˆå¤±å‰ä¸èƒ½è®©çª—å£è‡ªåŠ¨éšè—
 	mu.TrackPopupMenu(TPM_RIGHTBUTTON, pt.x, pt.y, m_hWnd);
 	change_op_state(os_hover);
 	return TRUE;
@@ -1464,8 +1464,8 @@ LRESULT CRunDlg::OnEditGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*
 
 LRESULT CRunDlg::OnDelGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	const wchar_t * info = L"È·ÊµÒªÉ¾³ı×é¼°×éÄÚµÄËùÓĞ³ÌĞòÂğ£¿";
-	if (MessageBox(info, L"È·ÈÏ", MB_OKCANCEL) == IDOK)
+	const wchar_t * info = L"ç¡®å®è¦åˆ é™¤ç»„åŠç»„å†…çš„æ‰€æœ‰ç¨‹åºå—ï¼Ÿ";
+	if (MessageBox(info, L"ç¡®è®¤", MB_OKCANCEL) == IDOK)
 	{
 		prog_pos pp = m_lyt->get_insert_pos(m_menu_point);
 		g_c->group_mgr.delete_cs(pp.g);

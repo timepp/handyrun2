@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <string>
 #include <stack>
-// ±éÀúÄ¿Â¼¼°Æä×ÓÄ¿Â¼
+// éå†ç›®å½•åŠå…¶å­ç›®å½•
 
 class path_lister
 {
@@ -22,6 +22,6 @@ private:
 	int m_max_depth;
 	std::wstring m_base_path;
 
-	// ÄÜ·ñ½øĞĞ¸üÉîËÑË÷
+	// èƒ½å¦è¿›è¡Œæ›´æ·±æœç´¢
 	bool can_do_deeper_search() const;
 };

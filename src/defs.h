@@ -13,15 +13,15 @@ typedef std::vector<void *> vvptr;
 typedef std::list<std::wstring> string_list_t;
 typedef std::list<COLORREF> color_list_t;
 
-// hotkey½á¹¹ÃèÊöÒ»¸öÈÈ¼ü(°üÀ¨ÆÕÍ¨ÈÈ¼üºÍË«»÷ÈÈ¼ü)
+// hotkeyç»“æ„æè¿°ä¸€ä¸ªçƒ­é”®(åŒ…æ‹¬æ™®é€šçƒ­é”®å’ŒåŒå‡»çƒ­é”®)
 struct hotkey
 {
-	UINT fk;        // ¹¦ÄÜ¼ü(control,alt,shift,winµÄ×éºÏ)
-	                // Èç¹ûfkÎª0,ÃèÊöÒ»¸ö"Ë«»÷<vk>"µÄÈÈ¼ü
-	UINT vk;        // ¼üÅÌ°´¼ü´úÂë
+	UINT fk;        // åŠŸèƒ½é”®(control,alt,shift,winçš„ç»„åˆ)
+	                // å¦‚æœfkä¸º0,æè¿°ä¸€ä¸ª"åŒå‡»<vk>"çš„çƒ­é”®
+	UINT vk;        // é”®ç›˜æŒ‰é”®ä»£ç 
 };
 
-// ¶îÍâµÄ»·¾³±äÁ¿(ÓÉÅäÖÃÎÄ¼şÌá¹©)
+// é¢å¤–çš„ç¯å¢ƒå˜é‡(ç”±é…ç½®æ–‡ä»¶æä¾›)
 struct env_var
 {
 	std::wstring key;
@@ -37,9 +37,9 @@ struct background
 		sd_rdiag = 1002
 	};
 
-	bk_mode mode;                     // ±³¾°Ä£Ê½(Í¼Æ¬»òÕßÌî³ä)
-	color_list_t color_list;          // (ÓÃÓÚÌî³äµÄ)ÑÕÉ«ÁĞ±í
-	int fill_direction;               // Ìî³ä½Ç¶È£¬´Ó0µ½360
+	bk_mode mode;                     // èƒŒæ™¯æ¨¡å¼(å›¾ç‰‡æˆ–è€…å¡«å……)
+	color_list_t color_list;          // (ç”¨äºå¡«å……çš„)é¢œè‰²åˆ—è¡¨
+	int fill_direction;               // å¡«å……è§’åº¦ï¼Œä»0åˆ°360
 	std::wstring back_img;
 	std::wstring mask_img;
 

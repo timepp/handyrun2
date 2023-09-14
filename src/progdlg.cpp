@@ -102,12 +102,12 @@ LRESULT CProgDlg::OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndC
 	m_pi.show_cmd = (int)m_cb.GetItemData(m_cb.GetCurSel());
 	m_pi.icon.index = m_icon_index;
 
-	// Èç¹ûÍ¼±êÎÄ¼þºÍ³ÌÐòÊÇÒ»ÑùµÄ,ÔòÖÃÎª¿Õ
+	// å¦‚æžœå›¾æ ‡æ–‡ä»¶å’Œç¨‹åºæ˜¯ä¸€æ ·çš„,åˆ™ç½®ä¸ºç©º
 	if (hlp::abs_path(m_pi.path.c_str()) == hlp::abs_path(m_pi.icon.file.c_str()))
 	{
 		m_pi.icon.file = hc::empty_str;
 	}
-	// Èç¹û¹¤×÷Ä¿Â¼¾ÍÊÇ³ÌÐòËùÔÚÄ¿Â¼,ÔòÖÃÎª¿Õ
+	// å¦‚æžœå·¥ä½œç›®å½•å°±æ˜¯ç¨‹åºæ‰€åœ¨ç›®å½•,åˆ™ç½®ä¸ºç©º
 	if (!m_pi.work_dir.empty())
 	{
 		std::wstring abspath = hlp::abs_path(m_pi.path.c_str());
@@ -151,11 +151,11 @@ LRESULT CProgDlg::OnInitDialog(UINT , WPARAM , LPARAM , BOOL& )
 		const wchar_t * desc;
 	} show_desc[] =
 	{
-		SW_SHOW,              L"Õý³£ÏÔÊ¾",
-		SW_SHOWMINNOACTIVE,   L"×îÐ¡»¯",
-		SW_SHOWMAXIMIZED,     L"×î´ó»¯",
-		SW_SHOWNOACTIVATE,    L"ºóÌ¨´°¿Ú",
-		SW_HIDE,              L"Òþ²Ø",
+		SW_SHOW,              L"æ­£å¸¸æ˜¾ç¤º",
+		SW_SHOWMINNOACTIVE,   L"æœ€å°åŒ–",
+		SW_SHOWMAXIMIZED,     L"æœ€å¤§åŒ–",
+		SW_SHOWNOACTIVATE,    L"åŽå°çª—å£",
+		SW_HIDE,              L"éšè—",
 	};
 	int select = 0;
 	for (size_t i = 0; i < elem_of(show_desc); i++)

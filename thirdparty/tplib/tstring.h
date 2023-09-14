@@ -1,8 +1,8 @@
 #ifndef TP_TSTRING_H_INCLUDED
 #define TP_TSTRING_H_INCLUDED
 
-/** tstring °çÑÝÁËÒ»¸ö¡°ÍòÓÃ¡±×Ö·û´®µÄ½ÇÉ«£¬¿ÉÒÔÒÔANSI»òUNICODE¹¹Ôì£¬È»ºóÒÔANSI»òUNICODEÈ¡
- *          µ±¹¹ÔìµÄ×Ö·û¼¯ºÍÈ¡µÄ×Ö·û¼¯²»Í¬Ê±£¬»á×Ô¶¯½øÐÐ×ª»»
+/** tstring æ‰®æ¼”äº†ä¸€ä¸ªâ€œä¸‡ç”¨â€å­—ç¬¦ä¸²çš„è§’è‰²ï¼Œå¯ä»¥ä»¥ANSIæˆ–UNICODEæž„é€ ï¼Œç„¶åŽä»¥ANSIæˆ–UNICODEå–
+ *          å½“æž„é€ çš„å­—ç¬¦é›†å’Œå–çš„å­—ç¬¦é›†ä¸åŒæ—¶ï¼Œä¼šè‡ªåŠ¨è¿›è¡Œè½¬æ¢
  */
 
 #include <string>

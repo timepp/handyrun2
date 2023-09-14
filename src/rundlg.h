@@ -64,11 +64,12 @@ private:
 	};
 	class drop_target_state : public op_state
 	{
-		// 有点特殊, 因为需要按windows定义的接口来实现
+		// 鏈夌偣鐗规畩, 鍥犱负闇�瑕佹寜windows瀹氫箟鐨勬帴鍙ｆ潵瀹炵幇
 	public:
 		virtual void init();
 		virtual void cleanup();
 		virtual void handle_mouse(UINT msg, WPARAM wp, POINT pt);
+		virtual ~drop_target_state() {}
 		
 		DWORD drag_enter(IDataObject * data, POINT pt);
 		DWORD drag_over(POINT pt);
@@ -136,10 +137,10 @@ private:
 	drop_target_state m_os_drop_target;
 	prog_pos m_curr_prog_pos;
 	bool m_last_cmd_forced;
-	prog * m_prog_waiting_param;        // 正等待足够参数运行的prog
+	prog * m_prog_waiting_param;        // 姝ｇ瓑寰呰冻澶熷弬鏁拌繍琛岀殑prog
 	HBITMAP m_background;
 	CComPtr<IShellDispatch2> m_pSD;
-private: // 消息映射
+private: // 娑堟伅鏄犲皠
 
 	BEGIN_MSG_MAP(CRunDlg)
 COMMAND_ID_HANDLER(ID_INSERT_GROUP, OnInsertGroup)

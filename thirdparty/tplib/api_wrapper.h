@@ -7,7 +7,7 @@
 #include <time.h>
 #include <stdarg.h>
 
-/** ��ͬ���ĺ�������װ����ϵͳ��C++���ṩ���ַ�����غ�����ansi��unicode�汾���Ӷ�����Ӧ�õ�ģ����
+/** 以同样的函数名封装操作系统或C++库提供的字符串相关函数的ansi和unicode版本，从而可以应用到模板中
  */
 
 namespace tp

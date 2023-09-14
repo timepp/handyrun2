@@ -18,7 +18,7 @@
 
 CAppModule _Module;
 
-//  ’µΩ»»º¸∫Û£¨HandyRun≈–∂œ«∞Ã®¥∞ø⁄ «∑Ò Ù”⁄◊‘º∫µƒΩ¯≥Ã°£»Áπ˚≤ª «£¨‘Úœ‘ æ‘À––¥∞ø⁄£ª∑Ò‘Ú“˛≤ÿ‘À––¥∞ø⁄°£
+// Êî∂Âà∞ÁÉ≠ÈîÆÂêéÔºåHandyRunÂà§Êñ≠ÂâçÂè∞Á™óÂè£ÊòØÂê¶Â±û‰∫éËá™Â∑±ÁöÑËøõÁ®ã„ÄÇÂ¶ÇÊûú‰∏çÊòØÔºåÂàôÊòæÁ§∫ËøêË°åÁ™óÂè£ÔºõÂê¶ÂàôÈöêËóèËøêË°åÁ™óÂè£„ÄÇ
 void toggle_show_cmd()
 {
 	HWND hwnd = GetForegroundWindow();
@@ -89,7 +89,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPWSTR lps
 	log_msg(L"setting locale...");
 	setlocale(LC_CTYPE, "");
 
-	// TODO: ‘⁄√ª”–≈‰÷√Œƒº˛ ±Ã· æ”√ªßµ⁄“ª¥Œ‘À––
+	// TODO: Âú®Ê≤°ÊúâÈÖçÁΩÆÊñá‰ª∂Êó∂ÊèêÁ§∫Áî®Êà∑Á¨¨‰∏ÄÊ¨°ËøêË°å
 
 	cfg::config *c = cfg::config::instance();
 	if (c->go.single_instance)
@@ -131,11 +131,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPWSTR lps
 	}
 	catch (handyrun_err &he)
 	{
-		hlp::show_err(he.what(), L"≥Ã–Ú÷’÷π");
+		hlp::show_err(he.what(), L"Á®ãÂ∫èÁªàÊ≠¢");
 	}
 	catch (const wchar_t * err)
 	{
-		hlp::show_err(err, L"≥Ã–Ú÷’÷π");
+		hlp::show_err(err, L"Á®ãÂ∫èÁªàÊ≠¢");
 	}
 	catch (...)
 	{

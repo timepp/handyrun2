@@ -7,8 +7,8 @@
 
 
 /** Edge Dialog
- *  ÏÔÊ¾ÔÚÆÁÄ»±ßÔµµÄ¸ĞÓ¦ÇøÓò£¬Êó±êÒÆµ½egde dialog
- *  ÉÏÊ±£¬ÔËĞĞ´°¿Ú±»¼¤»î
+ *  æ˜¾ç¤ºåœ¨å±å¹•è¾¹ç¼˜çš„æ„Ÿåº”åŒºåŸŸï¼Œé¼ æ ‡ç§»åˆ°egde dialog
+ *  ä¸Šæ—¶ï¼Œè¿è¡Œçª—å£è¢«æ¿€æ´»
  */
 
 class CEdgeDlg : public CDialogImpl<CEdgeDlg>, public CCustomBkDlgImpl<CEdgeDlg>
@@ -17,7 +17,7 @@ public:
 	enum {IDD = IDD_EDGEDLG};
 	CEdgeDlg();
 
-	// ÉèÖÃÔËĞĞ¶Ô»°¿ò¾ä±ú
+	// è®¾ç½®è¿è¡Œå¯¹è¯æ¡†å¥æŸ„
 	void SetRunDlg(HWND hwndRunDlg);
 
 private:

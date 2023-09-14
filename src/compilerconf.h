@@ -1,18 +1,19 @@
 #pragma once
 
-// ÎÞ¾¯¸æÇø£¬ÓÃÓÚ°üÈÝÎÈ¶¨µÄµÚÈý·½¿âÍ·ÎÄ¼þ£¬Èçboost/ATL/WTL/STL/CxImage£¬²»¿É×ÔÓÃ
+// æ— è­¦å‘ŠåŒºï¼Œç”¨äºŽåŒ…å®¹ç¨³å®šçš„ç¬¬ä¸‰æ–¹åº“å¤´æ–‡ä»¶ï¼Œå¦‚boost/ATL/WTL/STL/CxImageï¼Œä¸å¯è‡ªç”¨
 #define MSVC_NO_WARNING_AREA_BEGIN                      \
 	__pragma(warning(push, 1))                        \
 	__pragma(warning(disable: 4018 4100 4127 4191 4201 4204 4242 4244 4245 4290 4365))        \
-	__pragma(warning(disable: 4505 4548 4555 4701 4702 4706 4819 4917 4920 4995 4996))        \
-	__pragma(warning(disable: 6011 6031 6053 6202 6211 6246 6248 6255 6269 6282 6308 6323 6328 6334 6385 6386 6387 6400 6401))
+	__pragma(warning(disable: 4505 4548 4555 4701 4702 4706 4819 4838 4917 4920 4995 4996))        \
+	__pragma(warning(disable: 6001 6011 6031 6053 6202 6211 6246 6248 6255 6269 6282 6308 6323 6328 6334 6385 6386 6387 6400 6401)) \
+    __pragma(warning(disable: 26454 28159))
 
 #define MSVC_NO_WARNING_AREA_END                        \
 	__pragma(warning(pop))
 
-// Ìø³ö¾¯¸æ¶ÑÕ»µÄºê£¬ÔÚstdafx.hÖÐÓÃ¡£
-// Ä³Ð©Í·ÎÄ¼þ(Èçboost/regex_token_iterator.hpp)¿ÉÄÜ¶Ô¾¯¸æ¶ÑÕ»µÄÊ¹ÓÃºÜ²»Ð¡ÐÄ£¬
-// push¶àpopÉÙ£¬°ÑÎÒÃÇËøÔÚÒ»¸ö¾¯¸æ½ÏÉÙµÄÕ»Ö¡ÖÐ£¬Õâ¸öºê¾ÍÊÇÎªÁËÌø³öÀ´
+// è·³å‡ºè­¦å‘Šå †æ ˆçš„å®ï¼Œåœ¨stdafx.hä¸­ç”¨ã€‚
+// æŸäº›å¤´æ–‡ä»¶(å¦‚boost/regex_token_iterator.hpp)å¯èƒ½å¯¹è­¦å‘Šå †æ ˆçš„ä½¿ç”¨å¾ˆä¸å°å¿ƒï¼Œ
+// pushå¤špopå°‘ï¼ŒæŠŠæˆ‘ä»¬é”åœ¨ä¸€ä¸ªè­¦å‘Šè¾ƒå°‘çš„æ ˆå¸§ä¸­ï¼Œè¿™ä¸ªå®å°±æ˜¯ä¸ºäº†è·³å‡ºæ¥
 #define MSVC_CLEAR_WARNING_STACK         \
 	__pragma(warning(disable: 4193)) __pragma(warning(pop))      \
 	__pragma(warning(disable: 4193)) __pragma(warning(pop))      \
@@ -27,13 +28,13 @@
 	__pragma(warning(default: 4193))
 
 
-// ÔÚboost1.34ÖÐ£¬°üº¬boost/regex.hpp»áÔì³Épragma warningµÄÕ»²»Æ½£¬¶àÁËÁ½´ÎPUSH£¡
-// ËùÒÔÔÚcppÖÐÈç¹û°üº¬boost/regex.hpp£¬ÇëÔÚ°üº¬Ö®ºóÐ´ÉÏÕâ¸öºê£¬ÒÔÃâºÜ¶àwarning±»boost¸ø³Ôµô£¡
+// åœ¨boost1.34ä¸­ï¼ŒåŒ…å«boost/regex.hppä¼šé€ æˆpragma warningçš„æ ˆä¸å¹³ï¼Œå¤šäº†ä¸¤æ¬¡PUSHï¼
+// æ‰€ä»¥åœ¨cppä¸­å¦‚æžœåŒ…å«boost/regex.hppï¼Œè¯·åœ¨åŒ…å«ä¹‹åŽå†™ä¸Šè¿™ä¸ªå®ï¼Œä»¥å…å¾ˆå¤šwarningè¢«boostç»™åƒæŽ‰ï¼
 #define MSVC_WARNING_WORKAROUND__BOOST_1_34_REGEX __pragma(warning(pop)) __pragma(warning(pop))
 
-// ´ò¿ªËùÓÐVCÈ±Ê¡¹Ø±ÕµÄ¾¯¸æ
-// ¹¤³ÌÖÐ×îºÃÔÚ¹¤³ÌÑ¡ÏîÖÐÖ¸¶¨±àÒë²ÎÊý/Wall£¬ÒÔÃâÒÅÂ©Ä³Ð©¾¯¸æ
-// ¹Ø±Õ²»¹ØÐÄµÄ¾¯¸æ
+// æ‰“å¼€æ‰€æœ‰VCç¼ºçœå…³é—­çš„è­¦å‘Š
+// å·¥ç¨‹ä¸­æœ€å¥½åœ¨å·¥ç¨‹é€‰é¡¹ä¸­æŒ‡å®šç¼–è¯‘å‚æ•°/Wallï¼Œä»¥å…é—æ¼æŸäº›è­¦å‘Š
+// å…³é—­ä¸å…³å¿ƒçš„è­¦å‘Š
 #define MSVC_TUNE_WARNINGS \
 __pragma(warning(default: 4061 4062 4191 4242 4254 4263 4264 4265 4266 4287 4296)) \
 __pragma(warning(default: 4302 4365 4514 4545 4546 4547 4548 4549 4555 4571)) \
@@ -43,22 +44,22 @@ __pragma(warning(default: 4905 4906 4917 4928 4946)) \
 __pragma(warning(disable: 4061 4127 4503 4514 4571 4623 4625 4626 4710 4820)) \
 __pragma(warning(disable: 4505 4512))
 
-// 4061) ÔÚswitchÒ»¸öenumÊ±Ã»ÓÐÔÚcaseÖÐÏÔÊ½Ö¸¶¨ËùÓÐµÄenumÖÐ¶¨ÒåµÄÊýÖµ
-// 4127) Ìõ¼þ±í´ïÊ½ÊÇÒ»¸ö³£Êý(ÔÚATL_ENSURE,ATL_ENSURE_RETUEN_VALÖÐÓÃµ½)
-// 4355) thisÖ¸ÕëÓÃÔÚ³õÊ¼»¯ÁÐ±íÀï£¬ÏîÄ¿ÀïÓÃµÃ·Ç³£¶à
-// 4503) Ä£°åÕ¹¿ªºóµÄ±êÊ¶·û¹ý³¤
-// 4514) Ã»ÓÐÓÃµ½µÄÄÚÁªº¯Êý±»ÓÅ»¯µô
-// 4623 4625 4626) ÒòÎª¸¸Àà¹¹Ôìº¯Êý/¿½±´¹¹Ôìº¯Êý/¸³Öµ²Ù×÷·û²»¿É¼û,ËùÒÔÎÞ·¨Îª×ÓÀàÉú³ÉÄ¬ÈÏµÄ
-// 4820) ÔÚÀà(½á¹¹)µÄÏàÁÚ³ÉÔ±¼ä²åÈëÁËpadding
-// 4505) Î´±»ÒýÓÃµ½µÄº¯Êý±»ÓÅ»¯µô
-// 4512) È±Ê¡µÄ¸³Öµ²Ù×÷·û²»ÄÜ±»Éú³É
+// 4061) åœ¨switchä¸€ä¸ªenumæ—¶æ²¡æœ‰åœ¨caseä¸­æ˜¾å¼æŒ‡å®šæ‰€æœ‰çš„enumä¸­å®šä¹‰çš„æ•°å€¼
+// 4127) æ¡ä»¶è¡¨è¾¾å¼æ˜¯ä¸€ä¸ªå¸¸æ•°(åœ¨ATL_ENSURE,ATL_ENSURE_RETUEN_VALä¸­ç”¨åˆ°)
+// 4355) thisæŒ‡é’ˆç”¨åœ¨åˆå§‹åŒ–åˆ—è¡¨é‡Œï¼Œé¡¹ç›®é‡Œç”¨å¾—éžå¸¸å¤š
+// 4503) æ¨¡æ¿å±•å¼€åŽçš„æ ‡è¯†ç¬¦è¿‡é•¿
+// 4514) æ²¡æœ‰ç”¨åˆ°çš„å†…è”å‡½æ•°è¢«ä¼˜åŒ–æŽ‰
+// 4623 4625 4626) å› ä¸ºçˆ¶ç±»æž„é€ å‡½æ•°/æ‹·è´æž„é€ å‡½æ•°/èµ‹å€¼æ“ä½œç¬¦ä¸å¯è§,æ‰€ä»¥æ— æ³•ä¸ºå­ç±»ç”Ÿæˆé»˜è®¤çš„
+// 4820) åœ¨ç±»(ç»“æž„)çš„ç›¸é‚»æˆå‘˜é—´æ’å…¥äº†padding
+// 4505) æœªè¢«å¼•ç”¨åˆ°çš„å‡½æ•°è¢«ä¼˜åŒ–æŽ‰
+// 4512) ç¼ºçœçš„èµ‹å€¼æ“ä½œç¬¦ä¸èƒ½è¢«ç”Ÿæˆ
 
 
 #define MSVC_CONFIGURE_WARNINGS \
 	MSVC_CLEAR_WARNING_STACK \
 	MSVC_TUNE_WARNINGS
 
-// »ù´¡ÉèÊ©
+// åŸºç¡€è®¾æ–½
 
 #ifndef WIDESTRING
 #define WIDESTRING2(str) L##str

@@ -82,9 +82,9 @@ namespace tp
 			return (UINT64)dwSizeHIGH << 32 | dwSizeLOW;
 		}
 
-		/** VISTA/WIN7ÅÐ¶Ïµ±Ç°½ø³ÌÊÇ·ñÒÔÌáÉýÈ¨ÏÞÄ£Ê½ÔËÐÐ
+		/** VISTA/WIN7åˆ¤æ–­å½“å‰è¿›ç¨‹æ˜¯å¦ä»¥æå‡æƒé™æ¨¡å¼è¿è¡Œ
 		 *  
-		 *  \ret TRUE ½ø³ÌÊÇÌáÉýÈ¨ÏÞÔËÐÐ£¬»òÕßUACÒÑ¹Ø±Õ
+		 *  \ret TRUE è¿›ç¨‹æ˜¯æå‡æƒé™è¿è¡Œï¼Œæˆ–è€…UACå·²å…³é—­
 		 */
 		static bool is_elevated()
 		{

@@ -10,8 +10,8 @@ namespace lyt
 {
 	struct prog_pos
 	{
-		int g;                               // ×éÎ»ÖÃ
-		int p;                               // ³ÌĞòÎ»ÖÃ
+		int g;                               // ç»„ä½ç½®
+		int p;                               // ç¨‹åºä½ç½®
 		bool operator < (const prog_pos& pp) const;
 		bool operator == (const prog_pos& pp) const;
 		bool operator != (const prog_pos& pp) const;
@@ -22,32 +22,32 @@ namespace lyt
 	enum prog_status { normal, active, pressed, highlight };
 	enum move_type {mt_left, mt_right, mt_up, mt_down, mt_home, mt_end, mt_head, mt_tail, mt_none};
 
-// ³ÌĞòÏÔÊ¾µÄ³éÏó½Ó¿Ú
+// ç¨‹åºæ˜¾ç¤ºçš„æŠ½è±¡æ¥å£
 class layout
 {
 public:
 	virtual ~layout(){}
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	virtual bool init(HWND target_wnd);
 
-	// µÃµ½´°¿Ú¿Í»§Çø´óĞ¡
+	// å¾—åˆ°çª—å£å®¢æˆ·åŒºå¤§å°
 	virtual SIZE get_window_size() const = 0;
-	// ¸ù¾İÊó±ê×ø±ê»ñÈ¡³ÌĞò£¬Ê§°Ü·µ»Øpp_null
+	// æ ¹æ®é¼ æ ‡åæ ‡è·å–ç¨‹åºï¼Œå¤±è´¥è¿”å›pp_null
 	virtual prog_pos get_prog_from_point(POINT pt) const;
-	// µÃµ½²åÈëµã£¬Ê§°Ü·µ»Øpp_null
+	// å¾—åˆ°æ’å…¥ç‚¹ï¼Œå¤±è´¥è¿”å›pp_null
 	virtual prog_pos get_insert_pos(POINT pt) const;
-	// È¡µÃÖ¸¶¨³ÌĞòµÄÍ¼±ê
+	// å–å¾—æŒ‡å®šç¨‹åºçš„å›¾æ ‡
 	virtual HICON get_icon(prog_pos pp) const;
-	// È¡µÃprogµÄRECT
+	// å–å¾—progçš„RECT
 	virtual RECT get_prog_rect(prog_pos pp) const;
 
-	// ÓÃÖ¸¶¨µÄÑùÊ½»­³ÌĞò
+	// ç”¨æŒ‡å®šçš„æ ·å¼ç”»ç¨‹åº
 	virtual bool draw_prog(HDC hdc, prog_pos pp, prog_status ps) const;
-	// »­ËùÓĞ³ÌĞò
+	// ç”»æ‰€æœ‰ç¨‹åº
 	virtual bool draw_all_prog(HDC hdc) const;
-	// »­²åÈëµã
+	// ç”»æ’å…¥ç‚¹
 	virtual void draw_insert_mark(HDC hdc, prog_pos pp, bool draw) const;
-	// TODO£º µÃµ½ÎïÀíÉÏÏàÁÚµÄ³ÌĞò
+	// TODOï¼š å¾—åˆ°ç‰©ç†ä¸Šç›¸é‚»çš„ç¨‹åº
 	virtual void move_prog_pos(prog_pos *pp, move_type mt) const;
 
 protected:
@@ -60,7 +60,7 @@ public:
 	virtual SIZE get_window_size() const;
 };
 
-// icon_layout: ÓÃiconÀ´±íÊ¾³ÌĞò
+// icon_layout: ç”¨iconæ¥è¡¨ç¤ºç¨‹åº
 class icon_layout : public layout
 {
 public:
@@ -83,7 +83,7 @@ private:
 	pdmap_t m_pdmap;
 };
 
-// Í¼±ê´óĞ¡Ò»ÖÂ£¬ÇÒÅÅÁĞÕûÆë
+// å›¾æ ‡å¤§å°ä¸€è‡´ï¼Œä¸”æ’åˆ—æ•´é½
 class aligned_icon_layout : public icon_layout
 {
 public:
@@ -98,13 +98,13 @@ protected:
 	typedef std::pair<int, int> rowcol;
 	typedef std::map<rowcol, prog_pos> rc2pp_map_t;
 	typedef std::map<prog_pos, rowcol> pp2rc_map_t;
-	rc2pp_map_t m_rc2pp;  // Í¨¹ırow, colÕÒprog pos
-	rc2pp_map_t m_rc2ip;  // Í¨¹ırow, colÕÒinsert pos
-	pp2rc_map_t m_pp2rc;  // Í¨¹ıprog posÕÒrow, col
+	rc2pp_map_t m_rc2pp;  // é€šè¿‡row, colæ‰¾prog pos
+	rc2pp_map_t m_rc2ip;  // é€šè¿‡row, colæ‰¾insert pos
+	pp2rc_map_t m_pp2rc;  // é€šè¿‡prog posæ‰¾row, col
 private:
-	// ·µ»Ø×î´óµÄĞĞ¡¢ÁĞÖµ
+	// è¿”å›æœ€å¤§çš„è¡Œã€åˆ—å€¼
 	virtual void get_max_row_col(int * row, int *col) const = 0;
-	// ³õÊ¼»¯ËùÓĞµÄmap
+	// åˆå§‹åŒ–æ‰€æœ‰çš„map
 	virtual bool init_maps() = 0;
 };
 

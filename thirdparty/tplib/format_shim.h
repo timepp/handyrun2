@@ -8,7 +8,7 @@
 namespace tp
 {
 
-// cfmt ÒÔprintfÓï·¨¸ñÊ½»¯×Ö·û´®
+// cfmt ä»¥printfè¯­æ³•æ ¼å¼åŒ–å­—ç¬¦ä¸²
 template <typename T, size_t buf_size = 1024>
 class cfmt : public format_shim<T, buf_size>
 {
@@ -23,7 +23,7 @@ public:
 	}
 };
 
-// hex_dumper °ÑÄÚ´æÄÚÈİdump³É¿É¶Á°æ±¾
+// hex_dumper æŠŠå†…å­˜å†…å®¹dumpæˆå¯è¯»ç‰ˆæœ¬
 template <typename T, size_t buf_size = 1024>
 class hex_dumper : public format_shim<T, buf_size>
 {
@@ -80,7 +80,7 @@ private:
 	}
 };
 
-/** err_desc»ñÈ¡ÏµÍ³´íÎóÃèÊö 
+/** err_descè·å–ç³»ç»Ÿé”™è¯¯æè¿° 
  */
 template <typename T, size_t buf_size = 1024>
 class ed_win : public tp::format_shim<T, buf_size>
@@ -148,7 +148,7 @@ public:
 private:
 	void build_desc(int err_code)
 	{
-		// ÎŞ·¨ÕıÃæµÃµ½¸ñÊ½»¯´íÎóËùĞèµÄ»º³åÇø´óĞ¡£¬ÕâÀïÆÚÍû²»´óÓÚ128
+		// æ— æ³•æ­£é¢å¾—åˆ°æ ¼å¼åŒ–é”™è¯¯æ‰€éœ€çš„ç¼“å†²åŒºå¤§å°ï¼Œè¿™é‡ŒæœŸæœ›ä¸å¤§äº128
 		resize(128);
 		tp::aw::strerror_s(m_buf, m_buf_size, err_code);
 	}

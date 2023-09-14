@@ -14,7 +14,7 @@ void CEdgeDlg::SetRunDlg(HWND hwndRunDlg)
 ///////////////////////////////////////////////////////////
 LRESULT CEdgeDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled)
 {
-	// ÉèÖÃ´óĞ¡ºÍÎ»ÖÃ
+	// è®¾ç½®å¤§å°å’Œä½ç½®
 
 	return 0;
 }

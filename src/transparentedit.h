@@ -21,8 +21,8 @@ private:
 	{
 		handled = FALSE;
 
-		// TODO: ���ڷ�ģ̬�Ի����еı༭���ﰴESC��س�ʱ,������������֪��
-		// �ֹ�����һ���ǲ�������ȷ�Ľ���취
+		// TODO: 当在非模态对话框中的编辑框里按ESC或回车时,会有响声。不知道
+		// 手工处理一下是不是最正确的解决办法
 		if (wp == VK_ESCAPE || wp == VK_RETURN)
 		{
 			handled = TRUE;

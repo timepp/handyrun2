@@ -5,8 +5,8 @@
 #include "codesuggestpane.h"
 #include <string>
 
-/* 用来显示(命令)提示的对话框
-   特征：永远没有自已的焦点
+/* 鐢ㄦ潵鏄剧ず(鍛戒护)鎻愮ず鐨勫璇濇
+   鐗瑰緛锛氭案杩滄病鏈夎嚜宸茬殑鐒︾偣
 */
 class CTipDlg : public CDialogImpl<CTipDlg>, public CMessageFilter
 {

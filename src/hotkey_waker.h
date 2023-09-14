@@ -7,11 +7,11 @@ class hotkey_waker : public CMessageFilter
 	typedef void (*wake_cmd_ptr_t)();
 public:
 	static hotkey_waker * instance();
-	// ×¢²áÈÈ¼ü, wake_cmdÎª¼¤»îº¯Êı. Îª¿ÕÊ±±£³ÖÔ­À´µÄ¼¤»îº¯Êı
+	// æ³¨å†Œçƒ­é”®, wake_cmdä¸ºæ¿€æ´»å‡½æ•°. ä¸ºç©ºæ—¶ä¿æŒåŸæ¥çš„æ¿€æ´»å‡½æ•°
 	bool register_hotkey(const wchar_t * hotkey, wake_cmd_ptr_t wc = NULL);
 
 	hotkey_waker();
-	~hotkey_waker();
+	virtual ~hotkey_waker();
 
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 

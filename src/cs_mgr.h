@@ -8,25 +8,25 @@ public:
 	cs_mgr();
 	~cs_mgr();
 
-	// ÃüÁî¼¯
+	// å‘½ä»¤é›†
 	bool insert_cs(info * cs_info, int g = -1);
 	bool delete_cs(int g);
-	// ÃüÁî
+	// å‘½ä»¤
 	bool insert_cmd(command * c, int g, int p = -1);
 	bool delete_cmd(int g, int p);
 
 	void clear();
 
-	// ¼ÆÊı
+	// è®¡æ•°
 	int cs_count() const;
 	int cmd_count() const;
 	int cmd_count(int g) const;
 
-	// ²âÊÔ³ÌĞòÊÇ·ñ´æÔÚ
+	// æµ‹è¯•ç¨‹åºæ˜¯å¦å­˜åœ¨
 	bool cmd_exist(int g, int p) const;
-	// È¡Ö¸¶¨³ÌĞò
+	// å–æŒ‡å®šç¨‹åº
 	command * get_cmd(int g, int p) const;
-	// È¡Ö¸¶¨×éĞÅÏ¢(×éÔÚÍâ½çÊÇ¿´²»µ½µÄ,Ö»ÄÜ¿´µ½×éĞÅÏ¢)
+	// å–æŒ‡å®šç»„ä¿¡æ¯(ç»„åœ¨å¤–ç•Œæ˜¯çœ‹ä¸åˆ°çš„,åªèƒ½çœ‹åˆ°ç»„ä¿¡æ¯)
 	info * get_cs_info(int g) const;
 
 private:

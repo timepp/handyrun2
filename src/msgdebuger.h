@@ -1,5 +1,5 @@
 #pragma once
-// ¸¨Öúµ÷ÊÔÓÃµÄÏûÏ¢¼ÇÂ¼Æ÷
+// è¾…åŠ©è°ƒè¯•ç”¨çš„æ¶ˆæ¯è®°å½•å™¨
 
 
 template <typename T>

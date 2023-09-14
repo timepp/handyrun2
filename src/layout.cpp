@@ -5,17 +5,17 @@
 
 using namespace lyt;
 
-// gap-sequence: ÓĞ¼ä¾àµÄĞòÁĞ
+// gap-sequence: æœ‰é—´è·çš„åºåˆ—
 // |unit_len| gap |
 // **********     **********     **********     **********
 // |----------------gslen--------------------------------|
-// ·µ»ØĞòÁĞµÄ×Ü³¤¶È
+// è¿”å›åºåˆ—çš„æ€»é•¿åº¦
 static int gs_len(int unit_len, int gap, int unit_count)
 {
 	if (unit_count <= 0) return 0;
 	return (unit_len + gap) * unit_count - gap;
 }
-// ·µ»Ø¸ø¶¨µÄµãÂäÔÚÄÄ¸öĞòÁĞµ¥ÔªÄÚ²¿
+// è¿”å›ç»™å®šçš„ç‚¹è½åœ¨å“ªä¸ªåºåˆ—å•å…ƒå†…éƒ¨
 static int gs_unit(int unit_len, int gap, int x)
 {
 	x += gap;
@@ -158,7 +158,7 @@ void icon_layout::draw_insert_mark(HDC hdc, prog_pos pp, bool draw) const
 	if (pp == pp_null) return;
 	cfg::config * c = cfg::config::instance();
 	int cmd_count = c->group_mgr.cmd_count(pp.g);
-	// TODO: µ±×éÄÚ³ÌĞòÎª¿ÕÊ±Ò²Òª»­!
+	// TODO: å½“ç»„å†…ç¨‹åºä¸ºç©ºæ—¶ä¹Ÿè¦ç”»!
 	if (cmd_count == 0) return;
 	
 	bool mark_left = true;
@@ -410,7 +410,7 @@ bool group_icon_layout::draw_all_prog(HDC hdc) const
 	return icon_layout::draw_all_prog(hdc);
 }
 
-// »­group¼äµÄ·Ö¸ôÏß
+// ç”»groupé—´çš„åˆ†éš”çº¿
 void group_icon_layout::draw_group_line(HDC hdc) const
 {
 	cfg::config * c = cfg::config::instance();

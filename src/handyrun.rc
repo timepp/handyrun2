@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Chinese (Simplified, PRC) resources
+// Chinese (Simplified, China) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
@@ -27,7 +27,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 IDD_RUNDLG DIALOGEX 0, 0, 189, 113
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CLIPCHILDREN
 EXSTYLE WS_EX_TOOLWINDOW | WS_EX_LAYERED
-FONT 10, "Verdana", 400, 0, 0x0
+FONT 10, "Segoe UI", 400, 0, 0x0
 BEGIN
     EDITTEXT        IDC_PROG_EDIT,7,92,175,14,ES_AUTOHSCROLL | NOT WS_VISIBLE,WS_EX_CLIENTEDGE
 END
@@ -35,7 +35,7 @@ END
 IDD_TIP DIALOGEX 0, 0, 283, 89
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_THICKFRAME
 EXSTYLE WS_EX_TOOLWINDOW
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 8, "Segoe UI", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | LVS_NOCOLUMNHEADER | WS_BORDER | WS_TABSTOP,0,0,283,89
 END
@@ -43,7 +43,7 @@ END
 IDD_PROG DIALOGEX 0, 0, 310, 201
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "编辑程序"
-FONT 8, "MS Shell Dlg", 400, 0, 0x86
+FONT 8, "Segoe UI", 400, 0, 0x86
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,197,90,50,14
     PUSHBUTTON      "取消",IDCANCEL,253,90,50,14
@@ -72,11 +72,11 @@ BEGIN
 END
 
 IDD_ABOUT DIALOGEX 0, 0, 258, 70
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "关于HandyRun"
-FONT 9, "MS Shell Dlg", 400, 0, 0x0
+FONT 9, "Segoe UI", 400, 0, 0x0
 BEGIN
-    ICON            IDI_APP,IDC_STATIC,17,19,20,20
+    ICON            IDI_APP,IDC_STATIC,17,19,13,10
     LTEXT           "HandyRun: 快速运行程序",IDC_STATIC,54,15,135,11
     LTEXT           "V2.54",IDC_STATIC,54,27,135,11
     LTEXT           "http://timepp.drivehq.com/pw/handyrun/HandyRun.htm",IDC_STATIC_URL,54,41,197,11
@@ -85,7 +85,7 @@ END
 IDD_IMPORT_PROG DIALOGEX 0, 0, 287, 66
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "导入程序"
-FONT 8, "MS Shell Dlg", 400, 0, 0x0
+FONT 8, "Segoe UI", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,170,45,50,14
     PUSHBUTTON      "取消",IDCANCEL,230,45,50,14
@@ -99,7 +99,7 @@ END
 IDD_INPUT DIALOGEX 0, 0, 234, 67
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "输入"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 8, "Segoe UI", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,119,46,50,14
     PUSHBUTTON      "取消",IDCANCEL,177,46,50,14
@@ -110,7 +110,7 @@ END
 IDD_GROUP DIALOGEX 0, 0, 202, 74
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "编辑组"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 8, "Segoe UI", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,89,53,50,14
     PUSHBUTTON      "取消",IDCANCEL,145,53,50,14
@@ -124,7 +124,7 @@ END
 IDD_ICON DIALOGEX 0, 0, 317, 181
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 CAPTION "选择图标"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 8, "Segoe UI", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,205,160,50,14
     PUSHBUTTON      "取消",IDCANCEL,260,160,50,14
@@ -134,7 +134,7 @@ END
 IDD_EDGEDLG DIALOGEX 0, 0, 316, 185
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 EXSTYLE WS_EX_PALETTEWINDOW
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
+FONT 8, "Segoe UI", 400, 0, 0x1
 BEGIN
 END
 
@@ -254,13 +254,16 @@ END
 // remains consistent on all systems.
 IDI_APP                 ICON                    "res\\running.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
 IDB_UD                  BITMAP                  "res\\ud.bmp"
+
 IDB_QUICK_LAUNCH        BITMAP                  "res\\quick_launch.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -350,7 +353,73 @@ BEGIN
     0
 END
 
-#endif    // Chinese (Simplified, PRC) resources
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUT AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // Chinese (Simplified, China) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG3 DIALOGEX 0, 0, 310, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "Segoe UI", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "???",IDOK,199,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,253,155,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 303
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG3 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

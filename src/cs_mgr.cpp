@@ -15,10 +15,10 @@ void cs_mgr::clear()
 	while (delete_cs(0)) {}
 }
 
-// ÔÚÏÂÃæµÄ²Ù×÷ÖĞµ÷ÕûÊı×éË÷ÒıµÄÎ»ÖÃ,¾ßÌå¹æÔòÈçÏÂ:
-// 1. *pÔÚ[0,  N)·¶Î§Ö®ÄÚ, *p²»±ä
-// 2. *pÔÚ[-N, 0)·¶Î§Ö®ÄÚ, »ØÈÆ*p(¼´-1±ä³ÉN-1, -2±ä³ÉN-2, ...)
-// 3. ÆäËüÇé¿ö, º¯ÊıÊ§°Ü
+// åœ¨ä¸‹é¢çš„æ“ä½œä¸­è°ƒæ•´æ•°ç»„ç´¢å¼•çš„ä½ç½®,å…·ä½“è§„åˆ™å¦‚ä¸‹:
+// 1. *påœ¨[0,  N)èŒƒå›´ä¹‹å†…, *pä¸å˜
+// 2. *påœ¨[-N, 0)èŒƒå›´ä¹‹å†…, å›ç»•*p(å³-1å˜æˆN-1, -2å˜æˆN-2, ...)
+// 3. å…¶å®ƒæƒ…å†µ, å‡½æ•°å¤±è´¥
 static bool adjust_pos(int *p, int N)
 {
 	if (*p < 0 && *p >= -N) *p += N;
@@ -26,7 +26,7 @@ static bool adjust_pos(int *p, int N)
 	return true;
 }
 
-// ÔÚÖ¸¶¨Î»ÖÃ²åÈëĞÂ×é, ´«Èë¸ºÊıÊ±´ÓÎ²²¿ËãÆğ
+// åœ¨æŒ‡å®šä½ç½®æ’å…¥æ–°ç»„, ä¼ å…¥è´Ÿæ•°æ—¶ä»å°¾éƒ¨ç®—èµ·
 bool cs_mgr::insert_cs(info * cs_info, int g)
 {
 	if (!adjust_pos(&g, cs_count() + 1)) return false;
@@ -36,7 +36,7 @@ bool cs_mgr::insert_cs(info * cs_info, int g)
 	return true;
 }
 
-// É¾³ı×é, ´«Èë¸ºÊı´ÓÎ²²¿ËãÆğ
+// åˆ é™¤ç»„, ä¼ å…¥è´Ÿæ•°ä»å°¾éƒ¨ç®—èµ·
 bool cs_mgr::delete_cs(int g)
 {
 	if (!adjust_pos(&g, cs_count())) return false;
@@ -45,7 +45,7 @@ bool cs_mgr::delete_cs(int g)
 	return true;
 }
 
-// ÔÚÖ¸¶¨Î»ÖÃ²åÈëĞÂ³ÌĞò, ´«Èë¸ºÊı´ÓÎ²²¿ËãÆğ
+// åœ¨æŒ‡å®šä½ç½®æ’å…¥æ–°ç¨‹åº, ä¼ å…¥è´Ÿæ•°ä»å°¾éƒ¨ç®—èµ·
 bool cs_mgr::insert_cmd(command * c, int g, int p)
 {
 	if (!adjust_pos(&g, cs_count())) return false;
@@ -55,7 +55,7 @@ bool cs_mgr::insert_cmd(command * c, int g, int p)
 	return true;
 }
 
-// É¾³ı³ÌĞò,´«Èë¸ºÊıÔò´ÓºóËãÆğ
+// åˆ é™¤ç¨‹åº,ä¼ å…¥è´Ÿæ•°åˆ™ä»åç®—èµ·
 bool cs_mgr::delete_cmd(int g, int p)
 {
 	if (!adjust_pos(&g, cs_count())) return false;
@@ -66,20 +66,20 @@ bool cs_mgr::delete_cmd(int g, int p)
 	return true;
 }
 
-// ·µ»Ø×éµÄ×ÜÊı
+// è¿”å›ç»„çš„æ€»æ•°
 int cs_mgr::cs_count() const
 {
 	return static_cast<int>(m_css.size());
 }
 
-// ·µ»Ø×éÄÚ³ÌĞò×ÜÊı,´«Èë¸ºÊıÔò´ÓºóËãÆğ
+// è¿”å›ç»„å†…ç¨‹åºæ€»æ•°,ä¼ å…¥è´Ÿæ•°åˆ™ä»åç®—èµ·
 int cs_mgr::cmd_count(int g) const
 {
 	if (!adjust_pos(&g, cs_count())) return -1;
 	return static_cast<int>(m_css[g]->cv.size());
 }
 
-// ·µ»ØËùÓĞ³ÌĞòµÄ×ÜÊı
+// è¿”å›æ‰€æœ‰ç¨‹åºçš„æ€»æ•°
 int cs_mgr::cmd_count() const
 {
 	int count = 0;
@@ -90,7 +90,7 @@ int cs_mgr::cmd_count() const
 	return count;
 }
 
-// ²âÊÔÃüÁîÊÇ·ñ´æÔÚ, ´Ëº¯ÊıÃ»ÓĞ»ØÈÆµÄËµ·¨
+// æµ‹è¯•å‘½ä»¤æ˜¯å¦å­˜åœ¨, æ­¤å‡½æ•°æ²¡æœ‰å›ç»•çš„è¯´æ³•
 bool cs_mgr::cmd_exist(int g, int p) const
 {
 	if (g < 0 || g >= cs_count()) return false;
@@ -98,7 +98,7 @@ bool cs_mgr::cmd_exist(int g, int p) const
 	return true;
 }
 
-// È¡Ö¸¶¨³ÌĞò, ´«Èë¸ºÊıÊ±´ÓÎ²²¿ËãÆğ
+// å–æŒ‡å®šç¨‹åº, ä¼ å…¥è´Ÿæ•°æ—¶ä»å°¾éƒ¨ç®—èµ·
 command * cs_mgr::get_cmd(int g, int p) const
 {
 	if (!adjust_pos(&g, cs_count())) return NULL;
@@ -106,7 +106,7 @@ command * cs_mgr::get_cmd(int g, int p) const
 	return m_css[g]->cv[p];
 }
 
-// È¡Ö¸¶¨×éĞÅÏ¢
+// å–æŒ‡å®šç»„ä¿¡æ¯
 info * cs_mgr::get_cs_info(int g) const
 {
 	if (!adjust_pos(&g, cs_count())) return NULL;

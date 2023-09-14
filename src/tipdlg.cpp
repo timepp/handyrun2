@@ -11,7 +11,7 @@ void CTipDlg::SetPair(HWND pair)
 	m_pair = pair;
 }
 
-// 根据列表里的内容调整大小
+// 鏍规嵁鍒楄〃閲岀殑鍐呭璋冩暣澶у皬
 void CTipDlg::Resize()
 {
 	RECT rc;
@@ -165,13 +165,13 @@ void CTipDlg::OnInputChange()
 	cfg::config * c = cfg::config::instance();
 	int ind1 = 0;
 
-	// 1. 图标应用程序
+	// 1. 鍥炬爣搴旂敤绋嬪簭
 	for (int i = 0; i < c->group_mgr.cs_count(); i++)
 	{
 		for (int j = 0; j < c->group_mgr.cmd_count(i); j++)
 		{
 			command * cmd = c->get_prog(i, j);
-			if (wcsnicmp(cmd->path.c_str(), input, input_len) == 0)
+			if (_wcsnicmp(cmd->path.c_str(), input, input_len) == 0)
 			{
 				add_cmd(cmd, 0, ind1++);
 			}
@@ -182,13 +182,13 @@ void CTipDlg::OnInputChange()
 		}
 	}
 
-	// 2. 只索引的应用程序
+	// 2. 鍙储寮曠殑搴旂敤绋嬪簭
 	for (int i = 0; i < c->index_mgr.cs_count(); i++)
 	{
 		for (int j = 0; j < c->index_mgr.cmd_count(i); j++)
 		{
 			command *cmd = c->get_index_cmd(i, j);
-			if (wcsnicmp(cmd->path.c_str(), input, input_len) == 0)
+			if (_wcsnicmp(cmd->path.c_str(), input, input_len) == 0)
 			{
 				add_cmd(cmd, i+1, ind1++);
 			}

@@ -42,8 +42,8 @@ private:
 		m_tip_ctrl.Create(dlg->m_hWnd);
 		m_tip_ctrl.SetMaxTipWidth(0);
 		m_tip_ctrl.Activate(TRUE);
-		// ¹þ¹þ£¬ÏÂÃæÕâÐÐÉèÖÃReShowµÄÊ±¼äÎª×ã¹»´ó
-		// ³É¹¦½â¾öÁËÇÐµ½²»Í¬Í¼±êÉÏÓÐÊ±tooltip»áÉÁË¸µÄÎÊÌâ
+		// å“ˆå“ˆï¼Œä¸‹é¢è¿™è¡Œè®¾ç½®ReShowçš„æ—¶é—´ä¸ºè¶³å¤Ÿå¤§
+		// æˆåŠŸè§£å†³äº†åˆ‡åˆ°ä¸åŒå›¾æ ‡ä¸Šæœ‰æ—¶tooltipä¼šé—ªçƒçš„é—®é¢˜
 		m_tip_ctrl.SetDelayTime(TTDT_RESHOW, 10000);
 		dlg->SetTimer(IDT_TIP_DELAY, 500);
 	

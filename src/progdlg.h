@@ -18,7 +18,6 @@ private:
 	void ShowIcon();
 	std::wstring get_peb_string(HANDLE proc, char * addr);
 	void check_for_toggle_path(UINT id, POINT pt);
-	void toggle_show(bool full);
 public:
 	enum {IDD = IDD_PROG};
 	CProgDlg(prog & pi);
@@ -33,7 +32,6 @@ public:
 		COMMAND_HANDLER(IDC_BUTTON_GET_FGP, BN_CLICKED, OnBnClickedButtonGetFgp)
 		MESSAGE_HANDLER(WM_LBUTTONDBLCLK, OnLButtonDblClk)
 		COMMAND_HANDLER(IDC_EDIT_PROG_NAME, EN_CHANGE, OnEnChangeEditProgName)
-		COMMAND_HANDLER(IDC_BUTTON_TOGGLE_FOLD, BN_CLICKED, OnBnClickedButtonToggleFold)
 		COMMAND_HANDLER(IDC_STATIC_ICON, STN_CLICKED, OnStnClickedStaticIcon)
 		COMMAND_HANDLER(IDC_COMBO_ICON_FILE, CBN_EDITCHANGE, OnCbnEditchangeComboIconFile)
 		COMMAND_HANDLER(IDC_COMBO_ICON_FILE, CBN_EDITUPDATE, OnCbnEditupdateComboIconFile)
@@ -49,7 +47,6 @@ public:
 	LRESULT OnBnClickedButtonGetFgp(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnLButtonDblClk(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 	LRESULT OnEnChangeEditProgName(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
-	LRESULT OnBnClickedButtonToggleFold(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnStnClickedStaticIcon(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnCbnEditchangeComboIconFile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnCbnEditupdateComboIconFile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);

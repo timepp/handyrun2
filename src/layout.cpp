@@ -219,7 +219,7 @@ bool icon_layout::draw_prog(HDC hdc, prog_pos pp, lyt::prog_status ps) const
 	{
 	}
 	else
-	{
+	{ 
 	}
 	return true;
 }
@@ -229,10 +229,19 @@ HICON icon_layout::get_icon(prog_pos pp) const
 	const prog * p = cfg::config::instance()->get_prog(pp.g, pp.p);
 	if (p == NULL) return NULL;
 
+	int icon_size = cfg::config::instance()->gm.icon_size;
 	std::wstring icon_file = p->icon.file;
 	if (icon_file.empty()) icon_file = p->path;
 	icon_file = hlp::abs_path(icon_file.c_str());
-	HICON icon = ::ExtractIcon(NULL, icon_file.c_str(), p->icon.index);
+	HICON icon;
+	if (p->icon.index == 0) {
+		icon = (HICON)::LoadImageW(NULL, icon_file.c_str(), IMAGE_ICON, icon_size, icon_size, LR_LOADFROMFILE);
+	}
+	else
+	{
+		::ExtractIconEx(icon_file.c_str(), p->icon.index, &icon, NULL, 1);
+	}
+
 	if (icon == NULL)
 	{
 		icon = hlp::get_file_icon(icon_file.c_str());

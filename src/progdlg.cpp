@@ -75,20 +75,6 @@ void CProgDlg::check_for_toggle_path(UINT id, POINT pt)
 	}
 }
 
-void CProgDlg::toggle_show(bool full)
-{
-	int show_type = full ? SW_SHOW : SW_HIDE;
-	CRect rc = full ? m_rc_full : m_rc_fold;
-	SetDlgItemText(IDC_BUTTON_TOGGLE_FOLD, full ? L"<<<" : L">>>");
-	GetDlgItem(IDC_STATIC_MIDLINE).ShowWindow(show_type);
-	GetDlgItem(IDC_EDIT_COMMENT).ShowWindow(show_type);
-	GetDlgItem(IDC_EDIT_DROP_PARAM).ShowWindow(show_type);
-	GetDlgItem(IDC_COMBO_RUN_TYPE).ShowWindow(show_type);
-	GetDlgItem(IDC_EDIT_WORKING_DIR).ShowWindow(show_type);
-	GetDlgItem(IDC_BUTTON_SELECT_WORKING_DIR).ShowWindow(show_type);
-	ResizeClient(rc.Width(), rc.Height());
-}
-
 LRESULT CProgDlg::OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	if (GetDlgItem(IDC_EDIT_PROG_NAME).GetWindowTextLengthW() == 0) return 0;
@@ -172,7 +158,6 @@ LRESULT CProgDlg::OnInitDialog(UINT , WPARAM , LPARAM , BOOL& )
 	GetClientRect(&m_rc_full);
 	m_rc_fold = m_rc_full;
 	m_rc_fold.bottom = hlp::get_dlg_item_rect(m_hWnd, IDC_STATIC_MIDLINE).bottom;
-	toggle_show(false);
 
 	GetDlgItem(IDC_EDIT_PROG_NAME).SetFocus();
 	m_initialized = true;
@@ -237,6 +222,13 @@ LRESULT CProgDlg::OnBnClickedButtonGetFgp(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 	HANDLE proc = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid);
 	if (proc == NULL) return 0;
 
+	WCHAR path[MAX_PATH];
+	DWORD pathlen = _countof(path);
+	QueryFullProcessImageNameW(proc, 0, path, &pathlen);
+	CloseHandle(proc);
+	SetDlgItemText(IDC_EDIT_PROG_NAME, hlp::rela_path(path).c_str());
+
+	/* only works on x86
 	char * peb = static_cast<char *>(hlp::get_process_peb_addr(proc));
 	char * param;
 	SIZE_T br;
@@ -258,9 +250,11 @@ LRESULT CProgDlg::OnBnClickedButtonGetFgp(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 		i = str.find(L' ', 0);
 		if (i == std::wstring::npos) i = str.length();
 	}
-	SetDlgItemText(IDC_EDIT_PARAM, str.substr(i).c_str());
+	*/
 
-	CloseHandle(proc);
+	//SetDlgItemText(IDC_EDIT_PARAM, str.substr(i).c_str());
+
+	
 	return 0;
 }
 
@@ -281,13 +275,6 @@ LRESULT CProgDlg::OnEnChangeEditProgName(WORD /*wNotifyCode*/, WORD /*wID*/, HWN
 	{
 		ShowIcon();
 	}
-	return 0;
-}
-
-LRESULT CProgDlg::OnBnClickedButtonToggleFold(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-{
-	BOOL visible = GetDlgItem(IDC_STATIC_MIDLINE).IsWindowVisible();
-	toggle_show(!visible);
 	return 0;
 }
 

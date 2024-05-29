@@ -26,7 +26,7 @@ namespace tp
 			}
 			void saveint(const std::wstring& key, int val)
 			{
-				wchar_t buf[1024];
+				wchar_t buf[1024] = {0};
 				_itow_s(val, buf, 10);
 				savestr(key, buf);
 			}
@@ -50,17 +50,6 @@ namespace tp
 				return (intval == 0? false : true);
 			}
 		};
-		static int get_osverion(int* minor_ver)
-		{
-			OSVERSIONINFOW ovi;
-			ovi.dwOSVersionInfoSize = sizeof(ovi);
-			if (GetVersionExW(&ovi))
-			{
-				if (minor_ver) *minor_ver = ovi.dwMinorVersion;
-				return ovi.dwMajorVersion;
-			}
-			return 0;
-		}
 
 		static std::wstring get_module_path(HMODULE m)
 		{
@@ -88,12 +77,6 @@ namespace tp
 		 */
 		static bool is_elevated()
 		{
-			if (get_osverion(0) < 6)
-			{
-				// XP
-				return true;
-			}
-
 			HANDLE hToken;
 			BOOL bRet = OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken);
 			throw_winerr_when(bRet != TRUE);
@@ -133,7 +116,7 @@ namespace tp
 			throw_if_lasterror(ret);
 			ON_LEAVE_1(RegCloseKey(hkey), HKEY, hkey);
 
-			ret = RegSetValueExW(hkey, name.c_str(), 0, REG_SZ, (CONST BYTE*)value.c_str(), (value.length() + 1) * 2);
+			ret = RegSetValueExW(hkey, name.c_str(), 0, REG_SZ, (CONST BYTE*)value.c_str(), static_cast<DWORD>((value.length() + 1) * 2));
 			throw_if_lasterror(ret);
 		}
 
@@ -175,7 +158,7 @@ namespace tp
 			DWORD buffer = 0;
 			DWORD buffer_len = sizeof(buffer);
 			DWORD type = 0;
-			reg_read_value(root, path, name, type, (LPBYTE)buffer, &buffer_len);
+			reg_read_value(root, path, name, type, (LPBYTE)&buffer, &buffer_len);
 
 			return buffer;
 		}

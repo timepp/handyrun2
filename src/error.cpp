@@ -52,7 +52,7 @@ bool os_err::get_err_desc(wchar_t *buf, size_t buf_len)
 		return FormatMessage(
 			FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
 			NULL, static_cast<DWORD>(m_err_code), 0,
-			buf, buf_len, NULL) != 0;
+			buf, static_cast<DWORD>(buf_len), NULL) != 0;
 	}
 	else
 	{
@@ -66,28 +66,28 @@ void os_err::form_err_msg(const wchar_t *op, const wchar_t *extra)
 	wchar_t err_title[1024];
 
 	wchar_t pad1[] = {L'\n', L'\n', L'\0'};
-	const wchar_t * extra_title = L"¶îÍâµÄ²ÎÊıĞÅÏ¢:\n";
+	const wchar_t * extra_title = L"é¢å¤–çš„å‚æ•°ä¿¡æ¯:\n";
 
-	// µÚÒ»²¿·Ö, ²Ù×÷ĞÅÏ¢
+	// ç¬¬ä¸€éƒ¨åˆ†, æ“ä½œä¿¡æ¯
 	if (!op)
 	{
 		_snwprintf_s(err_title, elem_of(err_title), _TRUNCATE,
-			L"%sÓöµ½´íÎó", hc::handyrun_name);
+			L"%sé‡åˆ°é”™è¯¯", hc::handyrun_name);
 	}
 	else
 	{
 		_snwprintf_s(err_title, elem_of(err_title), _TRUNCATE, 
-			L"%sÔÚ%sÊ±Óöµ½´íÎó", hc::handyrun_name, op);
+			L"%såœ¨%sæ—¶é‡åˆ°é”™è¯¯", hc::handyrun_name, op);
 	}
 	
-	// µÚ¶ş²¿·Ö:²Ù×÷ÏµÍ³´íÎóÃèÊö
+	// ç¬¬äºŒéƒ¨åˆ†:æ“ä½œç³»ç»Ÿé”™è¯¯æè¿°
 	if (!get_err_desc(err_desc_buf, elem_of(err_desc_buf)))
 	{
 		_snwprintf_s(err_desc_buf, elem_of(err_desc_buf), _TRUNCATE,
-			L"´íÎó´úÂë: %d", m_err_code);
+			L"é”™è¯¯ä»£ç : %d", m_err_code);
 	}
 
-	// µÚÈı²¿·Ö: ´íÎóµÄ¶îÍâ²ÎÊı
+	// ç¬¬ä¸‰éƒ¨åˆ†: é”™è¯¯çš„é¢å¤–å‚æ•°
 	if (!extra)
 	{
 		pad1[0] = L'\0';
@@ -95,7 +95,7 @@ void os_err::form_err_msg(const wchar_t *op, const wchar_t *extra)
 		extra_title = hc::empty_str;
 	}
 
-	// ×éºÏÔÚÒ»Æğ
+	// ç»„åˆåœ¨ä¸€èµ·
 	_snwprintf_s(m_err_msg, elem_of(m_err_msg), _TRUNCATE,
 		L"%s:\n\n"
 		L"  %s%s"

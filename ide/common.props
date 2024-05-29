@@ -16,9 +16,7 @@
     <Link>
       <AdditionalDependencies>gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Manifest>
-      <AdditionalManifestFiles>$(HandyRun)\src\XP_style.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
-    </Manifest>
+    <Manifest />
     <PreBuildEvent>
       <Command>git log --oneline HEAD~1..HEAD &gt; version.rc</Command>
     </PreBuildEvent>

@@ -53,7 +53,9 @@ private:
 	{
 		static wchar_t timestr[256];
 		time_t ct = time(NULL);
-		wcsftime(timestr, 255, fmt, localtime(&ct));
+		struct tm t;
+		localtime_s(&t, &ct);
+		wcsftime(timestr, 255, fmt, &t);
 		return timestr;
 	}
 };

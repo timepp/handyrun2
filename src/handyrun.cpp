@@ -23,7 +23,7 @@ void toggle_show_cmd()
 {
 	HWND hwnd = GetForegroundWindow();
 	CRunDlg * dlg = CRunDlg::Instance();
-	if (dlg->m_hWnd == NULL) dlg->Create(NULL);
+	if (dlg->m_hWnd == NULL) dlg->Create(::GetDesktopWindow());
 
 	if (hlp::wnd_in_same_thread(hwnd))
 	{
@@ -53,7 +53,7 @@ int Run(LPWSTR /*lpstrCmdLine*/ = NULL, int /*nCmdShow*/ = SW_SHOWDEFAULT)
 	else if (c->gm.style == cfg::ws_edge)
 	{
 		CRunDlg * dlg = CRunDlg::Instance();
-		if (!dlg->m_hWnd) dlg->Create(NULL);
+		if (!dlg->m_hWnd) dlg->Create(::GetDesktopWindow());
 	}
 
 	log_msg(L"event loop");
@@ -63,7 +63,7 @@ int Run(LPWSTR /*lpstrCmdLine*/ = NULL, int /*nCmdShow*/ = SW_SHOWDEFAULT)
 	return 0;
 }
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPWSTR lpstrCmdLine, int nCmdShow)
+int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ LPWSTR lpstrCmdLine, _In_ int nCmdShow)
 {
 	HANDLE hApp = NULL;
 
@@ -117,7 +117,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPWSTR lps
 	HRESULT hRes = ::OleInitialize(NULL);
 	ATLASSERT(SUCCEEDED(hRes));
 
-	::DefWindowProc(NULL, 0, 0, 0L);
+	//::DefWindowProcW(NULL, 0, 0, 0L);
 
 //	AtlInitCommonControls(ICC_BAR_CLASSES);	// add flags to support other controls
 	log_msg(L"initializing application...");
@@ -148,6 +148,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPWSTR lps
 
 //	if (gd::prev_active_wnd)
 //		hlp::SetForegroundWindowEx(gd::prev_active_wnd);
-	CloseHandle(hApp);
+	if (hApp) {
+		CloseHandle(hApp);
+	}
 	return nRet;
 }

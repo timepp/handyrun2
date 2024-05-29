@@ -16,7 +16,7 @@ public:
 		MESSAGE_HANDLER(WM_NCDESTROY, OnNcDestory)
 	END_MSG_MAP()
 
-	CCustomBkDlgImpl()
+	CCustomBkDlgImpl(): m_bk_bmp(nullptr)
 	{
 	}
 
@@ -105,14 +105,12 @@ private:
 				size_t N = m_bk.color_list.size();
 				Gdiplus::Color * pColor = new Gdiplus::Color[N];
 				Gdiplus::REAL * pPos = new Gdiplus::REAL[N];
-				size_t i = 0;
-				for (color_list_t::const_iterator it = m_bk.color_list.begin(); it != m_bk.color_list.end(); ++it)
+				for (size_t i = 0; i < N; i++)
 				{
-					pColor[i].SetFromCOLORREF(*it);
+					pColor[i].SetFromCOLORREF(m_bk.color_list[i]);
 					pPos[i] = i * 1.0f / (N-1);
-					i++;
 				}
-				brs.SetInterpolationColors(pColor, pPos, N);
+				brs.SetInterpolationColors(pColor, pPos, static_cast<INT>(N));
 				brs.SetGammaCorrection(TRUE);
 				pG->FillRectangle(&brs, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 				delete [] pColor;

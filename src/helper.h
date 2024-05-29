@@ -31,8 +31,6 @@ namespace hlp
 	bool focus_window(HWND wnd);
 	// simulate a mouse event at (x,y)
 	bool send_mouse_input(int x, int y, DWORD flags);
-	// process hacking
-	void * get_process_peb_addr(HANDLE proc);
 	// 判断是不是DOS命令(包括控制台应用)　需要完整路径
 	bool is_dos_command(const std::wstring& cmd);
 	// wrappers

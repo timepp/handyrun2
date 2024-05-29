@@ -18,6 +18,7 @@ MSVC_NO_WARNING_AREA_BEGIN
 #include <WTL/atlctrls.h>
 #include <WTL/atlctrlx.h>
 #include <WTL/atlframe.h>
+#include <WTL/atlgdi.h>
 
 // STL
 #include <vector>

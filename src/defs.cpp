@@ -8,6 +8,6 @@ extern const wchar_t * const handyrun_name = L"HandyRun";
 extern const wchar_t * const handyrun_wnd_title = handyrun_name;
 extern const wchar_t * const fn_vkcode = L"vkcode.txt";
 extern const wchar_t * const fn_ini = L"handyrun.ini";
-extern const wchar_t * const err_exit = L"≥Ã–Ú÷’÷π°£";
+extern const wchar_t * const err_exit = L"Á®ãÂ∫èÁªàÊ≠¢„ÄÇ";
 extern const wchar_t * const exe_ext = L"exe com bat lnk vbs";
 }

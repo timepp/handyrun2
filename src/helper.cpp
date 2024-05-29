@@ -94,11 +94,12 @@ wchar_t * wcscpy_lower(wchar_t * d, int d_len, const wchar_t *s)
 int remove_char(std::wstring * str, wchar_t ch)
 {
 	int count = 0;
-	for (int i = str->length() - 1; i >= 0; i--)
+	for (size_t i = 0; i < str->length(); i++)
 	{
-		if (str->at(i) == ch)
+		size_t index = str->length() - 1 - i;
+		if (str->at(index) == ch)
 		{
-			str->erase(i, 1);
+			str->erase(index, 1);
 		}
 	}
 	return count;
@@ -106,13 +107,13 @@ int remove_char(std::wstring * str, wchar_t ch)
 
 int match_str_list(const wchar_t * list, const wchar_t * s)
 {
-	int l = wcslen(s);
+	size_t l = wcslen(s);
 	const wchar_t * p = list;
 	while (*p)
 	{
 		if (_wcsnicmp(s, p, l) == 0 && is_space(*(p+l)))
 		{
-			return p - list;
+			return static_cast<int>(p - list);
 		}
 		p += l;
 		while (*p && !is_space(*p)) p++;
@@ -282,7 +283,7 @@ HICON CreateGrayscaleIcon(HICON hIcon)
     HDC         hMainDC = NULL, hMemDC1 = NULL, hMemDC2 = NULL;
     BITMAP      bmp;
     HBITMAP     hOldBmp1 = NULL, hOldBmp2 = NULL;
-    ICONINFO    csII, csGrayII;
+    ICONINFO    csII;
     BOOL        bRetValue = FALSE;
 
     bRetValue = ::GetIconInfo(hIcon, &csII);
@@ -298,7 +299,8 @@ HICON CreateGrayscaleIcon(HICON hIcon)
         DWORD   dwWidth = csII.xHotspot*2;
         DWORD   dwHeight = csII.yHotspot*2;
 
-        csGrayII.hbmColor = ::CreateBitmap(dwWidth, dwHeight, bmp.bmPlanes, 
+		ICONINFO csGrayII;
+		csGrayII.hbmColor = ::CreateBitmap(dwWidth, dwHeight, bmp.bmPlanes,
                                            bmp.bmBitsPixel, NULL);
         if (csGrayII.hbmColor)
         {
@@ -338,10 +340,9 @@ HICON CreateGrayscaleIcon(HICON hIcon)
 
             csGrayII.fIcon = TRUE;
             hGrayIcon = ::CreateIconIndirect(&csGrayII);
+			::DeleteObject(csGrayII.hbmColor);
         } // if
 
-
-        ::DeleteObject(csGrayII.hbmColor);
         //::DeleteObject(csGrayII.hbmMask);
 
     } // if
@@ -446,28 +447,6 @@ RECT get_dlg_item_rect(HWND wnd, int id)
 	::ScreenToClient(wnd, (LPPOINT)&rc);
 	::ScreenToClient(wnd, ((LPPOINT)&rc)+1);
 	return rc;
-}
-
-void * get_process_peb_addr(HANDLE proc)
-{
-	typedef LONG (WINAPI ntqip_func)(HANDLE, PROCESSINFOCLASS, PVOID, ULONG, PULONG);
-	ntqip_func * ntqip_func_ptr;
-	PROCESS_BASIC_INFORMATION pbi;
-	pbi.PebBaseAddress = (_PEB *) 0x7ffdf000;
-
-	DWORD dwSize;
-
-	HMODULE hLibrary = GetModuleHandle(L"ntdll.dll");
-	if (hLibrary != NULL)
-	{
-		ntqip_func_ptr = (ntqip_func *)GetProcAddress(hLibrary, "NtQueryInformationProcess");
-		if (ntqip_func_ptr != NULL)
-		{
-			ntqip_func_ptr(proc, ProcessBasicInformation, &pbi, sizeof(pbi), &dwSize);
-		}
-	}
-
-	return pbi.PebBaseAddress;
 }
 
 const wchar_t * wcsistr(const wchar_t *s, const wchar_t *sub_s)

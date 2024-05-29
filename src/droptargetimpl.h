@@ -13,13 +13,17 @@ public:
 		MESSAGE_HANDLER(WM_DESTROY,OnDestory)
 	END_MSG_MAP()
 
-	void InitDropTarget()
+	HRESULT InitDropTarget()
 	{
 		T* pT = static_cast<T*>(this);
 		IDropTarget *pDropTarget;
 		QueryInterface(IID_IDropTarget,(void **)&pDropTarget);
-		CoLockObjectExternal(pDropTarget, TRUE, FALSE);
-		RegisterDragDrop(pT->m_hWnd, pDropTarget);
+		HRESULT hr = CoLockObjectExternal(pDropTarget, TRUE, FALSE);
+		if (SUCCEEDED(hr)) 
+		{
+			hr = RegisterDragDrop(pT->m_hWnd, pDropTarget);
+		}
+		return hr;
 	}
 	LRESULT OnDestory(UINT /*uMsg*/, WPARAM , LPARAM /*lParam*/, BOOL& bHandled)
 	{
@@ -27,9 +31,9 @@ public:
 		RevokeDragDrop(pT->m_hWnd);
 		IDropTarget *pDropTarget;
 		QueryInterface(IID_IDropTarget,(void **)&pDropTarget);
-		CoLockObjectExternal(pDropTarget, FALSE, TRUE);
+		HRESULT hr = CoLockObjectExternal(pDropTarget, FALSE, TRUE);
 		bHandled=FALSE;
-		return S_OK;
+		return SUCCEEDED(hr)? S_OK : S_FALSE;
 	}
 
 	//IUnknown implementation

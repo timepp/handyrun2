@@ -40,8 +40,8 @@ bool path_lister::get_next_file(std::wstring &subpath, std::wstring &filename)
 			ls.hp = ::FindFirstFile(find_str.c_str(), &wfd);
 			if (ls.hp == INVALID_HANDLE_VALUE) 
 			{
-				// 当前目录搜索失败, 返回
-				// TODO: 记录搜索失败的信息供以后查询
+				// 褰撳墠鐩綍鎼滅储澶辫触, 杩斿洖
+				// TODO: 璁板綍鎼滅储澶辫触鐨勪俊鎭緵浠ュ悗鏌ヨ
 				m_lss.pop();
 				continue;
 			}

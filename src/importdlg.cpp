@@ -22,7 +22,7 @@ LRESULT CImportProgDlg::OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 		
 		FILE * fp;
 		std::wstring fn = hlp::get_tmp_file_name(L".txt");
-		if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0)
+		if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0 || fp == nullptr)
 		{
 			os_err oe(dos, L"写文件", L"  文件名:%s", fn);
 			hlp::show_err(oe.what(), NULL);

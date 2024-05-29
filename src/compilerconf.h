@@ -5,8 +5,8 @@
 	__pragma(warning(push, 1))                        \
 	__pragma(warning(disable: 4018 4100 4127 4191 4201 4204 4242 4244 4245 4290 4365))        \
 	__pragma(warning(disable: 4505 4548 4555 4701 4702 4706 4819 4838 4917 4920 4995 4996))        \
-	__pragma(warning(disable: 6001 6011 6031 6053 6202 6211 6246 6248 6255 6269 6282 6308 6323 6328 6334 6385 6386 6387 6400 6401)) \
-    __pragma(warning(disable: 26454 28159))
+	__pragma(warning(disable: 6001 6011 6031 6053 6202 6211 6215 6246 6248 6255 6269 6282 6308 6323 6328 6334 6385 6386 6387 6400 6401)) \
+    __pragma(warning(disable: 26454 26100 26110 26495 28159))
 
 #define MSVC_NO_WARNING_AREA_END                        \
 	__pragma(warning(pop))

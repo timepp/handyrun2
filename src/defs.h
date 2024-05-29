@@ -11,7 +11,7 @@
 
 typedef std::vector<void *> vvptr;
 typedef std::list<std::wstring> string_list_t;
-typedef std::list<COLORREF> color_list_t;
+typedef std::vector<COLORREF> color_list_t;
 
 // hotkey结构描述一个热键(包括普通热键和双击热键)
 struct hotkey

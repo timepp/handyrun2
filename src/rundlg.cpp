@@ -324,7 +324,7 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 		{
 			std::wstring fn = hlp::get_tmp_file_name();
 			FILE * fp;
-			if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0)
+			if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0 || fp == nullptr)
 			{
 				os_err oe(dos, L"写文件", L"  文件名:%s", fn);
 				hlp::show_err(oe.what(), 0);
@@ -379,7 +379,9 @@ std::wstring CRunDlg::drop_target_state::get_drop_text(IDataObject *data)
 	if (data->GetData(&fmtetc, &stgmed) == S_OK)
 	{
 		LPVOID buf = GlobalLock(stgmed.hGlobal);
-		str = (LPCWSTR)buf;
+		if (buf != nullptr) {
+			str = (LPCWSTR)buf;
+		}
 		GlobalUnlock(stgmed.hGlobal);
 		ReleaseStgMedium(&stgmed);
 	}
@@ -480,7 +482,7 @@ std::wstring CRunDlg::drop_target_state::expand_drop_param(const std::wstring& p
 }
 
 CRunDlg::CRunDlg() :
-CRegionTipDlgImpl<CRunDlg>(cfg::config::instance()->gm.use_tip)
+	CRegionTipDlgImpl<CRunDlg>(cfg::config::instance()->gm.use_tip), m_os(nullptr), m_menu_point({})
 {
 	m_lyt = NULL;
 	m_background = NULL;
@@ -711,8 +713,7 @@ bool CRunDlg::DoExecute(const command * cmd)
 
 	if (verb == L"open")
 	{
-		if (tp::oswin::get_osverion(NULL) >= 6 &&
-			tp::oswin::is_elevated())
+		if (tp::oswin::is_elevated())
 		{
 			HRESULT hr = hlp::ShellExecuteByExplorer(path.c_str(), param.c_str(), work_dir.c_str());
 			if (FAILED(hr))
@@ -1316,7 +1317,7 @@ LRESULT CRunDlg::OnEditProfile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 				L"open", path.c_str(), 
 				NULL, NULL, SW_SHOW
 			};
-			if (::ShellExecuteEx(&sei))
+			if (::ShellExecuteEx(&sei) && sei.hProcess)
 			{
 				::WaitForSingleObject(sei.hProcess, INFINITE);
 				::CloseHandle(sei.hProcess);

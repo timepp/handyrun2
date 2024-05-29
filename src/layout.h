@@ -51,7 +51,7 @@ public:
 	virtual void move_prog_pos(prog_pos *pp, move_type mt) const;
 
 protected:
-	HWND m_target_wnd;
+	HWND m_target_wnd = {};
 };
 
 class trivial_layout : public layout

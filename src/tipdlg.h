@@ -33,7 +33,7 @@ public:
 
 private:
 	CCodeSuggestionPane m_list;
-	HWND m_pair;
+	HWND m_pair = nullptr;
 	CImageList m_il;
 	//CListViewCtrl m_list;
 

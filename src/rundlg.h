@@ -49,7 +49,7 @@ private:
 		virtual void cleanup();
 		virtual void handle_mouse(UINT msg, WPARAM wp, POINT pt);
 	private:
-		POINT m_last_mouse_pos;
+		POINT m_last_mouse_pos = {};
 	};
 	class drag_prog_state : public op_state
 	{
@@ -58,8 +58,8 @@ private:
 		virtual void cleanup();
 		virtual void handle_mouse(UINT msg, WPARAM wp, POINT pt);
 	private:
-		POINT m_last_mouse_pos;
-		prog_pos m_dragged_pp;
+		POINT m_last_mouse_pos = {};
+		prog_pos m_dragged_pp = {};
 		CImageList m_il;
 	};
 	class drop_target_state : public op_state
@@ -81,10 +81,10 @@ private:
 		static std::wstring get_drop_text(IDataObject *data);
 		static int get_param_var_count(const std::wstring& param);
 		std::wstring expand_drop_param(const std::wstring& param) const;
-		POINT m_last_mouse_pos;
-		CLIPFORMAT m_data_format;
+		POINT m_last_mouse_pos = {};
+		CLIPFORMAT m_data_format = {};
 		string_list_t m_cached_var;
-		size_t m_var_count;
+		size_t m_var_count = 0;
 	};
 	class drag_window_state : public op_state
 	{
@@ -93,7 +93,7 @@ private:
 		virtual void cleanup();
 		virtual void handle_mouse(UINT msg, WPARAM wp, POINT pt);
 	private:
-		POINT m_pressed_pos;
+		POINT m_pressed_pos = {};
 	};
 	class run_state : public op_state
 	{
@@ -102,8 +102,8 @@ private:
 		virtual void cleanup();
 		virtual void handle_mouse(UINT msg, WPARAM wp, POINT pt);
 	private:
-		prog_pos m_pressed_pp;
-		POINT m_pressed_pos;
+		prog_pos m_pressed_pp = {};
+		POINT m_pressed_pos = {};
 	};
 
 	CRunDlg();

@@ -144,7 +144,7 @@ LRESULT CProgDlg::OnInitDialog(UINT , WPARAM , LPARAM , BOOL& )
 		SW_HIDE,              L"隐藏",
 	};
 	int select = 0;
-	for (size_t i = 0; i < elem_of(show_desc); i++)
+	for (int i = 0; i < elem_of(show_desc); i++)
 	{
 		m_cb.AddString(show_desc[i].desc);
 		m_cb.SetItemData(i, show_desc[i].show_cmd);
@@ -227,33 +227,6 @@ LRESULT CProgDlg::OnBnClickedButtonGetFgp(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 	QueryFullProcessImageNameW(proc, 0, path, &pathlen);
 	CloseHandle(proc);
 	SetDlgItemText(IDC_EDIT_PROG_NAME, hlp::rela_path(path).c_str());
-
-	/* only works on x86
-	char * peb = static_cast<char *>(hlp::get_process_peb_addr(proc));
-	char * param;
-	SIZE_T br;
-	::ReadProcessMemory(proc, peb + 0x10, &param, sizeof(param), &br);
-
-	std::wstring str = get_peb_string(proc, param + 0x38);
-	SetDlgItemText(IDC_EDIT_PROG_NAME, hlp::rela_path(str.c_str()).c_str());
-	//str = get_peb_string(proc, param + 0x24);
-	//SetDlgItemText(IDC_EDIT_WORKING_DIR, c->get_relative_path(str).c_str());
-	str = get_peb_string(proc, param + 0x40);
-	size_t i;
-	if (str[0] == L'\"')
-	{
-		i = str.find(L'\"', 1) + 1;
-		if (i < str.length()) i++;
-	}
-	else
-	{
-		i = str.find(L' ', 0);
-		if (i == std::wstring::npos) i = str.length();
-	}
-	*/
-
-	//SetDlgItemText(IDC_EDIT_PARAM, str.substr(i).c_str());
-
 	
 	return 0;
 }

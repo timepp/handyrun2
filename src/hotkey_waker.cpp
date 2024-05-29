@@ -75,7 +75,7 @@ UINT hotkey_waker::get_vk_code(const wchar_t * vk)
 	tp::cz fn(L"%s\\%s", gd::hr_path.c_str(), hc::fn_vkcode);
 
 	FILE * fp;
-	if (_wfopen_s(&fp, fn, L"r, ccs=UNICODE") != 0)
+	if (_wfopen_s(&fp, fn, L"r, ccs=UNICODE") != 0 || fp == nullptr)
 	{
 		throw os_err(dos, op, L"文件名:%s", &fn);
 	}
@@ -127,7 +127,7 @@ LRESULT hotkey_waker::ll_kb_proc(int code, WPARAM wp, LPARAM lp)
 {
 	if (code >= 0)
 	{
-		ll_kb_proc_internal((KBDLLHOOKSTRUCT *)lp, wp);
+		ll_kb_proc_internal((KBDLLHOOKSTRUCT *)lp, static_cast<UINT>(wp));
 	}
 	return CallNextHookEx(hotkey_waker::instance()->m_kb_hook, code, wp, lp);
 }

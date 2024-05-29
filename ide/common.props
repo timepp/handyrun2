@@ -17,9 +17,6 @@
       <AdditionalDependencies>gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest />
-    <PreBuildEvent>
-      <Command>git log --oneline HEAD~1..HEAD &gt; version.rc</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="HandyRun">

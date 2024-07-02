@@ -99,6 +99,9 @@
     </Link>
     <Manifest />
     <Manifest />
+    <PreBuildEvent>
+      <Command>$(HandyRun)\UpdateBuildInfo.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -113,6 +116,9 @@
     </Link>
     <Manifest />
     <Manifest />
+    <PreBuildEvent>
+      <Command>$(HandyRun)\UpdateBuildInfo.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,6 +138,9 @@
     </Link>
     <Manifest />
     <Manifest />
+    <PreBuildEvent>
+      <Command>$(HandyRun)\UpdateBuildInfo.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -151,6 +160,9 @@
     </Link>
     <Manifest />
     <Manifest />
+    <PreBuildEvent>
+      <Command>$(HandyRun)\UpdateBuildInfo.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\config.cpp" />

@@ -609,5 +609,20 @@ HRESULT hlp::ShellExecuteByExplorer(const wchar_t* path, const wchar_t* param, c
 	return E_FAIL;
 }
 
+std::vector<std::string> hlp::read_lines(const wchar_t* fn) 
+{
+	std::vector<std::string> lines;
+	std::ifstream ifs(fn);
+	if (ifs.is_open())
+	{
+		std::string line;
+		while (std::getline(ifs, line))
+		{
+			lines.push_back(line);
+		}
+	}
+	return lines;
+}
+
 }
 

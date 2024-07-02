@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <string>
+#include <vector>
 
 namespace hlp
 {
@@ -71,4 +72,5 @@ namespace hlp
 
 	HRESULT ShellExecuteByExplorer(const wchar_t* path, const wchar_t* param, const wchar_t* dir);
 
+	std::vector<std::string> read_lines(const wchar_t * fn);
 }

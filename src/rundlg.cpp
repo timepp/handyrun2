@@ -31,8 +31,8 @@ using std::max;
 #define IDT_SAVE_CONFIG 1004
 #define IDT_KEEPTOP 1005
 
-static CRunDlg * g_dlg = NULL;
-static cfg::config * g_c = NULL;
+static CRunDlg* g_dlg = NULL;
+static cfg::config* g_c = NULL;
 
 // op_state /////////////////////////////////////////////////////
 
@@ -46,10 +46,10 @@ void CRunDlg::hover_state::init()
 }
 void CRunDlg::hover_state::cleanup()
 {
-	if (g_c->gm.style == cfg::ws_edge && g_dlg->IsWindow()) 
+	if (g_c->gm.style == cfg::ws_edge && g_dlg->IsWindow())
 		g_dlg->KillTimer(IDT_AUTO_FOLD);
 }
-void CRunDlg::hover_state::handle_mouse(UINT msg, WPARAM , POINT pt)
+void CRunDlg::hover_state::handle_mouse(UINT msg, WPARAM, POINT pt)
 {
 	if (msg == WM_MOUSEMOVE)
 	{
@@ -61,7 +61,7 @@ void CRunDlg::hover_state::handle_mouse(UINT msg, WPARAM , POINT pt)
 		}
 	}
 
-	lyt::layout * l = g_dlg->m_lyt;
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos old_pp = l->get_prog_from_point(m_last_mouse_pos);
 	m_last_mouse_pos = pt;
 	prog_pos pp = l->get_prog_from_point(pt);
@@ -81,7 +81,7 @@ void CRunDlg::hover_state::handle_mouse(UINT msg, WPARAM , POINT pt)
 	}
 	if (msg == WM_LBUTTONDOWN)
 	{
-		hlp::track_mouse_event(TME_CANCEL|TME_LEAVE, g_dlg->m_hWnd);
+		hlp::track_mouse_event(TME_CANCEL | TME_LEAVE, g_dlg->m_hWnd);
 		if (pp != pp_null)
 		{
 			l->draw_prog(CClientDC(g_dlg->m_hWnd), pp, lyt::pressed);
@@ -103,9 +103,9 @@ void CRunDlg::run_state::cleanup()
 {
 	g_dlg->m_lyt->draw_prog(CClientDC(g_dlg->m_hWnd), m_pressed_pp, lyt::normal);
 }
-void CRunDlg::run_state::handle_mouse(UINT msg, WPARAM , POINT pt)
+void CRunDlg::run_state::handle_mouse(UINT msg, WPARAM, POINT pt)
 {
-	lyt::layout * l = g_dlg->m_lyt;
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos pp = l->get_prog_from_point(pt);
 
 	if (msg == WM_MOUSEMOVE)
@@ -135,17 +135,17 @@ void CRunDlg::drag_window_state::cleanup()
 {
 	ReleaseCapture();
 }
-void CRunDlg::drag_window_state::handle_mouse(UINT msg, WPARAM , POINT pt)
+void CRunDlg::drag_window_state::handle_mouse(UINT msg, WPARAM, POINT pt)
 {
 	if (msg == WM_MOUSEMOVE)
 	{
 		CRect rc;
 		g_dlg->GetWindowRect(&rc);
 		rc.OffsetRect(pt.x - m_pressed_pos.x, pt.y - m_pressed_pos.y);
-		cfg::gui_metrics &g = g_c->gm;
+		cfg::gui_metrics& g = g_c->gm;
 		if (g.style == cfg::ws_edge)
 		{
-			RECT rc_screen = {0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN)};
+			RECT rc_screen = { 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN) };
 			switch (hlp::rect_dock(&rc, rc_screen))
 			{
 			case hlp::et_t: g.edge = cfg::ec_t; g.edge_pos = rc.left; break;
@@ -184,11 +184,11 @@ void CRunDlg::drag_prog_state::cleanup()
 	m_il.Destroy();
 	::ReleaseCapture();
 }
-void CRunDlg::drag_prog_state::handle_mouse(UINT msg, WPARAM , POINT pt)
+void CRunDlg::drag_prog_state::handle_mouse(UINT msg, WPARAM, POINT pt)
 {
 	m_il.DragMove(pt);
-//
-	lyt::layout * l = g_dlg->m_lyt;
+	//
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos pp, old_pp;
 	old_pp = l->get_insert_pos(m_last_mouse_pos);
 	m_last_mouse_pos = pt;
@@ -211,18 +211,18 @@ void CRunDlg::drag_prog_state::handle_mouse(UINT msg, WPARAM , POINT pt)
 		if (pp != pp_null)
 		{
 			prog_pos opp = m_dragged_pp;
-			prog *p = g_c->get_prog(m_dragged_pp.g, m_dragged_pp.p);
-			prog * new_p = new prog(*p);
+			prog* p = g_c->get_prog(m_dragged_pp.g, m_dragged_pp.p);
+			prog* new_p = new prog(*p);
 			if (!hlp::is_key_down(VK_CONTROL))
 			{
 				g_c->group_mgr.delete_cmd(opp.g, opp.p);
-				if (pp.g == opp.g && opp.p < pp.p) 
+				if (pp.g == opp.g && opp.p < pp.p)
 				{
 					pp.p--;
 				}
 			}
 			g_c->group_mgr.insert_cmd(new_p, pp.g, pp.p);
-			
+
 			g_dlg->refresh_layout();
 			g_dlg->show_window(true);
 		}
@@ -233,7 +233,7 @@ void CRunDlg::drag_prog_state::handle_mouse(UINT msg, WPARAM , POINT pt)
 void CRunDlg::drop_target_state::init() {}
 void CRunDlg::drop_target_state::cleanup() {}
 void CRunDlg::drop_target_state::handle_mouse(UINT, WPARAM, POINT) {}
-DWORD CRunDlg::drop_target_state::drag_enter(IDataObject *data, POINT pt)
+DWORD CRunDlg::drop_target_state::drag_enter(IDataObject* data, POINT pt)
 {
 	if (!g_dlg->m_current_show_state && g_c->gm.style == cfg::ws_edge)
 	{
@@ -248,7 +248,7 @@ DWORD CRunDlg::drop_target_state::drag_enter(IDataObject *data, POINT pt)
 	else
 	{
 		fmtetc.cfFormat = CF_UNICODETEXT;
-		m_data_format = (data->QueryGetData(&fmtetc) == S_OK)? CF_UNICODETEXT : 0;
+		m_data_format = (data->QueryGetData(&fmtetc) == S_OK) ? CF_UNICODETEXT : 0;
 	}
 
 	m_last_mouse_pos.x = m_last_mouse_pos.y = -1;
@@ -262,7 +262,7 @@ DWORD CRunDlg::drop_target_state::drag_over(POINT pt)
 		return (m_data_format == CF_UNICODETEXT) ? DROPEFFECT_COPY : DROPEFFECT_NONE;
 	}
 
-	lyt::layout * l = g_dlg->m_lyt;
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos old_pp = l->get_prog_from_point(m_last_mouse_pos);
 	prog_pos old_ins_pp = l->get_insert_pos(m_last_mouse_pos);
 	prog_pos pp = l->get_prog_from_point(pt);
@@ -270,9 +270,9 @@ DWORD CRunDlg::drop_target_state::drag_over(POINT pt)
 	m_last_mouse_pos = pt;
 	CClientDC dc(g_dlg->m_hWnd);
 	if (old_pp != pp) l->draw_prog(dc, old_pp, lyt::normal);
-	if (old_ins_pp != ins_pp || pp != old_pp) 
+	if (old_ins_pp != ins_pp || pp != old_pp)
 		l->draw_insert_mark(dc, old_ins_pp, false);
-	if (pp != pp_null) 
+	if (pp != pp_null)
 	{
 		l->draw_prog(dc, pp, lyt::active);
 	}
@@ -290,7 +290,7 @@ DWORD CRunDlg::drop_target_state::drag_over(POINT pt)
 
 void CRunDlg::drop_target_state::drag_leave()
 {
-	lyt::layout * l = g_dlg->m_lyt;
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos old_pp = l->get_prog_from_point(m_last_mouse_pos);
 	prog_pos old_ins_pp = l->get_insert_pos(m_last_mouse_pos);
 	CClientDC dc(g_dlg->m_hWnd);
@@ -298,7 +298,7 @@ void CRunDlg::drop_target_state::drag_leave()
 	l->draw_insert_mark(dc, old_ins_pp, false);
 }
 
-DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
+DWORD CRunDlg::drop_target_state::drop(IDataObject* data, POINT pt)
 {
 	if (g_c->gm.layout == cfg::ul_simple)
 	{
@@ -306,14 +306,14 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 		hlp::focus_window(g_dlg->m_hWnd);
 		return DROPEFFECT_COPY;
 	}
-	
-	lyt::layout * l = g_dlg->m_lyt;
+
+	lyt::layout* l = g_dlg->m_lyt;
 	prog_pos pp = l->get_prog_from_point(pt);
 	if (pp != pp_null)
 	{
 		// 用拖过来的文件名扩展播放参数运行程序
 		// 如果拖过来的是文本，就存到临时文件中，并以此当做文件名
-		prog * pg = g_c->get_prog(pp.g, pp.p);
+		prog* pg = g_c->get_prog(pp.g, pp.p);
 		if (pg != g_dlg->m_prog_waiting_param)
 		{
 			g_dlg->m_prog_waiting_param = pg;
@@ -323,7 +323,7 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 		if (!get_drop_files(data, &m_cached_var))
 		{
 			std::wstring fn = hlp::get_tmp_file_name();
-			FILE * fp;
+			FILE* fp;
 			if (_wfopen_s(&fp, fn.c_str(), L"w, ccs=UTF-8") != 0 || fp == nullptr)
 			{
 				os_err oe(dos, L"写文件", L"  文件名:%s", fn);
@@ -358,7 +358,7 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 			string_list_t::const_reverse_iterator ci;
 			for (ci = sl.rbegin(); ci != sl.rend(); ++ci)
 			{
-				prog * p = new prog;
+				prog* p = new prog;
 				p->path = hlp::rela_path(ci->c_str());
 				g_c->group_mgr.insert_cmd(p, pp.g, pp.p);
 			}
@@ -366,12 +366,12 @@ DWORD CRunDlg::drop_target_state::drop(IDataObject *data, POINT pt)
 			g_dlg->show_window(true);
 		}
 	}
-	
+
 	drag_leave();
 	return DROPEFFECT_COPY;
 }
 
-std::wstring CRunDlg::drop_target_state::get_drop_text(IDataObject *data)
+std::wstring CRunDlg::drop_target_state::get_drop_text(IDataObject* data)
 {
 	FORMATETC fmtetc = { CF_UNICODETEXT, 0, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 	STGMEDIUM stgmed;
@@ -389,18 +389,18 @@ std::wstring CRunDlg::drop_target_state::get_drop_text(IDataObject *data)
 	return str;
 }
 
-bool CRunDlg::drop_target_state::get_drop_files(IDataObject *data, std::list<std::wstring> *fl)
+bool CRunDlg::drop_target_state::get_drop_files(IDataObject* data, std::list<std::wstring>* fl)
 {
 	FORMATETC fmtetc = { CF_HDROP, 0, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 	STGMEDIUM stgmed;
-	if(data->GetData(&fmtetc, &stgmed) == S_OK)
+	if (data->GetData(&fmtetc, &stgmed) == S_OK)
 	{
-		wchar_t buf[MAX_PATH]=L"";
+		wchar_t buf[MAX_PATH] = L"";
 		HDROP hDrop = (HDROP)stgmed.hGlobal;
 		UINT count = ::DragQueryFile(hDrop, 0xFFFFFFFF, buf, 0);
 		for (UINT i = 0; i < count; i++)
 		{
-			if(::DragQueryFile(hDrop, i, buf, elem_of(buf)))
+			if (::DragQueryFile(hDrop, i, buf, elem_of(buf)))
 			{
 				fl->push_back(buf);
 			}
@@ -419,7 +419,7 @@ int CRunDlg::drop_target_state::get_param_var_count(const std::wstring& param)
 	{
 		if (param[i] == L'%')
 		{
-			wchar_t ch = param[i+1];
+			wchar_t ch = param[i + 1];
 			if (ch == L'%')
 			{
 				i++;
@@ -442,7 +442,7 @@ std::wstring CRunDlg::drop_target_state::expand_drop_param(const std::wstring& p
 	{
 		if (param[i] == L'%')
 		{
-			wchar_t ch = param[i+1];
+			wchar_t ch = param[i + 1];
 			if (ch == L'%')
 			{
 				ret.push_back(ch);
@@ -451,7 +451,7 @@ std::wstring CRunDlg::drop_target_state::expand_drop_param(const std::wstring& p
 			else if (ch >= L'1' && ch <= L'9')
 			{
 				size_t index = ch - L'0';
-				if (m_cached_var.size() > index) 
+				if (m_cached_var.size() > index)
 				{
 					string_list_t::const_iterator ci = m_cached_var.begin();
 					for (size_t j = 0; j < index; j++) ++ci;
@@ -494,7 +494,7 @@ CRunDlg::CRunDlg() :
 	m_prog_waiting_param = 0;
 }
 
-CRunDlg * CRunDlg::Instance()
+CRunDlg* CRunDlg::Instance()
 {
 	static CRunDlg dlg;
 	return &dlg;
@@ -528,12 +528,16 @@ void CRunDlg::EndRequest()
 void CRunDlg::AdjustWndSize()
 {
 	SIZE sz = m_lyt->get_window_size();
-	ResizeClient(sz.cx, sz.cy);
+	RECT rc;
+	GetClientRect(&rc);
+	if (rc.bottom - rc.top != sz.cy || rc.right - rc.left != sz.cx) {
+		ResizeClient(sz.cx, sz.cy);
+	}
 }
 
 void CRunDlg::change_op_state(CRunDlg::ops os)
 {
-	op_state * new_os = NULL;
+	op_state* new_os = NULL;
 	switch (os)
 	{
 	case os_hover: new_os = &m_os_hover; break;
@@ -582,8 +586,8 @@ void CRunDlg::place_window_on_edge(bool show)
 		case cfg::ec_r: x = scr_w; y = p; break;
 		}
 
-		RECT rc_scr = {0, 0, scr_w, scr_h};
-		RECT rc_wnd = {x, y, x+wnd_w, y+wnd_h};
+		RECT rc_scr = { 0, 0, scr_w, scr_h };
+		RECT rc_wnd = { x, y, x + wnd_w, y + wnd_h };
 		hlp::rect_dock(&rc_wnd, rc_scr);
 		MoveWindow(&rc_wnd);
 	}
@@ -602,8 +606,8 @@ void CRunDlg::place_window_on_edge(bool show)
 		if (e_w == 0) e_w = wnd_w;
 		if (e_h == 0) e_h = wnd_h;
 
-		RECT rc_scr = {-el, -el, scr_w + el, scr_h + el};
-		RECT rc_wnd = {x, y, x+e_w, y+e_h};
+		RECT rc_scr = { -el, -el, scr_w + el, scr_h + el };
+		RECT rc_wnd = { x, y, x + e_w, y + e_h };
 		hlp::rect_dock(&rc_wnd, rc_scr);
 		ShowWindow(SW_HIDE);
 		SetWindowPos(HWND_TOPMOST, &rc_wnd, SWP_NOACTIVATE | SWP_SHOWWINDOW);
@@ -613,7 +617,7 @@ void CRunDlg::place_window_on_edge(bool show)
 void CRunDlg::show_window(bool show, bool force_focus)
 {
 	m_current_show_state = show;
-	if (m_tip.IsWindow() && m_tip.IsWindowVisible()) 
+	if (m_tip.IsWindow() && m_tip.IsWindowVisible())
 	{
 		m_tip.ShowWindow(SW_HIDE);
 	}
@@ -636,6 +640,8 @@ void CRunDlg::show_window(bool show, bool force_focus)
 		AdjustWndSize();
 		if (g_c->gm.style == cfg::ws_edge)
 		{
+			// Only need to redraw the window in edge mode because in this mode we changes window rect
+			// TODO: we need to use a separate window as edge activator so that we no longer need to change window rect
 			place_window_on_edge(true);
 		}
 		else
@@ -643,13 +649,18 @@ void CRunDlg::show_window(bool show, bool force_focus)
 			CenterWindow();
 		}
 
-		SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE|SWP_SHOWWINDOW|SWP_NOACTIVATE);
+		SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_SHOWWINDOW | SWP_NOACTIVATE | SWP_NOREDRAW);
 		if (force_focus)
 		{
 			BringWindowToTop();
 			hlp::focus_window(m_hWnd);
 		}
-		RedrawWindow();
+
+		if (g_c->gm.style == cfg::ws_edge)
+		{
+			RedrawWindow();
+		}
+
 		m_curr_prog_pos = pp_null;
 		change_op_state(os_hover);
 		enable_type_command(g_c->gm.layout == cfg::ul_simple);
@@ -657,7 +668,7 @@ void CRunDlg::show_window(bool show, bool force_focus)
 	else
 	{
 		log_msg(L"deactivating window...");
-		
+
 		if (g_c->gm.style == cfg::ws_center)
 		{
 			ShowWindow(SW_HIDE);
@@ -675,7 +686,7 @@ void CRunDlg::show_window(bool show, bool force_focus)
 // 执行程序
 // 当shift按下时，先选择用户再运行
 // 当alt按下时，以如下方式运行： cmd.exe /C <prog> &&pause
-bool CRunDlg::DoExecute(const command * cmd)
+bool CRunDlg::DoExecute(const command* cmd)
 {
 	m_prog_waiting_param = 0;
 	if (cmd == NULL) return false;
@@ -686,8 +697,8 @@ bool CRunDlg::DoExecute(const command * cmd)
 	std::wstring work_dir;
 	int show_cmd = SW_SHOW;
 
-	const prog *p;
-	if ((p = dynamic_cast<const prog *>(cmd)) != NULL)
+	const prog* p;
+	if ((p = dynamic_cast<const prog*>(cmd)) != NULL)
 	{
 		param = p->param;
 		work_dir = hlp::abs_path(p->work_dir.c_str());
@@ -702,9 +713,9 @@ bool CRunDlg::DoExecute(const command * cmd)
 
 	// alt键按下
 	if (hlp::is_key_down(VK_MENU) ||
-			g_c->go.keep_dos_cmd_window &&
-			hlp::is_dos_command(path)
-	   )
+		g_c->go.keep_dos_cmd_window &&
+		hlp::is_dos_command(path)
+		)
 	{
 		param = L"/C " + path + L" " + param + L"&pause";
 		path = hlp::expand_envvar(L"%ComSpec%");
@@ -740,12 +751,12 @@ void CRunDlg::reload_profile(void (*pf_modify_op)())
 	g_c->save();
 	//ModifyStyleEx(WS_EX_TOOLWINDOW, 0);
 	// 暂时取消总在最前属性
-	SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE);
+	SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 
 	pf_modify_op();
 
 	// 恢复总在最前属性
-	SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE|SWP_NOMOVE);
+	SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);
 	//ModifyStyleEx(0, WS_EX_TOOLWINDOW);
 	g_c->load();
 	hotkey_waker::instance()->register_hotkey(g_c->go.active_key.c_str());
@@ -782,10 +793,10 @@ void CRunDlg::enable_type_command(bool enable)
 
 bool CRunDlg::can_fold() const
 {
-	return 
+	return
 		m_current_show_state == true &&
 		!hlp::wnd_in_same_process(::GetForegroundWindow())
-		;  
+		;
 }
 
 LRESULT CRunDlg::OnEndSession(UINT, WPARAM, LPARAM, BOOL&)
@@ -794,7 +805,7 @@ LRESULT CRunDlg::OnEndSession(UINT, WPARAM, LPARAM, BOOL&)
 	return 0;
 }
 
-LRESULT CRunDlg::OnShow(UINT, WPARAM , LPARAM, BOOL&)
+LRESULT CRunDlg::OnShow(UINT, WPARAM, LPARAM, BOOL&)
 {
 	bool left_mouse_button_down = hlp::is_key_down(VK_LBUTTON);
 	show_window(!m_current_show_state, !left_mouse_button_down);
@@ -843,7 +854,7 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 		m_current_show_state = true;
 		PostMessage(WM_SHOW_RUNDLG);
 	}
-	
+
 	change_op_state(os_hover);
 
 	::DragAcceptFiles(m_hWnd, TRUE);
@@ -852,10 +863,10 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 	HMODULE hm = ::LoadLibrary(L"user32.dll");
 	if (hm)
 	{
-		typedef BOOL (WINAPI *CWMF_FuncPtr)(UINT message,DWORD dwFlag);
+		typedef BOOL(WINAPI* CWMF_FuncPtr)(UINT message, DWORD dwFlag);
 #pragma warning(push)
 #pragma warning(disable: 4191)
-		CWMF_FuncPtr proc = (CWMF_FuncPtr)::GetProcAddress(hm,"ChangeWindowMessageFilter");
+		CWMF_FuncPtr proc = (CWMF_FuncPtr)::GetProcAddress(hm, "ChangeWindowMessageFilter");
 #pragma warning(pop)
 		if (proc)
 		{
@@ -867,8 +878,8 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 				(*proc)(i, MSGFLT_ADD);
 			}
 			(*proc)(WM_DROPFILES, MSGFLT_ADD);
-(*proc)(WM_COPYDATA, MSGFLT_ADD);
-(*proc)(0x0049, MSGFLT_ADD);
+			(*proc)(WM_COPYDATA, MSGFLT_ADD);
+			(*proc)(0x0049, MSGFLT_ADD);
 			(*proc)(WM_DROPFILES, MSGFLT_ADD);
 			(*proc)(WM_MOUSEMOVE, MSGFLT_ADD);
 			(*proc)(WM_NCMOUSEMOVE, MSGFLT_ADD);
@@ -878,6 +889,7 @@ LRESULT CRunDlg::OnInitDialog(UINT, WPARAM, LPARAM, BOOL&)
 
 	SetTimer(IDT_SAVE_CONFIG, 1000 * 600);
 	SetTimer(IDT_KEEPTOP, 1000);
+	RedrawWindow();
 	return TRUE;
 }
 
@@ -922,13 +934,13 @@ LRESULT CRunDlg::OnTimer(UINT, WPARAM wp, LPARAM, BOOL&)
 		if (g_c->gm.style == cfg::ws_edge && !m_current_show_state)
 		{
 			//show_window(false, false);
-			::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_SHOWWINDOW);
+			::SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
 		}
 	}
 	return 0;
 }
 
-LRESULT CRunDlg::OnActivateApp(UINT , WPARAM wParam, LPARAM , BOOL& )
+LRESULT CRunDlg::OnActivateApp(UINT, WPARAM wParam, LPARAM, BOOL&)
 {
 	if (wParam == FALSE && m_current_show_state &&
 		g_c->gm.hide_on_lose_focus &&
@@ -940,7 +952,7 @@ LRESULT CRunDlg::OnActivateApp(UINT , WPARAM wParam, LPARAM , BOOL& )
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnCancel(WORD , WORD , HWND , BOOL& )
+LRESULT CRunDlg::OnCancel(WORD, WORD, HWND, BOOL&)
 {
 	if (m_os != &m_os_hover)
 	{
@@ -961,18 +973,18 @@ LRESULT CRunDlg::OnCancel(WORD , WORD , HWND , BOOL& )
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnOK(WORD , WORD , HWND , BOOL &)
+LRESULT CRunDlg::OnOK(WORD, WORD, HWND, BOOL&)
 {
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnClose(UINT , WPARAM , LPARAM , BOOL& )
+LRESULT CRunDlg::OnClose(UINT, WPARAM, LPARAM, BOOL&)
 {
 	ui_exit();
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnPaint(UINT , WPARAM , LPARAM , BOOL& )
+LRESULT CRunDlg::OnPaint(UINT, WPARAM, LPARAM, BOOL&)
 {
 	CPaintDC dc(m_hWnd);
 	if (m_current_show_state)
@@ -982,20 +994,20 @@ LRESULT CRunDlg::OnPaint(UINT , WPARAM , LPARAM , BOOL& )
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnSize(UINT , WPARAM , LPARAM lParam, BOOL &)
+LRESULT CRunDlg::OnSize(UINT, WPARAM, LPARAM lParam, BOOL&)
 {
 	int cx = LOWORD(lParam);
 	int cy = HIWORD(lParam);
-	cfg::gui_metrics &g = g_c->gm;
+	cfg::gui_metrics& g = g_c->gm;
 	if (m_edit.IsWindow())
 	{
-		int flag = (g.layout == cfg::ul_simple)? SWP_SHOWWINDOW : SWP_HIDEWINDOW;
+		int flag = (g.layout == cfg::ul_simple) ? SWP_SHOWWINDOW : SWP_HIDEWINDOW;
 		m_edit.SetWindowPos(0, g.border, cy - g.border - g.edit_height, cx - g.border * 2, g.edit_height, flag);
 	}
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnNcMouseAction(UINT uMsg, WPARAM , LPARAM , BOOL& )
+LRESULT CRunDlg::OnNcMouseAction(UINT uMsg, WPARAM, LPARAM, BOOL&)
 {
 	if (g_c->gm.style == cfg::ws_edge &&
 		(uMsg == WM_NCMOUSEMOVE || uMsg == WM_MOUSEMOVE) &&
@@ -1010,7 +1022,7 @@ LRESULT CRunDlg::OnNcMouseAction(UINT uMsg, WPARAM , LPARAM , BOOL& )
 LRESULT CRunDlg::OnMouseAction(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	OnNcMouseAction(uMsg, wParam, lParam, bHandled);
-	POINT pt = {GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)};
+	POINT pt = { GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam) };
 	if (uMsg == WM_MOUSELEAVE)
 	{
 		::GetCursorPos(&pt);
@@ -1041,11 +1053,11 @@ LRESULT CRunDlg::OnKeyDown(UINT, WPARAM wp, LPARAM, BOOL&)
 	case VK_RIGHT: mt = lyt::mt_right; break;
 	case VK_UP:    mt = lyt::mt_up; break;
 	case VK_DOWN:  mt = lyt::mt_down; break;
-	case VK_HOME:  mt = control_pressed? lyt::mt_head : lyt::mt_home; break;
-	case VK_END:   mt = control_pressed? lyt::mt_tail : lyt::mt_end; break;
+	case VK_HOME:  mt = control_pressed ? lyt::mt_head : lyt::mt_home; break;
+	case VK_END:   mt = control_pressed ? lyt::mt_tail : lyt::mt_end; break;
 
 	case VK_RETURN: OnPressEnter(); break;
-	case VK_ESCAPE: 
+	case VK_ESCAPE:
 		BOOL tmp;
 		OnCancel(0, 0, NULL, tmp);
 		break;
@@ -1062,7 +1074,7 @@ LRESULT CRunDlg::OnKeyDown(UINT, WPARAM wp, LPARAM, BOOL&)
 	return TRUE;
 }
 
-LRESULT CRunDlg::OnTTGetDisp(CToolTipCtrl& tip_ctrl, LPNMHDR pnmh, BOOL &)
+LRESULT CRunDlg::OnTTGetDisp(CToolTipCtrl& tip_ctrl, LPNMHDR pnmh, BOOL&)
 {
 	static wchar_t buf[512];
 	LPNMTTDISPINFO pDispInfo = (LPNMTTDISPINFO)pnmh;
@@ -1072,12 +1084,12 @@ LRESULT CRunDlg::OnTTGetDisp(CToolTipCtrl& tip_ctrl, LPNMHDR pnmh, BOOL &)
 	prog_pos pp = m_lyt->get_prog_from_point(pt);
 	if (pp != pp_null)
 	{
-		const prog * p = g_c->get_prog(pp.g, pp.p);
+		const prog* p = g_c->get_prog(pp.g, pp.p);
 		std::wstring abspath = hlp::abs_path(p->path.c_str());
 		hlp::path_elem pe = hlp::split_path(abspath.c_str());
 		std::wstring name = abspath.substr(pe.name.s, pe.name.n)
-		                  + L" -- "
-						  + g_c->get_group_info(pp.g)->name;
+			+ L" -- "
+			+ g_c->get_group_info(pp.g)->name;
 		if (g_c->gm.use_simple_tip)
 		{
 			tip_ctrl.SetTitle(TTI_NONE, hc::empty_str);
@@ -1088,7 +1100,7 @@ LRESULT CRunDlg::OnTTGetDisp(CToolTipCtrl& tip_ctrl, LPNMHDR pnmh, BOOL &)
 		}
 
 		buf[0] = L'\0';
-		size_t bl = sizeof(buf)/sizeof(buf[0]);
+		size_t bl = sizeof(buf) / sizeof(buf[0]);
 		size_t pos = 0;
 		pos = hlp::strcat_ex(buf, bl, pos, p->path.c_str());
 		if (!p->param.empty())
@@ -1101,7 +1113,7 @@ LRESULT CRunDlg::OnTTGetDisp(CToolTipCtrl& tip_ctrl, LPNMHDR pnmh, BOOL &)
 			pos = hlp::strcat_ex(buf, bl, pos, L"\r\n");
 			pos = hlp::strcat_ex(buf, bl, pos, p->comment.c_str());
 		}
-		
+
 		pDispInfo->lpszText = buf;
 	}
 	return TRUE;
@@ -1113,7 +1125,7 @@ LRESULT CRunDlg::OnEnChangeProgEdit(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 	return 0;
 }
 
-void CRunDlg::OnClickProg(const prog *p)
+void CRunDlg::OnClickProg(const prog* p)
 {
 	bool ret;
 	if (hlp::is_key_down(VK_CONTROL))
@@ -1141,7 +1153,7 @@ void CRunDlg::OnPressEnter()
 	if (m_os != &m_os_hover) return;
 
 	prog tmp_p;
-	command *p = NULL;
+	command* p = NULL;
 	bool forced = false;
 
 	// 强制执行输入的命令
@@ -1184,27 +1196,27 @@ void CRunDlg::OnPressEnter()
 	{
 		m_last_cmd_forced = forced;
 	}
-	
+
 	if (DoExecute(p))
 	{
 		EndRequest();
 	}
 }
 
-LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
+LRESULT CRunDlg::OnContextMenu(UINT, WPARAM, LPARAM lp, BOOL&)
 {
-	cfg::config *c = cfg::config::instance();
+	cfg::config* c = cfg::config::instance();
 	CMenu menu;
 	menu.LoadMenuW(IDR_MENU_POPUP);
 	CMenu mu = (HMENU)menu.GetSubMenu(0);
 
-	POINT pt = {-1, -1};
+	POINT pt = { -1, -1 };
 	if (lp == 0xFFFFFFFF) // 菜单不是右键激活的而是按键激活的
 	{
-		hlp::track_mouse_event(TME_CANCEL|TME_LEAVE, m_hWnd);
+		hlp::track_mouse_event(TME_CANCEL | TME_LEAVE, m_hWnd);
 		if (m_curr_prog_pos != pp_null)
 		{
-			lyt::icon_layout *il = dynamic_cast<lyt::icon_layout *>(m_lyt);
+			lyt::icon_layout* il = dynamic_cast<lyt::icon_layout*>(m_lyt);
 			if (il != NULL)
 			{
 				RECT rc = il->get_prog_rect(m_curr_prog_pos);
@@ -1238,7 +1250,7 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 	if (m_lyt->get_insert_pos(m_menu_point) == pp_null)
 	{
 		mu.EnableMenuItem(ID_INSERT_PROG, MF_BYCOMMAND | MF_GRAYED);
-//		mu.EnableMenuItem(ID_INSERT_GROUP, MF_BYCOMMAND | MF_GRAYED);
+		//		mu.EnableMenuItem(ID_INSERT_GROUP, MF_BYCOMMAND | MF_GRAYED);
 		mu.EnableMenuItem(ID_EDIT_GROUP, MF_BYCOMMAND | MF_GRAYED);
 		mu.EnableMenuItem(ID_DEL_GROUP, MF_BYCOMMAND | MF_GRAYED);
 	}
@@ -1255,20 +1267,20 @@ LRESULT CRunDlg::OnContextMenu(UINT , WPARAM , LPARAM lp, BOOL &)
 	case cfg::ul_plain:  lyt_id = ID_CHLYT_PLAIN; break;
 	default:             lyt_id = ID_CHLYT_GROUP; break;
 	}
-	mu.CheckMenuItem(lyt_id, MF_BYCOMMAND|MF_CHECKED);
+	mu.CheckMenuItem(lyt_id, MF_BYCOMMAND | MF_CHECKED);
 	UINT style_id;
 	switch (c->gm.style)
 	{
 	case cfg::ws_edge:  style_id = ID_CHSTYLE_EDGE; break;
 	default:            style_id = ID_CHSTYLE_CENTER; break;
 	}
-	mu.CheckMenuItem(style_id, MF_BYCOMMAND|MF_CHECKED);
+	mu.CheckMenuItem(style_id, MF_BYCOMMAND | MF_CHECKED);
 
 	// 删除多余的分隔线
 	for (int i = mu.GetMenuItemCount() - 1; i > 0; i--)
 	{
-		if (mu.GetMenuStringLen(i,   MF_BYPOSITION) == 0 &&
-			mu.GetMenuStringLen(i-1, MF_BYPOSITION) == 0)
+		if (mu.GetMenuStringLen(i, MF_BYPOSITION) == 0 &&
+			mu.GetMenuStringLen(i - 1, MF_BYPOSITION) == 0)
 		{
 			mu.DeleteMenu(i, MF_BYPOSITION);
 		}
@@ -1313,8 +1325,8 @@ LRESULT CRunDlg::OnEditProfile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 		{
 			std::wstring path = g_c->get_profile().c_str();
 			SHELLEXECUTEINFO sei = {
-				sizeof(SHELLEXECUTEINFO), SEE_MASK_NOCLOSEPROCESS, NULL, 
-				L"open", path.c_str(), 
+				sizeof(SHELLEXECUTEINFO), SEE_MASK_NOCLOSEPROCESS, NULL,
+				L"open", path.c_str(),
 				NULL, NULL, SW_SHOW
 			};
 			if (::ShellExecuteEx(&sei) && sei.hProcess)
@@ -1335,7 +1347,7 @@ LRESULT CRunDlg::OnEditProfile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 LRESULT CRunDlg::OnEditProg(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	prog_pos pp = m_lyt->get_prog_from_point(m_menu_point);
-	prog * pi = g_c->get_prog(pp.g, pp.p);
+	prog* pi = g_c->get_prog(pp.g, pp.p);
 	CProgDlg dlg(*pi);
 	if (dlg.DoModal(m_hWnd) == IDOK)
 	{
@@ -1371,7 +1383,7 @@ LRESULT CRunDlg::OnDelProg(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/,
 	g_c->group_mgr.delete_cmd(pp.g, pp.p);
 	refresh_layout();
 	show_window(true);
-	
+
 	return 0;
 }
 
@@ -1443,7 +1455,7 @@ LRESULT CRunDlg::OnInsertGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 			if (pp == lyt::pp_null) pp.g = g_c->group_mgr.cs_count();
 			else pp.g++;
 		}
-		
+
 		g_c->group_mgr.insert_cs(new group_info(new_gi), pp.g);
 		refresh_layout();
 		show_window(true);
@@ -1454,7 +1466,7 @@ LRESULT CRunDlg::OnInsertGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 LRESULT CRunDlg::OnEditGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	prog_pos pp = m_lyt->get_insert_pos(m_menu_point);
-	group_info *gi = g_c->get_group_info(pp.g);
+	group_info* gi = g_c->get_group_info(pp.g);
 	CGroupDlg dlg(*gi, false);
 	if (dlg.DoModal() == IDOK)
 	{
@@ -1465,7 +1477,7 @@ LRESULT CRunDlg::OnEditGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*
 
 LRESULT CRunDlg::OnDelGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	const wchar_t * info = L"确实要删除组及组内的所有程序吗？";
+	const wchar_t* info = L"确实要删除组及组内的所有程序吗？";
 	if (MessageBox(info, L"确认", MB_OKCANCEL) == IDOK)
 	{
 		prog_pos pp = m_lyt->get_insert_pos(m_menu_point);
@@ -1476,17 +1488,17 @@ LRESULT CRunDlg::OnDelGroup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/
 	return 0;
 }
 
-HRESULT CRunDlg::OnDragEnter(IDataObject * pDataObject, DWORD , POINTL ptl, DWORD *pdwEffect)
+HRESULT CRunDlg::OnDragEnter(IDataObject* pDataObject, DWORD, POINTL ptl, DWORD* pdwEffect)
 {
 	change_op_state(os_drop_target);
-	POINT pt = {ptl.x, ptl.y};
+	POINT pt = { ptl.x, ptl.y };
 	ScreenToClient(&pt);
 	*pdwEffect = m_os_drop_target.drag_enter(pDataObject, pt);
 	return S_OK;
 }
-HRESULT CRunDlg::OnDragOver(DWORD , POINTL ptl, DWORD * pdwEffect)
+HRESULT CRunDlg::OnDragOver(DWORD, POINTL ptl, DWORD* pdwEffect)
 {
-	POINT pt = {ptl.x, ptl.y};
+	POINT pt = { ptl.x, ptl.y };
 	ScreenToClient(&pt);
 	*pdwEffect = m_os_drop_target.drag_over(pt);
 	return S_OK;
@@ -1496,16 +1508,16 @@ HRESULT CRunDlg::OnDragLeave()
 	m_os_drop_target.drag_leave();
 	return S_OK;
 }
-HRESULT CRunDlg::OnDrop(IDataObject * pDataObject, DWORD , POINTL ptl, DWORD * pdwEffect)
+HRESULT CRunDlg::OnDrop(IDataObject* pDataObject, DWORD, POINTL ptl, DWORD* pdwEffect)
 {
-	POINT pt = {ptl.x, ptl.y};
+	POINT pt = { ptl.x, ptl.y };
 	ScreenToClient(&pt);
 	*pdwEffect = m_os_drop_target.drop(pDataObject, pt);
 	change_op_state(os_hover);
 	return S_OK;
 }
 
-LRESULT CRunDlg::OnDropFiles(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled)
+LRESULT CRunDlg::OnDropFiles(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	return 0;
 }
